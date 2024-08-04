@@ -1,9 +1,3 @@
-
-export default function Mode_switch () {
-
-    return (
-        <div>
-            
-        </div>
-    )
+export default function Mode_switch() {
+  return <div />;
 }
