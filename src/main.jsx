@@ -3,11 +3,10 @@ import ReactDOM from 'react-dom/client';
 import App from './App.jsx';
 import './index.css';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
-import Header from './components/Header.jsx';
-import Mode_switch from './components/Mode_switch.jsx';
 import Notifications from './pages/Notifications.jsx';
 import Messages from './pages/Messages.jsx';
-
+import Home from './pages/Home.jsx';
+import Filters from './pages/Filters.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -15,11 +14,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Header />,
-      },
-      {
-        path: '/mode_switch',
-        element: <Mode_switch />,
+        element: <Home />
       },
       {
         path: '/notifications',
@@ -29,6 +24,10 @@ const router = createBrowserRouter([
         path: '/messages',
         element: <Messages />,
       },
+      {
+        path: 'filters',
+        element: <Filters />
+      }
     ],
   },
 ]);
