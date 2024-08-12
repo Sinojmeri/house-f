@@ -9,6 +9,7 @@ export default function Filters() {
     const goBack = () => {
         navigate('/');
     }
+
     const filters = {
         entireHomes: false,
         hotels: false,

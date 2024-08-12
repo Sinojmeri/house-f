@@ -52,7 +52,6 @@ export default function Filter() {
     }
     const handleClickOutside = (event) => {
         if (!calendarDivRef.current.contains(event.target) && !calendarRef.current.flatpickr.calendarContainer.contains(event.target)) {
-            // event.stopPropagation();
             setShowCalendar(false);
         }
     }
@@ -89,7 +88,7 @@ export default function Filter() {
                             ref={calendarRef}
                             onChange={setDateRange}
                             options={{
-                                minDate:today,
+                                minDate: today,
                                 defaultDate: dateRange,
                                 dateFormat: 'd-m-Y',
                                 disableMobile: true,
@@ -104,6 +103,6 @@ export default function Filter() {
                 </Link>
             </div>
         </div>
-        
+
     )
 }

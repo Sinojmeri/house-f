@@ -16,7 +16,7 @@ export default function Header() {
   const [visible, setVisible] = useState('hidden');
   const userIcon = useRef();
   const dropdownList = useRef();
-  const openlist = () => {
+  const openList = () => {
     visible === 'hidden' ? setVisible('') : setVisible('hidden');
   };
   useEffect(() => {
@@ -31,6 +31,7 @@ export default function Header() {
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
+  
   return (
     <>
       <div className="flex p-1 m-1 justify-between items-center">
@@ -39,7 +40,7 @@ export default function Header() {
             src="https://cdn-icons-png.freepik.com/512/147/147142.png"
             alt="User_Avatar"
             className="border-black border-2 rounded-full w-[45px] h-[45px] cursor-pointer"
-            onClick={() => openlist()}
+            onClick={() => openList()}
             ref={userIcon}
           />
           <div className={`${visible} absolute flex flex-col my-2 border-2 border-black bg-[#faf0e6] w-[200px] mt-[50px] z-10`} ref={dropdownList}>
