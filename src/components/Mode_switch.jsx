@@ -1,3 +1,5 @@
 export default function Mode_switch() {
-  return <div />;
+  return (
+  <p>mode_switch</p>
+  );
 }

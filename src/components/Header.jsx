@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
+import Mode_switch from './Mode_switch';
 
 export default function Header() {
   const account_list = [
@@ -15,7 +16,7 @@ export default function Header() {
   const [visible, setVisible] = useState('hidden');
   const userIcon = useRef();
   const dropdownList = useRef();
-  const openlist = () => {
+  const openList = () => {
     visible === 'hidden' ? setVisible('') : setVisible('hidden');
   };
   useEffect(() => {
@@ -30,17 +31,27 @@ export default function Header() {
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
+  
   return (
     <>
       <div className="flex p-1 m-1 justify-between items-center">
-        <div className="flex flex-col">
+        <div className="relative flex flex-col">
           <img
             src="https://cdn-icons-png.freepik.com/512/147/147142.png"
             alt="User_Avatar"
             className="border-black border-2 rounded-full w-[45px] h-[45px] cursor-pointer"
-            onClick={() => openlist()}
+            onClick={() => openList()}
             ref={userIcon}
           />
+          <div className={`${visible} absolute flex flex-col my-2 border-2 border-black bg-[#faf0e6] w-[200px] mt-[50px] z-10`} ref={dropdownList}>
+            <ul className="flex flex-col gap-2 divide-y-2">
+              {account_list.map((setting) => (
+                <li className="p-1" key={setting}>
+                  <Link to={`/${setting}`}>{`${setting}`}</Link>
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         <div className="flex p-1 m-1 gap-2">
           <Link to="/notifications">
@@ -57,20 +68,8 @@ export default function Header() {
               className="w-[30px] h-[30px] cursor-pointer"
             />
           </Link>
-          <Link to={'/mode_switch'}>mode_switch</Link>
+          <Mode_switch />
         </div>
-      </div>
-      <div
-        className={`${visible} flex flex-col my-2 border-2 border-black bg-[#faf0e6] md:w-[15%] w-[50%] ml-2`}
-        ref={dropdownList}
-      >
-        <ul className="flex flex-col gap-2 divide-y-2">
-          {account_list.map((setting) => (
-            <li className="p-1" key={setting}>
-              <Link to={`/${setting}`}>{`${setting}`}</Link>
-            </li>
-          ))}
-        </ul>
       </div>
     </>
   );
