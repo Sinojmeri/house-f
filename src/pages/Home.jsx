@@ -1,6 +1,6 @@
-import Filter from '../components/Filter';
-import Carousel from '../components/Carousel';
-import HouseCarousel from '../components/HouseCarousel';
+import Filter from '../Components/Filter';
+import Carousel from '../Components/Carousel';
+import HouseCarousel from '../Components/HouseCarousel';
 export default function Home() {
   return (
     <>
