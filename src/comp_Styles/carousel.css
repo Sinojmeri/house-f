@@ -1,0 +1,17 @@
+.swiper-button-prev,
+.swiper-button-next {
+  @apply hidden group-hover:block;
+}
+
+.swiper-slide {
+  display: flex;
+  width: max-content;
+  justify-content: space-between;
+}
+.swiper-wrapper {
+  position: relative;
+  justify-content: center;
+  width: max-content;
+  padding-left: 10px;
+  gap: 10px;
+}
