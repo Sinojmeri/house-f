@@ -1,12 +1,12 @@
 import Filter from '../Components/Filter';
-import Carousel from '../Components/Carousel';
+import Buttons from '../Components/Buttons';
 import HouseCarousel from '../Components/HouseCarousel';
 export default function Home() {
   return (
     <>
       <div>
         <Filter />
-        <Carousel />
+        <Buttons />
         <HouseCarousel />
       </div>
     </>
