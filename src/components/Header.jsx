@@ -31,7 +31,7 @@ export default function Header() {
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
   }, []);
-  
+
   return (
     <>
       <div className="flex p-1 m-1 justify-between items-center">
@@ -43,7 +43,10 @@ export default function Header() {
             onClick={() => openList()}
             ref={userIcon}
           />
-          <div className={`${visible} absolute flex flex-col my-2 border-2 border-black bg-[#faf0e6] w-[200px] mt-[50px] z-10`} ref={dropdownList}>
+          <div
+            className={`${visible} absolute flex flex-col my-2 border-2 border-black bg-[#faf0e6] w-[200px] mt-[50px] z-10`}
+            ref={dropdownList}
+          >
             <ul className="flex flex-col gap-2 divide-y-2">
               {account_list.map((setting) => (
                 <li className="p-1" key={setting}>

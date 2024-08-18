@@ -1,6 +1,5 @@
-
 @media (max-width: 600px) {
-    .flatpickr-calendar {
-        left: 10px !important;
-    }
+  .flatpickr-calendar {
+    left: 10px !important;
+  }
 }

@@ -1,5 +1,3 @@
 export default function Mode_switch() {
-  return (
-  <p>mode_switch</p>
-  );
+  return <p>mode_switch</p>;
 }
