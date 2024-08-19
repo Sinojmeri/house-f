@@ -11,6 +11,7 @@ const testArray = [
   'futja Kot',
   'Arlondi',
   'Enio Vrushi',
+  'Arlinda'
 ];
 
 export default function Filter() {
