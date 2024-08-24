@@ -11,7 +11,7 @@ import YourProperties from './pages/YourProperties.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App/>,
+    element: <App />,
     children: [
       {
         path: '/',
@@ -31,8 +31,8 @@ const router = createBrowserRouter([
       },
       {
         path: 'List your Properties',
-        element: <YourProperties/>
-      }
+        element: <YourProperties />,
+      },
     ],
   },
 ]);

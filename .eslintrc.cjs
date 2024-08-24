@@ -12,6 +12,12 @@ module.exports = {
   settings: { react: { version: '18.2' } },
   plugins: ['react-refresh'],
   rules: {
+    'no-console': [
+      'error',
+      {
+        allow: ['error'],
+      },
+    ],
     'react/destructuring-assignment': ['error', 'always'],
     'react/self-closing-comp': [
       'error',
