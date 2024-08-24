@@ -1,7 +1,7 @@
-import Filter from '../Components/Filter';
-import Buttons from '../Components/Buttons';
-import HouseCarousel from '../Components/HouseCarousel';
-import MapComp from '../Components/MapComp';
+import Filter from '../components/Filter';
+import Buttons from '../components/Buttons';
+import HouseCarousel from '../components/HouseCarousel';
+import MapComp from '../components/MapComp';
 export default function Home() {
   return (
     <>
