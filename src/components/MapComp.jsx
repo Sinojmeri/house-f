@@ -1,5 +1,4 @@
-const API_Key = import.meta.env.VITE_GOOGLE_MAPS_API_KEY
-
+const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 export const mapId = 'af816b56ad25fdab'
 
 import { APIProvider, Map, Pin, AdvancedMarker, InfoWindow} from '@vis.gl/react-google-maps';
@@ -11,6 +10,8 @@ const options = {
 function success(pos, setMyLocation) {
     const { latitude: lat, longitude: lng } = pos.coords;
     setMyLocation({ lat, lng });
+    console.log(API_Key);
+    
 }
 function error(err) {
     console.error(`ERROR(${err.code}): ${err.message}`);
@@ -46,15 +47,16 @@ export default function MapComp() {
         return () => navigator.geolocation.clearWatch(id);
     }, []);
     console.log(API_Key);
+    
     return (
         <div className="relative w-full md:h-[700px] h-[400px] my-3">
             {myLocation ? (
                 <APIProvider apiKey={API_Key} onLoad={() => console.log('Maps API has loaded.')}>
                     <Map
-                        defaultZoom={20}
+                        // defaultZoom={2}
                         defaultCenter={myLocation}
                         mapId={mapId}
-                        mapTypeId="satellite"
+                        mapTypeId="roadmap"
                         className="w-full h-full"
                     >
                         <PoiMarker pois={locations} setActiveMarker={setActiveMarker}/>
