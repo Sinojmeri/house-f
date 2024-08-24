@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+
 export default function Filters() {
   const [price, setPrice] = useState(0);
   const handleChange = (v) => {
@@ -37,7 +38,7 @@ export default function Filters() {
   return (
     <div className="flex flex-col ml-2 gap-2">
       {/* Navbar of this page */}
-      <div className="flex justify-between items-center sticky top-0 bg-white ">
+      <div className="flex justify-between items-center sticky top-0 bg-[#f8fafc]">
         <div className="flex gap-3 items-center">
           <img
             src="./back-button.png"

@@ -50,7 +50,7 @@ export default function Header() {
             <ul className="flex flex-col gap-2 divide-y-2">
               {account_list.map((setting) => (
                 <li className="p-1" key={setting}>
-                  <Link to={`/${setting}`}>{`${setting}`}</Link>
+                  <Link to={`/${setting}`} onClick={() => setVisible('hidden')}>{`${setting}`}</Link>
                 </li>
               ))}
             </ul>

@@ -1,0 +1,13 @@
+.house-info {
+    height: 0;
+    opacity: 0;
+    transform: translateY(-20px);
+    overflow: hidden;
+    transition: height 0.5s ease, opacity 0.5s ease, transform 0.5s ease;
+  }
+  
+  .house-info.open {
+    height: auto;
+    opacity: 1;
+    transform: translateY(0);
+  }
