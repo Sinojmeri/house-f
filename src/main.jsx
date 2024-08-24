@@ -7,10 +7,11 @@ import Notifications from './pages/Notifications.jsx';
 import Messages from './pages/Messages.jsx';
 import Home from './pages/Home.jsx';
 import Filters from './pages/Filters.jsx';
+import YourProperties from './pages/YourProperties.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <App />,
+    element: <App/>,
     children: [
       {
         path: '/',
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
         path: 'filters',
         element: <Filters />,
       },
+      {
+        path: 'List your Properties',
+        element: <YourProperties/>
+      }
     ],
   },
 ]);

@@ -99,7 +99,7 @@ export default function Filter() {
         Discover <br /> your Escape
       </p>
       <div className="flex gap-1 p-1 justify-between items-center">
-        <div className="flex gap-1 border-2 border-gray-100 p-1 items-center w-[95%] ml-1">
+        <div className="flex gap-1 border-2 border-gray-400 p-1 items-center w-[95%] ml-1">
           <img
             src="/icons8-search-50.png"
             alt="search_icon"
@@ -107,7 +107,7 @@ export default function Filter() {
           />
           <div className="relative w-full">
             <input
-              className="p-1 focus:outline-none items-center w-full"
+              className="p-1 focus:outline-none items-center w-full bg-inherit "
               value={inputValue}
               onChange={(event) => handleChange(event.target.value)}
               onFocus={onFocus}
