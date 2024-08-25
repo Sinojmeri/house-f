@@ -12,6 +12,7 @@ export default function Header() {
     'Help & Support',
     'List your Properties',
     'Sign Out',
+    'Sign Up',
   ];
   const [visible, setVisible] = useState('hidden');
   const userIcon = useRef();
