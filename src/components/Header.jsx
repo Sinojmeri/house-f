@@ -11,6 +11,7 @@ export default function Header() {
     'Settings',
     'Help & Support',
     'List your Properties',
+    'Login',
     'Sign Out',
     'Sign Up',
   ];
