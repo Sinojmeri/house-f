@@ -4,6 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "test": "vitest",
     "start": "set HTTPS=true&&set SSL_CRT_FILE=C:/Windows/System32/cert.crt&&set SSL_KEY_FILE=C:/Windows/System32/cert.key&&react-scripts start",
     "dev": "vite",
     "build": "vite build",
@@ -41,6 +42,7 @@
     "postcss": "^8.4.40",
     "prettier": "3.3.3",
     "tailwindcss": "^3.4.7",
-    "vite": "^5.3.4"
+    "vite": "^5.3.4",
+    "vitest": "^2.0.5"
   }
 }
