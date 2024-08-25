@@ -8,6 +8,7 @@ import Messages from './pages/Messages.jsx';
 import Home from './pages/Home.jsx';
 import Filters from './pages/Filters.jsx';
 import YourProperties from './pages/YourProperties.jsx';
+import Login from './pages/Login.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: 'List your Properties',
         element: <YourProperties />,
+      },
+      {
+        path: 'Login',
+        element: <Login />,
       },
     ],
   },
