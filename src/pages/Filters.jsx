@@ -66,7 +66,7 @@ export default function Filters() {
           max="1500"
           step={50}
           value={price}
-          onChange={() => handleChange(event.target.value)}
+          onChange={(event) => handleChange(event.target.value)}
           className=" w-[300px] md:w-full  cursor-pointer"
         />
       </div>

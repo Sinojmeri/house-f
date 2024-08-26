@@ -10,6 +10,7 @@ import Filters from './pages/Filters.jsx';
 import YourProperties from './pages/YourProperties.jsx';
 import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
+import { Settings } from './pages/Settings.jsx';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -43,6 +44,10 @@ const router = createBrowserRouter([
         path: 'Sign Up',
         element: <SignUp />,
       },
+      {
+        path: 'Settings',
+        element: <Settings />
+      }
     ],
   },
 ]);
