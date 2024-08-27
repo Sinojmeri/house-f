@@ -47,3 +47,4 @@ export async function logIn({ email, password }) {
 
   return result;
 }
+
