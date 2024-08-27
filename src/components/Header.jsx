@@ -4,13 +4,12 @@ import Mode_switch from './Mode_switch';
 
 export default function Header() {
   const account_list = [
-    'Manage your account',
+    'Settings',
+    'List your Properties',
     'Questions to properties',
     'Reviews',
     'Complaints',
-    'Settings',
     'Help & Support',
-    'List your Properties',
     'Login',
     'Sign Out',
   ];
