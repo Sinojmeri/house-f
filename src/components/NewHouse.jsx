@@ -3,12 +3,13 @@ import '../comp_Styles/houseInfo.css';
 import PropTypes from 'prop-types';
 
 export default function NewHouse({ houseInfo }) {
-  const basicInfo = [
-    'House Name',
-    'Location: (Latitude, Longtitude)',
-    'Description',
-    'Property Type',
-  ];
+  const basicInfo =
+  {
+    house_name: '',
+    location: ['', ''],
+    description: '',
+    property_type: 'House'
+  };
   const houseAmenities = [
     'Netflix',
     'Wi-Fi',
@@ -62,22 +63,47 @@ export default function NewHouse({ houseInfo }) {
     'Secure parking',
     'Number of Bathrooms',
   ];
-  const [propertyType, setPropertyType] = useState('House');
+
   const [formCompleted, setFormCompleted] = useState(false);
+  const [houseInformation, setHouseInformation] = useState(basicInfo);
+
+  const handleHouseInformation = (e) => {
+    const { name, value } = e.target;
+    
+    setHouseInformation((prev) => {
+      if (name === 'lat') {
+        return {
+          ...prev,
+          location: [value, prev.location[1]],
+        };
+      }
+      if (name === 'long') {
+        return {
+          ...prev,
+          location: [prev.location[0], value],
+        };
+      }
+      return {
+        ...prev,
+        [name]: value,
+      };
+    });
+    checkFormCompletion();
+  };
 
   function checkFormCompletion() {
-    const inputs = houseInfo.current.querySelectorAll('input, select');
-    let allCompleted = true;
-    inputs.forEach((input) => {
-      if (!input.value.trim()) {
-        allCompleted = false;
-      }
-      setFormCompleted(allCompleted);
-    });
+    const { house_name, location, description, property_type } = houseInformation;
+    const allCompleted =
+      house_name.trim() &&
+      location[0] &&
+      location[1] &&
+      description.trim() &&
+      property_type;
+    setFormCompleted(allCompleted);
   }
 
   function getAmenities() {
-    switch (propertyType) {
+    switch (houseInformation.property_type) {
       case 'House':
         return houseAmenities;
       case 'Hotel':
@@ -101,40 +127,53 @@ export default function NewHouse({ houseInfo }) {
         <h1 className="font-bold text-2xl text-blue-500">
           Enter house information:
         </h1>
-        {basicInfo.map((info) =>
-          info === 'Location: (Latitude, Longtitude)' ? (
+        {Object.keys(basicInfo).map((info) =>
+          info === 'location' ? (
             <div
               className="flex gap-2 items-center justify-between w-[300px] my-2"
               key={info}
             >
-              <p className="w-[100%]">{`${info}`}:</p>
-              <div className="flex flex-col w-[200px]">
+              <p className="w-[100%]">{`${info[0].toUpperCase()}${info.slice(1)}`}:</p>
+              <div className="flex flex-col w-[200px] gap-1">
                 <input
+                  name='lat'
                   type="number"
                   className="p-1 text-start border-2 border-gray-200 rounded-lg "
                   placeholder="Lat"
                   onBlur={() => checkFormCompletion()}
+                  value={houseInformation.location[0]}
+                  onChange={handleHouseInformation}
                 />
                 <input
+                  name='long'
                   type="number"
                   className="p-1 text-start border-2 border-gray-200 rounded-lg "
                   placeholder="Long"
                   onBlur={() => checkFormCompletion()}
+                  onChange={handleHouseInformation}
+                  value={houseInformation.location[1]}
                 />
+                <button
+                  type="number"
+                  className="p-1 text-center border-2 border-gray-200 rounded-lg hover:bg-gray-100"
+                // onClick={}
+                >Get Current Location</button>
               </div>
             </div>
-          ) : info === 'Property Type' ? (
+          ) : info === 'property_type' ? (
             <div
               className="flex justify-between gap-2 items-center w-[300px] my-2"
               key={info}
             >
-              <p className="shrink">{`${info}`}:</p>
+              <p className="shrink">{`${info.replace('_', ' ').replace(/\b\w/g, char => char.toUpperCase())}`}:</p>
               <select
+                name='property_type'
                 className="p-1 text-start border-2 border-gray-200 rounded-lg w-[200px] box-content md:box-border"
                 onChange={(e) => {
-                  setPropertyType(e.target.value);
+                  handleHouseInformation(e);
                   checkFormCompletion();
                 }}
+                value={houseInformation.property_type}
               >
                 <option value="House">House</option>
                 <option value="Hotel">Hotel</option>
@@ -147,11 +186,14 @@ export default function NewHouse({ houseInfo }) {
               className="flex justify-between gap-2 items-center w-[300px] my-2"
               key={info}
             >
-              <p className="w-[100%]">{`${info}`}:</p>
+              <p className="w-[100%]">{`${info.replace('_', ' ').replace(/\b\w/g, char => char.toUpperCase())}`}:</p>
               <input
+                name={`${info}`}
                 type="text"
                 className="p-1 text-start border-2 border-gray-200 rounded-lg w-[200px]"
                 onBlur={() => checkFormCompletion()}
+                onChange={handleHouseInformation}
+                value={houseInformation.info}
               />
             </div>
           ),
@@ -161,7 +203,7 @@ export default function NewHouse({ houseInfo }) {
       {formCompleted && (
         <div className="flex flex-col bg-white ml-1 my-3 items-center md:items-start transition-opacity duration-700 ease-in-out opacity-100">
           <h1 className="font-bold text-2xl text-blue-500">
-            Enter {propertyType} Amenities:
+            Enter {houseInformation.property_type} Amenities:
           </h1>
           {getAmenities().map((amenity) => (
             <div
