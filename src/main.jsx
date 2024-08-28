@@ -11,6 +11,7 @@ import YourProperties from './pages/YourProperties.jsx';
 import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
 import { Settings } from './pages/Settings.jsx';
+import { getCurrentLocation } from './utils/geolocation.js';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -36,21 +37,24 @@ const router = createBrowserRouter([
         path: 'List your Properties',
         element: <YourProperties />,
       },
-      {
-        path: 'Login',
-        element: <Login />,
-      },
-      {
-        path: 'Sign Up',
-        element: <SignUp />,
-      },
+
       {
         path: 'Settings',
-        element: <Settings />
-      }
+        element: <Settings />,
+      },
     ],
   },
+  {
+    path: 'Login',
+    element: <Login />,
+  },
+  {
+    path: 'Sign Up',
+    element: <SignUp />,
+  },
 ]);
+
+getCurrentLocation();
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>

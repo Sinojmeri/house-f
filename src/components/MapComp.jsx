@@ -6,23 +6,7 @@ import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { useLocationStore } from '../stores/location';
 import { useEffect, useState } from 'react';
 
-const options = {
-  enableHighAccuracy: true,
-};
-function success(pos) {
-  const { latitude: lat, longitude: lng } = pos.coords;
-  useLocationStore.setState({
-    location: {
-      lat,
-      lng,
-  }})
-}
-function error(err) {
-  console.error(`ERROR(${err.code}): ${err.message}`);
-}
-
 export default function MapComp({ houseCoords, setHouseCoords }) {
-
   const myLocation = useLocationStore((state) => state.location);
 
   const [center, setCenter] = useState(null);
@@ -41,19 +25,6 @@ export default function MapComp({ houseCoords, setHouseCoords }) {
     { key: '21 Dhjetori', location: { lat: 41.32609, lng: 19.802995 } },
     { key: 'Test location', location: { lat: 41.325634, lng: 19.830913 } },
   ];
-
-  useEffect(() => {
-    const id = navigator.geolocation.getCurrentPosition(
-      (pos) => {
-        
-        success(pos)
-      },
-      error,
-      options,
-    );
-    
-    return () => navigator.geolocation.clearWatch(id);
-  },[]);
 
   useEffect(() => {
     if (houseCoords) {

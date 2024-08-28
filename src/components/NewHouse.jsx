@@ -1,75 +1,76 @@
 import { useState } from 'react';
 import '../comp_Styles/houseInfo.css';
 import PropTypes from 'prop-types';
+import { useLocationStore } from '../stores/location';
+
+const houseAmenities = [
+  'Netflix',
+  'Wi-Fi',
+  'Free Parking',
+  'Pool',
+  'Air Conditioning',
+  'Laundry',
+  'Balcony',
+];
+const hotelAmenities = [
+  'Swimming pool',
+  'Fitness center',
+  'Spa treatments',
+  'Restaurant and bar',
+  'Room service',
+  'Laundry service',
+  'Wi-Fi',
+  'Rooftop pool',
+  'Private beach access',
+  'In-room dining',
+  'Number of Beds',
+  'Number of Rooms',
+];
+const villasAmenities = [
+  'Private pool',
+  'Kitchen',
+  'Laundry facilities',
+  'Garden',
+  'Barbecue grill',
+  'Parking',
+  'Home theater',
+  'Game room',
+  'Wine cellar',
+  'Personal chef',
+  'Guest house',
+  'Number of Bathrooms',
+  'Number of Rooms',
+  'Panaromic View',
+];
+const officeAmenities = [
+  'Meeting rooms',
+  'Conference rooms',
+  'Shared workspace',
+  'Kitchenette',
+  'Wi-Fi',
+  'Copier/printer/scanner',
+  'Reception area',
+  'Panoramic views',
+  'Café or restaurant',
+  'Rooftop terrace',
+  'Secure parking',
+  'Number of Bathrooms',
+];
 
 export default function NewHouse({ houseInfo }) {
-  const basicInfo =
-  {
+  const myLocation = useLocationStore((state) => state.location);
+
+  const [formCompleted, setFormCompleted] = useState(false);
+  const [houseInformation, setHouseInformation] = useState({
     house_name: '',
     location: ['', ''],
     description: '',
-    property_type: 'House'
-  };
-  const houseAmenities = [
-    'Netflix',
-    'Wi-Fi',
-    'Free Parking',
-    'Pool',
-    'Air Conditioning',
-    'Laundry',
-    'Balcony',
-  ];
-  const hotelAmenities = [
-    'Swimming pool',
-    'Fitness center',
-    'Spa treatments',
-    'Restaurant and bar',
-    'Room service',
-    'Laundry service',
-    'Wi-Fi',
-    'Rooftop pool',
-    'Private beach access',
-    'In-room dining',
-    'Number of Beds',
-    'Number of Rooms',
-  ];
-  const villasAmenities = [
-    'Private pool',
-    'Kitchen',
-    'Laundry facilities',
-    'Garden',
-    'Barbecue grill',
-    'Parking',
-    'Home theater',
-    'Game room',
-    'Wine cellar',
-    'Personal chef',
-    'Guest house',
-    'Number of Bathrooms',
-    'Number of Rooms',
-    'Panaromic View',
-  ];
-  const officeAmenities = [
-    'Meeting rooms',
-    'Conference rooms',
-    'Shared workspace',
-    'Kitchenette',
-    'Wi-Fi',
-    'Copier/printer/scanner',
-    'Reception area',
-    'Panoramic views',
-    'Café or restaurant',
-    'Rooftop terrace',
-    'Secure parking',
-    'Number of Bathrooms',
-  ];
-
-  const [formCompleted, setFormCompleted] = useState(false);
-  const [houseInformation, setHouseInformation] = useState(basicInfo);
+    property_type: 'House',
+  });
 
   const handleHouseInformation = (e) => {
     const { name, value } = e.target;
-    
+
     setHouseInformation((prev) => {
       if (name === 'lat') {
         return {
@@ -92,7 +93,8 @@ export default function NewHouse({ houseInfo }) {
   };
 
   function checkFormCompletion() {
-    const { house_name, location, description, property_type } = houseInformation;
+    const { house_name, location, description, property_type } =
+      houseInformation;
     const allCompleted =
       house_name.trim() &&
       location[0] &&
@@ -127,16 +129,18 @@ export default function NewHouse({ houseInfo }) {
         <h1 className="font-bold text-2xl text-blue-500">
           Enter house information:
         </h1>
-        {Object.keys(basicInfo).map((info) =>
+        {Object.keys(houseInformation).map((info) =>
           info === 'location' ? (
             <div
               className="flex gap-2 items-center justify-between w-[300px] my-2"
               key={info}
             >
-              <p className="w-[100%]">{`${info[0].toUpperCase()}${info.slice(1)}`}:</p>
+              <p className="w-[100%]">
+                {`${info[0].toUpperCase()}${info.slice(1)}`}:
+              </p>
               <div className="flex flex-col w-[200px] gap-1">
                 <input
-                  name='lat'
+                  name="lat"
                   type="number"
                   className="p-1 text-start border-2 border-gray-200 rounded-lg "
                   placeholder="Lat"
@@ -145,7 +149,7 @@ export default function NewHouse({ houseInfo }) {
                   onChange={handleHouseInformation}
                 />
                 <input
-                  name='long'
+                  name="long"
                   type="number"
                   className="p-1 text-start border-2 border-gray-200 rounded-lg "
                   placeholder="Long"
@@ -156,8 +160,17 @@ export default function NewHouse({ houseInfo }) {
                 <button
                   type="number"
                   className="p-1 text-center border-2 border-gray-200 rounded-lg hover:bg-gray-100"
-                // onClick={}
-                >Get Current Location</button>
+                  onClick={() => {
+                    setHouseInformation((prev) => {
+                      return {
+                        ...prev,
+                        location: [myLocation.lat, myLocation.lng],
+                      };
+                    });
+                  }}
+                >
+                  Get Current Location
+                </button>
               </div>
             </div>
           ) : info === 'property_type' ? (
@@ -165,9 +178,12 @@ export default function NewHouse({ houseInfo }) {
               className="flex justify-between gap-2 items-center w-[300px] my-2"
               key={info}
             >
-              <p className="shrink">{`${info.replace('_', ' ').replace(/\b\w/g, char => char.toUpperCase())}`}:</p>
+              <p className="shrink">
+                {`${info.replace('_', ' ').replace(/\b\w/g, (char) => char.toUpperCase())}`}
+                :
+              </p>
               <select
-                name='property_type'
+                name="property_type"
                 className="p-1 text-start border-2 border-gray-200 rounded-lg w-[200px] box-content md:box-border"
                 onChange={(e) => {
                   handleHouseInformation(e);
@@ -186,7 +202,10 @@ export default function NewHouse({ houseInfo }) {
               className="flex justify-between gap-2 items-center w-[300px] my-2"
               key={info}
             >
-              <p className="w-[100%]">{`${info.replace('_', ' ').replace(/\b\w/g, char => char.toUpperCase())}`}:</p>
+              <p className="w-[100%]">
+                {`${info.replace('_', ' ').replace(/\b\w/g, (char) => char.toUpperCase())}`}
+                :
+              </p>
               <input
                 name={`${info}`}
                 type="text"
