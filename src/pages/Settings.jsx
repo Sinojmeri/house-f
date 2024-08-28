@@ -48,11 +48,16 @@ export function Settings() {
             <div className="h-1 bg-gray-200 w-full my-2" />
             <h1 className="font-bold text-xl ml-2">Personal Details</h1>
             <div className="flex flex-col gap-2 ml-2">
-                <p>Name</p>
+                <p>First Name</p>
                 <input type="text" className="bg-inherit p-1 w-fit border-2 border-black rounded-lg outline-none"
                     onFocus={(e) => e.target.classList.add('border-orange-200')}
                     onBlur={(e) => e.target.classList.remove('border-orange-200')}
-                    placeholder="Enter your name" />
+                    placeholder="Enter your first name" />
+                <p>Last Name</p>
+                <input type="text" className="bg-inherit p-1 w-fit border-2 border-black rounded-lg outline-none"
+                    onFocus={(e) => e.target.classList.add('border-orange-200')}
+                    onBlur={(e) => e.target.classList.remove('border-orange-200')}
+                    placeholder="Enter your last name" />
                 <label htmlFor="gender" className="" >Gender</label>
                 <select className="w-fit bg-inherit p-1 border-2 border-black rounded-lg cursor-pointer" id="gender">
                     <option value="man">I&apos;m a man</option>
@@ -71,12 +76,18 @@ export function Settings() {
                 </div>
                 <div className="h-1 bg-gray-200 w-full my-2" />
                 <h1 className="font-bold text-xl ml-2">Account management</h1>
+                <p>Email</p>
+                <input type="text" className="bg-inherit p-1 w-fit border-2 border-black rounded-lg outline-none cursor-pointer"
+                    onFocus={(e) => e.target.classList.add('border-red-500')}
+                    onBlur={(e) => e.target.classList.remove('border-red-500')}
+                    placeholder="Enter your new email" />
                 <p>Password</p>
                 <input type="text" className="bg-inherit p-1 w-fit border-2 border-black rounded-lg outline-none cursor-pointer"
                     onFocus={(e) => e.target.classList.add('border-red-500')}
                     onBlur={(e) => e.target.classList.remove('border-red-500')}
                     placeholder="Enter your new password" />
             </div>
+            <button className="p-1 font-bold border-2 border-blue-400 rounded-md my-4 md:w-[60%] mx-auto hover:bg-gray-200 text-blue-500">Save</button>
         </div>
     )
 }
