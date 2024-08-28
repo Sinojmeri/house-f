@@ -43,16 +43,14 @@ export default function MapComp({ houseCoords, setHouseCoords }) {
   ];
 
   useEffect(() => {
-    const id = navigator.geolocation.watchPosition(
+    const id = navigator.geolocation.getCurrentPosition(
       (pos) => {
-        console.log('PROFJAA');
         
         success(pos)
       },
       error,
       options,
     );
-    console.log('effect');
     
     return () => navigator.geolocation.clearWatch(id);
   },[]);
