@@ -3,22 +3,12 @@ import PropTypes from 'prop-types';
 const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 export const mapId = 'af816b56ad25fdab';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
-
+import { useLocationStore } from '../stores/location';
 import { useEffect, useState } from 'react';
 
-const options = {
-  enableHighAccuracy: true,
-};
-function success(pos, setMyLocation) {
-  const { latitude: lat, longitude: lng } = pos.coords;
-  setMyLocation({ lat, lng });
-}
-function error(err) {
-  console.error(`ERROR(${err.code}): ${err.message}`);
-}
-
 export default function MapComp({ houseCoords, setHouseCoords }) {
-  const [myLocation, setMyLocation] = useState(null);
+  const myLocation = useLocationStore((state) => state.location);
+
   const [center, setCenter] = useState(null);
   const [zoom, setZoom] = useState(15);
 
@@ -35,15 +25,6 @@ export default function MapComp({ houseCoords, setHouseCoords }) {
     { key: '21 Dhjetori', location: { lat: 41.32609, lng: 19.802995 } },
     { key: 'Test location', location: { lat: 41.325634, lng: 19.830913 } },
   ];
-
-  useEffect(() => {
-    const id = navigator.geolocation.watchPosition(
-      (pos) => success(pos, setMyLocation),
-      error,
-      options,
-    );
-    return () => navigator.geolocation.clearWatch(id);
-  }, []);
 
   useEffect(() => {
     if (houseCoords) {
