@@ -59,7 +59,6 @@ import { useLocationStore } from '../stores/location';
 
 export default function NewHouse({ houseInfo }) {
   const myLocation = useLocationStore((state) => state.location);
-
   const [formCompleted, setFormCompleted] = useState(false);
   const [houseInformation, setHouseInformation] = useState({
     house_name: '',
@@ -120,7 +119,9 @@ export default function NewHouse({ houseInfo }) {
     Secure_parking: false,
     Number_of_Bathrooms: false,
   });
-  const [price, setPrice] = useState(0);
+  const [photos, setPhotos] = useState([]);
+  const [price, setPrice] = useState('');
+
   const handleHouseInformation = (e) => {
     const { name, value } = e.target;
 
@@ -142,6 +143,7 @@ export default function NewHouse({ houseInfo }) {
         [name]: value,
       };
     });
+
     checkFormCompletion();
   };
 
@@ -164,6 +166,7 @@ export default function NewHouse({ houseInfo }) {
         break;
     }
   };
+
   function checkFormCompletion() {
     const { house_name, location, description, property_type } =
       houseInformation;
@@ -190,6 +193,11 @@ export default function NewHouse({ houseInfo }) {
         return [];
     }
   }
+
+  const handlePhotoUpload = (e) => {
+    const files = Array.from(e.target.files);
+    setPhotos((prevPhotos) => [...prevPhotos, ...files]);
+  };
 
   return (
     <div>
@@ -260,6 +268,7 @@ export default function NewHouse({ houseInfo }) {
                 onChange={(e) => {
                   handleHouseInformation(e);
                   checkFormCompletion();
+                  setPhotos([]);
                 }}
                 value={houseInformation.property_type}
               >
@@ -292,7 +301,7 @@ export default function NewHouse({ houseInfo }) {
       </div>
 
       {formCompleted && (
-        <div className="flex flex-col bg-white ml-1 my-3 items-center md:items-start transition-opacity duration-700 ease-in-out opacity-100">
+        <div className="relative flex flex-col bg-white ml-1 my-3 items-center md:items-start transition-opacity duration-700 ease-in-out opacity-100">
           <h1 className="font-bold text-2xl text-blue-500">
             Enter {houseInformation.property_type} Amenities:
           </h1>
@@ -317,18 +326,55 @@ export default function NewHouse({ houseInfo }) {
           <input
             value={price}
             type="number"
-            className="cursor-pointer border-2 border-gray-400 rounded-lg w-[300px] p-1"
+            className="cursor-pointer border-2 border-gray-400 rounded-lg w-[300px] p-1 "
             placeholder="Price: €"
             step={0.1}
             title="Price in €"
             max={1500}
-            onChange={(e) => setPrice(e.target.value)}
+            onChange={(e) => setPrice(+e.target.value)}
           />
+          <div className="md:absolute md:right-5 md:top-5 my-7 md:my-0 p-2 bg-gray-100 border border-gray-300 rounded-lg">
+            <h1 className="font-bold text-2xl text-blue-500">
+              Upload Property Photos
+            </h1>
+            <input
+              type="file"
+              className="my-3 cursor-pointer"
+              multiple
+              onChange={handlePhotoUpload}
+              style={{ color: 'transparent' }}
+            />
+            <div className="grid grid-cols-3 grid-rows-2">
+              {photos.slice(0, 5).map((photo, index) => (
+                <div key={URL.createObjectURL(photo)} className="p-1">
+                  <button
+                    onClick={() => {
+                      setPhotos((prevPhotos) =>
+                        prevPhotos.filter((_, i) => i !== index),
+                      );
+                    }}
+                  >
+                    X
+                  </button>
+                  <img
+                    key={index}
+                    src={URL.createObjectURL(photo)}
+                    alt="Uploded photo"
+                    className="w-[70px] h-[70px]"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+          <button className="self-center p-1 hover:bg-gray-200 border-2 border-black rounded-md text-blue-500 text-xl font-bold">
+            Upload House
+          </button>
         </div>
       )}
     </div>
   );
 }
+
 NewHouse.propTypes = {
   houseInfo: PropTypes.object,
 };
