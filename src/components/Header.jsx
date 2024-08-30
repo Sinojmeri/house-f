@@ -70,7 +70,7 @@ export default function Header() {
                 ) : (
                   <li key={setting} className="p-1">
                     <Link
-                      to={`/${setting.replace(/ /g, '-')}`}
+                      to={`/${setting}`}
                       onClick={() => setVisible('hidden')}
                     >
                       {setting}
