@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Mode_switch from './Mode_switch';
 
 export default function Header() {
@@ -14,6 +14,7 @@ export default function Header() {
     'Sign Out',
   ];
   const [visible, setVisible] = useState('hidden');
+  const navigate = useNavigate();
   const userIcon = useRef();
   const dropdownList = useRef();
   const openList = () => {
@@ -32,6 +33,9 @@ export default function Header() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
+  const authToken = localStorage.getItem('auth_token');
+  const userName = localStorage.getItem('user');
+
   return (
     <>
       <div className="flex p-1 m-1 justify-between items-center">
@@ -48,17 +52,38 @@ export default function Header() {
             ref={dropdownList}
           >
             <ul className="flex flex-col gap-2 divide-y-2">
-              {account_list.map((setting) => (
-                <li className="p-1" key={setting}>
-                  <Link
-                    to={`/${setting}`}
-                    onClick={() => setVisible('hidden')}
-                  >{`${setting}`}</Link>
-                </li>
-              ))}
+              {account_list.map((setting, index) =>
+                index === account_list.length - 1 ? (
+                  <li key={setting} className="p-1">
+                    <button
+                      className="p-1 w-full text-left"
+                      onClick={() => {
+                        localStorage.removeItem('auth_token');
+                        localStorage.removeItem('user');
+                        navigate('/');
+                        setVisible('hidden');
+                      }}
+                    >
+                      {setting}
+                    </button>
+                  </li>
+                ) : (
+                  <li key={setting} className="p-1">
+                    <Link
+                      to={`/${setting.replace(/ /g, '-')}`}
+                      onClick={() => setVisible('hidden')}
+                    >
+                      {setting}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         </div>
+
+        {authToken ? <div>Welcome, {userName}</div> : <div />}
+
         <div className="flex p-1 m-1 gap-2">
           <Link to="/notifications">
             <img
