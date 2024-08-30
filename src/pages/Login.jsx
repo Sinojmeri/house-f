@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { logIn } from '../controllers/userApi';
-import { Link,useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -10,11 +10,11 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const {firstName , token } = await logIn({ email, password });
-      localStorage.setItem('user',firstName);
+      const { firstName, token } = await logIn({ email, password });
+      localStorage.setItem('user', firstName);
       localStorage.setItem('auth_token', token);
       // alert('Success');
-      navigate('/')
+      navigate('/');
     } catch (error) {
       console.error(error.message);
     }
@@ -55,7 +55,8 @@ export default function Login() {
           <button
             type="submit"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 my-2"
-           onClick={()=><Link to={'/Home'}></Link>}>
+            onClick={() => <Link to={'/Home'} />}
+          >
             Login
           </button>
         </form>

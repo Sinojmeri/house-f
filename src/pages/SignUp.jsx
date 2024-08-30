@@ -83,10 +83,10 @@ export default function SignUp() {
           />
         </div>
 
-        <button className="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-blue-600 transition-colors"
-        onClick={
-          <Link to={'/Login'}></Link>
-        }>
+        <button
+          className="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-blue-600 transition-colors"
+          onClick={<Link to={'/Login'} />}
+        >
           Sign Up
         </button>
       </form>
