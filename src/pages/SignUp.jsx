@@ -1,6 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { signUp } from '../controllers/userApi';
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 export default function SignUp() {
   const { register, handleSubmit } = useForm();
@@ -82,7 +83,10 @@ export default function SignUp() {
           />
         </div>
 
-        <button className="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-blue-600 transition-colors">
+        <button className="w-full bg-indigo-600 text-white p-3 rounded-md hover:bg-blue-600 transition-colors"
+        onClick={
+          <Link to={'/Login'}></Link>
+        }>
           Sign Up
         </button>
       </form>

@@ -59,6 +59,9 @@ export default function Header() {
             </ul>
           </div>
         </div>
+        <div>
+          Welcome,{localStorage.getItem('user')}
+        </div>
         <div className="flex p-1 m-1 gap-2">
           <Link to="/notifications">
             <img
