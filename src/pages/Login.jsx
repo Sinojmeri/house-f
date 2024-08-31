@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { logIn } from '../controllers/userApi';
 import { Link, useNavigate } from 'react-router-dom';
+import { useUserIdStore } from '../stores/userIdStore';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -10,9 +11,13 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const { firstName, token } = await logIn({ email, password });
+      const { id, firstName, token } = await logIn({ email, password });
       localStorage.setItem('user', firstName);
       localStorage.setItem('auth_token', token);
+
+      const setUserId = useUserIdStore.getState().setUserId;
+      setUserId(id);
+
       // alert('Success');
       navigate('/');
     } catch (error) {
