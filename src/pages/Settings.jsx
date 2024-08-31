@@ -1,5 +1,4 @@
 import { useNavigate } from 'react-router-dom';
-import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/light.css';
 export function Settings() {
   const navigate = useNavigate();
@@ -64,28 +63,6 @@ export function Settings() {
           onBlur={(e) => e.target.classList.remove('border-orange-200')}
           placeholder="Enter your last name"
         />
-        <label htmlFor="gender" className="">
-          Gender
-        </label>
-        <select
-          className="w-fit bg-inherit p-1 border-2 border-black rounded-lg cursor-pointer"
-          id="gender"
-        >
-          <option value="man">I&apos;m a man</option>
-          <option value="woman">I&apos;m a woman</option>
-          <option value="non_binary">I&apos;m non binary</option>
-          <option value="undefined">I prefer not to say</option>
-        </select>
-        <p>Birthday</p>
-        <div>
-          <Flatpickr
-            className="bg-inherit border-2 border-black p-1 rounded-md cursor-pointer"
-            options={{
-              dateFormat: 'd-m-Y',
-              defaultDate: 'today',
-            }}
-          />
-        </div>
         <div className="h-1 bg-gray-200 w-full my-2" />
         <h1 className="font-bold text-xl ml-2">Account management</h1>
         <p>Email</p>
