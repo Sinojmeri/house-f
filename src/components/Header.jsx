@@ -34,10 +34,7 @@ export default function Header() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-
   const user = useAuthStore((store) => store.user);
-  console.log(user);
-  
 
   return (
     <>
@@ -63,8 +60,8 @@ export default function Header() {
                       onClick={() => {
                         localStorage.removeItem('auth_token');
                         useAuthStore.setState({
-                          user: null
-                        })
+                          user: null,
+                        });
                         navigate('/');
                         setVisible('hidden');
                       }}

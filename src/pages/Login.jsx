@@ -19,7 +19,6 @@ export default function Login() {
         user: user.payload,
       });
 
-
       // alert('Success');
       navigate('/');
     } catch (error) {
