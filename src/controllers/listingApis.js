@@ -1,18 +1,9 @@
 export async function createListing({
   auth_token,
-  userId,
   coordinates,
   title,
   address,
-  nrOfRooms,
-  nrOfToilets,
-  elevator,
-  buildingType,
-  amenities,
   price,
-  freeParking,
-  balcony,
-  isFav,
 }) {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/listings`,
@@ -23,19 +14,10 @@ export async function createListing({
         Authorization: `Bearer ${auth_token}`,
       },
       body: JSON.stringify({
-        userId,
         coordinates,
         title,
         address,
-        nrOfRooms,
-        nrOfToilets,
-        elevator,
-        buildingType,
-        amenities,
-        price,
-        freeParking,
-        balcony,
-        isFav,
+        price
       }),
     },
   );

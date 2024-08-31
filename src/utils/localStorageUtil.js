@@ -23,6 +23,7 @@ export async function checkLocalStorage() {
     return;
   }
   useAuthStore.setState({
+    token,
     user: user.payload,
   });
 }

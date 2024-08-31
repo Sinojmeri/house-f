@@ -16,6 +16,7 @@ export default function Login() {
       localStorage.setItem('auth_token', token);
       const user = await decode(token);
       useAuthStore.setState({
+        token,
         user: user.payload,
       });
 
@@ -23,6 +24,10 @@ export default function Login() {
 
       const url = new URLSearchParams(location.search);
       const nextRoute = url.get('nextRoute');
+
+      if (!nextRoute) {
+        navigate('/')
+      }
 
       navigate(nextRoute);
     } catch (error) {
