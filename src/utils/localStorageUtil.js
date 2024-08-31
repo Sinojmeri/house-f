@@ -5,7 +5,11 @@ import { useAuthStore } from '../stores/authStore';
 const secret = new TextEncoder().encode(import.meta.env.VITE_JWT_SECRET);
 
 export async function decode(token) {
-  return await jose.jwtVerify(token, secret);
+  try {
+    return await jose.jwtVerify(token, secret);
+  } catch (err) {
+    return null;
+  }
 }
 
 export async function checkLocalStorage() {
@@ -15,6 +19,9 @@ export async function checkLocalStorage() {
   }
 
   const user = await decode(token);
+  if (!user) {
+    return;
+  }
   useAuthStore.setState({
     user: user.payload,
   });
