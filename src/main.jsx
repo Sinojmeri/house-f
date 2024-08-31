@@ -7,16 +7,25 @@ import Notifications from './pages/Notifications.jsx';
 import Messages from './pages/Messages.jsx';
 import Home from './pages/Home.jsx';
 import Filters from './pages/Filters.jsx';
-import YourProperties from './pages/YourProperties.jsx';
+import {
+  YourProperties,
+  loader as yourPropertiesLoader,
+} from './pages/YourProperties.jsx';
 import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
 import { Settings } from './pages/Settings.jsx';
 import { getCurrentLocation } from './utils/geolocation.js';
 import { checkLocalStorage } from './utils/localStorageUtil.js';
+import { ErrorBoundary } from './components/Error.jsx';
+
+getCurrentLocation();
+await checkLocalStorage();
+
 const router = createBrowserRouter([
   {
     path: '/',
     element: <App />,
+    errorElement: <ErrorBoundary />,
     children: [
       {
         path: '/',
@@ -37,6 +46,7 @@ const router = createBrowserRouter([
       {
         path: 'List your Properties',
         element: <YourProperties />,
+        loader: yourPropertiesLoader,
       },
 
       {
@@ -55,8 +65,6 @@ const router = createBrowserRouter([
   },
 ]);
 
-getCurrentLocation();
-checkLocalStorage();
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />

@@ -1,8 +1,15 @@
 import { useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import NewHouse from '../components/NewHouse';
+import isLoggedIn from '../utils/isLoggedIn';
 
-export default function YourProperties() {
+export function loader({ request }) {
+  isLoggedIn(request);
+
+  return null;
+}
+
+export function YourProperties() {
   const navigate = useNavigate();
   const goBack = () => {
     navigate('/');
@@ -25,7 +32,7 @@ export default function YourProperties() {
   };
   return (
     <div className="mx-auto flex flex-col">
-      <div className="flex justify-between items-center sticky top-0 bg-[#f8fafc] z-50">
+      <div className="flex justify-between items-center sticky top-0 bg-[#f8fafc] ">
         <img
           src="./back-button.png"
           alt="Back button"

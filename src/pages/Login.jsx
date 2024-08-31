@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { logIn } from '../controllers/userApi';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useAuthStore } from '../stores/authStore';
 import { decode } from '../utils/localStorageUtil';
 
@@ -8,7 +8,7 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
-
+  const location = useLocation();
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -20,7 +20,11 @@ export default function Login() {
       });
 
       // alert('Success');
-      navigate('/');
+
+      const url = new URLSearchParams(location.search);
+      const nextRoute = url.get('nextRoute');
+
+      navigate(nextRoute);
     } catch (error) {
       console.error(error.message);
     }
