@@ -1,6 +1,3 @@
-import { useAuthStore } from '../stores/authStore.js';
-import { useUserIdStore } from '../stores/userIdStore.js';
-
 export async function signUp({ firstName, lastName, email, password }) {
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users`, {
     method: 'POST',
@@ -42,10 +39,6 @@ export async function logIn({ email, password }) {
   }
 
   const result = await response.json();
-
-  const { id, token } = result;
-  useUserIdStore.setState({ id });
-  useAuthStore.setState({ token });
 
   return result;
 }

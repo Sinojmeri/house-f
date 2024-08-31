@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import Mode_switch from './Mode_switch';
+import { useAuthStore } from '../stores/authStore';
 
 export default function Header() {
   const account_list = [
@@ -33,8 +34,10 @@ export default function Header() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-  const authToken = localStorage.getItem('auth_token');
-  const userName = localStorage.getItem('user');
+
+  const user = useAuthStore((store) => store.user);
+  console.log(user);
+  
 
   return (
     <>
@@ -59,7 +62,9 @@ export default function Header() {
                       className="p-1 w-full text-left"
                       onClick={() => {
                         localStorage.removeItem('auth_token');
-                        localStorage.removeItem('user');
+                        useAuthStore.setState({
+                          user: null
+                        })
                         navigate('/');
                         setVisible('hidden');
                       }}
@@ -82,7 +87,7 @@ export default function Header() {
           </div>
         </div>
 
-        {authToken ? <div>Welcome, {userName}</div> : <div />}
+        {user ? <div>Welcome, {user.firstName}</div> : <div />}
 
         <div className="flex p-1 m-1 gap-2">
           <Link to="/notifications">

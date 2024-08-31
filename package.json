@@ -19,6 +19,7 @@
     "dotenv": "^16.4.5",
     "embla-carousel-autoplay": "^8.1.8",
     "embla-carousel-react": "^8.1.8",
+    "jose": "^5.8.0",
     "lucide-react": "^0.428.0",
     "prop-types": "^15.8.1",
     "react": "^18.3.1",

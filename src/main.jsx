@@ -12,6 +12,7 @@ import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
 import { Settings } from './pages/Settings.jsx';
 import { getCurrentLocation } from './utils/geolocation.js';
+import { checkLocalStorage } from './utils/localStorageUtil.js';
 const router = createBrowserRouter([
   {
     path: '/',
@@ -55,7 +56,7 @@ const router = createBrowserRouter([
 ]);
 
 getCurrentLocation();
-
+checkLocalStorage();
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <RouterProvider router={router} />
