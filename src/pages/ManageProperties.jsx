@@ -1,9 +1,9 @@
 import { useLoaderData } from "react-router-dom";
 import { HouseCard } from "../components/HouseCard"
-import { getAllListings } from "../controllers/listingApis";
+import { getAllYourListings } from "../controllers/listingApis";
 
 async function loader() {
-    const listings = await getAllListings();
+    const listings = await getAllYourListings();
     return listings;
 }
 
