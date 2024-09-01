@@ -1,12 +1,14 @@
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData } from "react-router-dom";
+import { getOneListing } from "../controllers/listingApis";
 
 async function loader({ params }) {
-    const id = params.propertyId
-    return id;
+    const id = params.propertyId;
+    const property = await getOneListing(id);
+    return property;
 }
 
 export function HouseDetails() {
-    const id = useLoaderData();
+    const property = useLoaderData();
 
     return (
         <div className="flex flex-col">
@@ -14,21 +16,27 @@ export function HouseDetails() {
             <div className="flex flex-col my-2">
                 <div className="my-2 flex gap-2 items-center">
                     <p className="font-bold">Basic House Details</p>
-                    <button className="p-1 font-bold text-blue-500 border-2 border-gray-200 rounded-md hover:bg-gray-200">Edit</button>
+                    <Link to={`/properties/${property._id}/edit`}>
+                        <button className='p-1 font-bold text-blue-500 border-2 border-gray-200 rounded-md hover:bg-gray-200'>
+                            Edit
+                        </button>
+                    </Link>
                 </div>
                 <div className="my-2">
-                    <p>House Title</p>
-                    <p className="rounded-md  text-2xl text-blue-500 underline">House title</p>
+                    <p className="underline">House Title</p>
+                    <p className="rounded-md text-2xl text-blue-500 ">{property.title}</p>
                 </div>
-                <div>
-                    <p>House Address</p>
-                    <address>House address</address>
+                <div className="my-2">
+                    <p className="underline">House Address</p>
+                    <address>{property.address}</address>
                 </div>
-
+                <div className="my-2">
+                    <p className="underline">House Price</p>
+                    <p>{property.price} Euro</p>
+                </div>
             </div>
-            {id}
         </div>
-    )
+    );
 }
 
-HouseDetails.loader = loader
+HouseDetails.loader = loader;
