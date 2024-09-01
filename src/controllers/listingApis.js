@@ -102,13 +102,13 @@ export async function getOneListing(listingId) {
   const { token } = useAuthStore.getState()
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`, {
     method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
-      },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
   });
 
-  if (!response.ok){
+  if (!response.ok) {
     throw new Error();
   }
 
@@ -116,16 +116,22 @@ export async function getOneListing(listingId) {
   return result;
 }
 
-export async function updateListing(listingId){
+export async function updateListing(listingId, { title, address, price }) {
+  const { token } = useAuthStore.getState()
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`, {
     method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${auth_token}`,
-      },
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    },
+    body: JSON.stringify({
+      title,
+      address,
+      price
+    })
   });
 
-  if(!response.ok){
+  if (!response.ok) {
     throw new Error();
   }
 
