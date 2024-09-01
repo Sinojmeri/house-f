@@ -1,7 +1,5 @@
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useState, useRef } from 'react';
-import NewHouse from '../components/NewHouse';
-import { ManageYourProperty } from './ManageProperties';
+import { useRef } from 'react';
 import isLoggedIn from '../utils/isLoggedIn';
 
 export function loader({ request }) {

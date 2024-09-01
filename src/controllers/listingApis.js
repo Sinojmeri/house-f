@@ -1,3 +1,5 @@
+import { useAuthStore } from "../stores/authStore";
+
 export async function createListing({
   auth_token,
   coordinates,
@@ -75,19 +77,20 @@ export async function getAllListings() {
   return result;
 }
 
-export async function getAllYourListings(auth_token) {
+export async function getAllYourListings() {
+  const { token } = useAuthStore.getState()
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/listings/yourListings`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${auth_token}`,
+        'Authorization': `Bearer ${token}`,
       },
     },
   );
 
-  if (!response.ok){
+  if (!response.ok) {
     throw new Error();
   }
 
