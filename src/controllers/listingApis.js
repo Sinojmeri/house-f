@@ -98,12 +98,13 @@ export async function getAllYourListings() {
   return result;
 }
 
-export async function getOneListing(listingId){
+export async function getOneListing(listingId) {
+  const { token } = useAuthStore.getState()
   const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`, {
     method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${auth_token}`,
+        'Authorization': `Bearer ${token}`,
       },
   });
 

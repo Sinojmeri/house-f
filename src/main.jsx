@@ -20,6 +20,7 @@ import { ErrorBoundary } from './components/Error.jsx';
 import NewHouse from './components/NewHouse.jsx';
 import { ManageYourProperty } from './pages/ManageProperties.jsx';
 import { HouseDetails } from './pages/HouseDetails.jsx';
+import { EditHouse } from './pages/EditHouse.jsx';
 
 getCurrentLocation();
 await checkLocalStorage();
@@ -34,6 +35,11 @@ const router = createBrowserRouter([
         path: '/properties/:propertyId',
         element: <HouseDetails />,
         loader: HouseDetails.loader
+      },
+      {
+        path: '/properties/:propertyId/edit',
+        element: <EditHouse />,
+        loader: EditHouse.loader
       },
       {
         path: '/',
