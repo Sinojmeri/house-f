@@ -2,7 +2,6 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { getOneListing } from "../controllers/listingApis";
 import { useState } from "react";
 import { updateListing } from "../controllers/listingApis";
-import { Navigate } from "react-router-dom";
 async function loader({ params }) {
     const id = params.propertyId;
     const property = await getOneListing(id);
