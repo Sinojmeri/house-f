@@ -94,3 +94,20 @@ export async function getAllYourListings(auth_token) {
   const result = await response.json();
   return result;
 }
+
+export async function getOneListing(listingId){
+  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`, {
+    method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth_token}`,
+      },
+  });
+
+  if (!response.ok){
+    throw new Error();
+  }
+
+  const result = await response.json();
+  return result;
+}
