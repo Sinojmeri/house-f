@@ -5,14 +5,14 @@ import { useAuthStore } from '../stores/authStore';
 
 export default function Header() {
   const account_list = [
-    'Settings',
-    'List your Properties',
-    'Questions to properties',
-    'Reviews',
-    'Complaints',
-    'Help & Support',
-    'Login',
-    'Sign Out',
+    { text: 'Settings', url: 'settings' },
+    {text: 'List your Properties', url: 'list-your-properties/manage-properties'},
+    {text: 'Questions to properties', url: 'questions-to-properties'},
+    { text: 'Reviews', url: 'reviews' },
+    { text: 'Complaints', url: 'complaints' },
+    { text: 'Help & Support', url: 'help-support' },
+    { text: 'Login', url: 'login' },
+    { text: 'Sign Out', url: 'sign-out' }
   ];
   const [visible, setVisible] = useState('hidden');
   const navigate = useNavigate();
@@ -54,7 +54,7 @@ export default function Header() {
             <ul className="flex flex-col gap-2 divide-y-2">
               {account_list.map((setting, index) =>
                 index === account_list.length - 1 ? (
-                  <li key={setting} className="p-1">
+                  <li key={setting.text} className="p-1">
                     <button
                       className="p-1 w-full text-left"
                       onClick={() => {
@@ -66,16 +66,16 @@ export default function Header() {
                         setVisible('hidden');
                       }}
                     >
-                      {setting}
+                      {setting.text}
                     </button>
                   </li>
                 ) : (
-                  <li key={setting} className="p-1">
+                  <li key={setting.text} className="p-1">
                     <Link
-                      to={`/${setting}`}
+                      to={`/${setting.url}`}
                       onClick={() => setVisible('hidden')}
                     >
-                      {setting}
+                      {setting.text}
                     </Link>
                   </li>
                 ),
@@ -89,14 +89,14 @@ export default function Header() {
         <div className="flex p-1 m-1 gap-2">
           <Link to="/notifications">
             <img
-              src="notification.png"
+              src="/notification.png"
               alt="notification.empty"
               className="w-[30px] h-[30px] cursor-pointer"
             />
           </Link>
           <Link to="/messages">
             <img
-              src="message.png"
+              src="/message.png"
               alt="empty_inbox"
               className="w-[30px] h-[30px] cursor-pointer"
             />

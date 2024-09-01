@@ -1,6 +1,7 @@
-import { useNavigate } from 'react-router-dom';
+import { Outlet, useNavigate } from 'react-router-dom';
 import { useState, useRef } from 'react';
 import NewHouse from '../components/NewHouse';
+import { ManageYourProperty } from './ManageProperties';
 import isLoggedIn from '../utils/isLoggedIn';
 
 export function loader({ request }) {
@@ -16,25 +17,12 @@ export function YourProperties() {
   };
   const manage = useRef();
   const addHouse = useRef();
-  const houseInfo = useRef();
 
-  const [content, setContent] = useState('');
-  const handleContent = (e) => {
-    if (manage.current.contains(e.target)) {
-      setContent('Manage Your properties');
-    } else if (addHouse.current.contains(e.target)) {
-      setContent(<NewHouse houseInfo={houseInfo} />);
-      setTimeout(() => {
-        houseInfo.current.classList.add('open');
-        houseInfo.current.focus();
-      }, 10); //Delay is set to make sure the comp is rendered before it get's focus.
-    }
-  };
   return (
     <div className="mx-auto flex flex-col">
       <div className="flex justify-between items-center sticky top-0 bg-[#f8fafc] ">
         <img
-          src="./back-button.png"
+          src="/back-button.png"
           alt="Back button"
           className="w-[30px] h-[30px] cursor-pointer ml-2"
           onClick={goBack}
@@ -65,7 +53,7 @@ export function YourProperties() {
             onMouseDown={(e) => e.currentTarget.classList.add('bg-blue-700')}
             onMouseUp={(e) => e.currentTarget.classList.remove('bg-blue-700')}
             ref={manage}
-            onClick={() => handleContent(event)}
+            onClick={() => navigate('manage-properties')}
           >
             Manage your Properties
           </button>
@@ -84,14 +72,14 @@ export function YourProperties() {
             onMouseDown={(e) => e.currentTarget.classList.add('bg-blue-700')}
             onMouseUp={(e) => e.currentTarget.classList.remove('bg-blue-700')}
             ref={addHouse}
-            onClick={() => handleContent(event)}
+            onClick={() => navigate('add-property')}
           >
             Add Property
           </button>
         </div>
       </div>
 
-      {content}
+      <Outlet/>
     </div>
   );
 }
