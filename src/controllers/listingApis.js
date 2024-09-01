@@ -17,7 +17,7 @@ export async function createListing({
         coordinates,
         title,
         address,
-        price
+        price,
       }),
     },
   );
@@ -68,6 +68,26 @@ export async function getAllListings() {
   );
 
   if (!response.ok) {
+    throw new Error();
+  }
+
+  const result = await response.json();
+  return result;
+}
+
+export async function getAllYourListings(auth_token) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/listings/yourListings`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${auth_token}`,
+      },
+    },
+  );
+
+  if (!response.ok){
     throw new Error();
   }
 
