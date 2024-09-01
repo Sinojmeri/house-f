@@ -17,6 +17,9 @@ import { Settings } from './pages/Settings.jsx';
 import { getCurrentLocation } from './utils/geolocation.js';
 import { checkLocalStorage } from './utils/localStorageUtil.js';
 import { ErrorBoundary } from './components/Error.jsx';
+import NewHouse from './components/NewHouse.jsx';
+import { ManageYourProperty } from './pages/ManageProperties.jsx';
+import { HouseDetails } from './pages/HouseDetails.jsx';
 
 getCurrentLocation();
 await checkLocalStorage();
@@ -27,6 +30,11 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorBoundary />,
     children: [
+      {
+        path: '/properties/:propertyId',
+        element: <HouseDetails />,
+        loader: HouseDetails.loader
+      },
       {
         path: '/',
         element: <Home />,
@@ -40,13 +48,24 @@ const router = createBrowserRouter([
         element: <Messages />,
       },
       {
-        path: 'filters',
+        path: '/filters',
         element: <Filters />,
       },
       {
-        path: 'List your Properties',
+        path: '/list-your-properties',
         element: <YourProperties />,
         loader: yourPropertiesLoader,
+        children: [
+          {
+            path: 'add-property',
+            element: <NewHouse />
+          },
+          {
+            path: 'manage-properties',
+            element: <ManageYourProperty />,
+            loader: ManageYourProperty.loader
+          }
+        ]
       },
 
       {
