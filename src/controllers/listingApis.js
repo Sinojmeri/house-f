@@ -154,3 +154,29 @@ export async function getAllNearListing(lat, long){
   const result = await response.json();
   return result;
 }
+
+
+export async function searchListings(title,startDate,endDate) {
+  const url = new URL('/listings/search/',import.meta.env.VITE_API_BASE_URL);
+  url.searchParams.set('startDate',startDate);
+  url.searchParams.set('endDate',endDate);
+  if (title) {
+    url.searchParams.set('title',title);
+  }
+  const response = await fetch(
+    url,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const result = await response.json();
+  return result;
+}
