@@ -138,3 +138,19 @@ export async function updateListing(listingId, { title, address, price }) {
   const result = await response.json();
   return result;
 }
+
+export async function getAllNearListing(lat, long){
+  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/nearby?lat=${lat}&long=${long}`,{
+    method: 'GET',
+    headers: {
+      'Content-Type' : 'application/json'
+    }
+  });
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const result = await response.json();
+  return result;
+}
