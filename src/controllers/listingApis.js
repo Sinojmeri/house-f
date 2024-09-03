@@ -1,4 +1,4 @@
-import { useAuthStore } from "../stores/authStore";
+import { useAuthStore } from '../stores/authStore';
 
 export async function createListing({
   auth_token,
@@ -78,14 +78,14 @@ export async function getAllListings() {
 }
 
 export async function getAllYourListings() {
-  const { token } = useAuthStore.getState()
+  const { token } = useAuthStore.getState();
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/listings/yourListings`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}`,
+        Authorization: `Bearer ${token}`,
       },
     },
   );
@@ -99,14 +99,17 @@ export async function getAllYourListings() {
 }
 
 export async function getOneListing(listingId) {
-  const { token } = useAuthStore.getState()
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
+  const { token } = useAuthStore.getState();
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
     },
-  });
+  );
 
   if (!response.ok) {
     throw new Error();
@@ -117,54 +120,34 @@ export async function getOneListing(listingId) {
 }
 
 export async function updateListing(listingId, { title, address, price }) {
-  const { token } = useAuthStore.getState()
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`,
-    },
-    body: JSON.stringify({
-      title,
-      address,
-      price
-    })
-  });
-
-  if (!response.ok) {
-    throw new Error();
-  }
-
-  const result = await response.json();
-  return result;
-}
-
-export async function getAllNearListing(lat, long){
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/nearby?lat=${lat}&long=${long}`,{
-    method: 'GET',
-    headers: {
-      'Content-Type' : 'application/json'
-    }
-  });
-
-  if (!response.ok) {
-    throw new Error();
-  }
-
-  const result = await response.json();
-  return result;
-}
-
-
-export async function searchListings(title,startDate,endDate) {
-  const url = new URL('/listings/search/',import.meta.env.VITE_API_BASE_URL);
-  url.searchParams.set('startDate',startDate);
-  url.searchParams.set('endDate',endDate);
-  if (title) {
-    url.searchParams.set('title',title);
-  }
+  const { token } = useAuthStore.getState();
   const response = await fetch(
-    url,
+    `${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`,
+    {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        title,
+        address,
+        price,
+      }),
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const result = await response.json();
+  return result;
+}
+
+export async function getAllNearListing(lat, long) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/listings/nearby?lat=${lat}&long=${long}`,
     {
       method: 'GET',
       headers: {
@@ -172,6 +155,34 @@ export async function searchListings(title,startDate,endDate) {
       },
     },
   );
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const result = await response.json();
+  return result;
+}
+
+export async function searchListings(title, startDate, endDate, lat, long) {
+  const url = new URL(
+    `/listings/${lat}/${long}/search/`,
+    import.meta.env.VITE_API_BASE_URL,
+  );
+  if (startDate && endDate) {
+    url.searchParams.set('startDate', startDate);
+    url.searchParams.set('endDate', endDate);
+  }
+  if (title) {
+    url.searchParams.set('title', title);
+  }
+
+  const response = await fetch(url, {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  });
 
   if (!response.ok) {
     throw new Error();
