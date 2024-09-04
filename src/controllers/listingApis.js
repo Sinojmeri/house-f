@@ -165,10 +165,16 @@ export async function getAllNearListing(lat, long) {
 }
 
 export async function searchListings(title, startDate, endDate, lat, long) {
-  const url = new URL(
-    `/listings/${lat}/${long}/search/`,
-    import.meta.env.VITE_API_BASE_URL,
+  const url = new URL(`/listings/search/`, import.meta.env.VITE_API_BASE_URL);
+
+  url.searchParams.append(
+    'coordinates',
+    `${long || 19.819025}`,
   );
+  url.searchParams.append(
+    'coordinates',
+    `${lat || 41.327953}`,
+  )
   if (startDate && endDate) {
     url.searchParams.set('startDate', startDate);
     url.searchParams.set('endDate', endDate);
