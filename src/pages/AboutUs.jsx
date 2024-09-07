@@ -12,7 +12,7 @@ const AboutUs = () => {
       }}
       // className="flex justify-center items-center h-screen"
     >
-      <h1 className="text-5xl font-bold text-black">ABOUT LEADG2</h1>
+      <h1 className="text-5xl font-bold text-black">ABOUT HouseHub</h1>
 
       <AboutUsInfo />
     </div>

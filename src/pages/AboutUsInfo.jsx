@@ -11,34 +11,29 @@ const AboutUsInfo = () => {
         <div>
           <h3 className="text-lg font-semibold">WHO ARE WE</h3>
           <p className="text-sm">
-            Welcome to LeadG2, your one-stop solution for seamless and
-            stress-free bookings! Our mission is to make the process of booking
-            appointments, reserving tables, scheduling services, and planning
-            events as effortless as possible for both customers and businesses.
-            At LeadG2, we understand that your time is valuable. That's why
-            we've designed our platform to be intuitive and user-friendly,
-            allowing you to find, compare, and book services with just a few
-            clicks. Whether you're scheduling a spa day, reserving a table at
-            your favorite restaurant, or booking a fitness class, EasyBook
-            provides a simple, streamlined experience.
+            Welcome to HouseHub! At HouseHub, we believe that finding the
+            perfect place to stay should be as enjoyable as the journey itself.
+            We’re passionate about connecting travelers with unique,
+            comfortable, and memorable accommodations around the world. Whether
+            you're planning a cozy weekend getaway, a family vacation, or a
+            business trip, our goal is to make your booking experience seamless
+            and stress-free.
           </p>
         </div>
 
         {/* Second Information Section */}
         <div>
           <h3 className="text-lg font-semibold">
-            WE'RE DIFFERENT THAN THE REST
+            WHAT WE DO
           </h3>
           <p className="text-sm">
-            At LeadG2, we believe that booking an appointment, reserving a
-            table, or scheduling a service should be a hassle-free experience.
-            While many booking apps are available, here's what sets us apart
-            from the rest: 1. Personalized Experience We understand that every
-            customer is unique. That's why our platform learns from your
-            preferences and past bookings to offer tailored recommendations that
-            perfectly match your needs. Whether you prefer a specific stylist, a
-            particular cuisine, or a favorite spa treatment, EasyBook remembers
-            and delivers options that are just right for you.
+            We simplify the search for your next stay by offering a
+            user-friendly platform that highlights a wide range of
+            accommodations tailored to fit every preference and budget. Our
+            easy-to-use website and app allow you to browse detailed listings,
+            view high-quality photos, read honest reviews, and compare options
+            with just a few clicks. We’re committed to providing you with the
+            best tools and information to make an informed decision.
           </p>
         </div>
       </div>
@@ -48,7 +43,7 @@ const AboutUsInfo = () => {
       <h2 class="text-2xl font-bold mb-6 text-center">Contact Us</h2>
       <div className="flex items-center justify-center space-x-2">
         <img src={email} width={30} height={10} alt="Email Icon" />
-        <p class="text-lg font-semibold mb-2">Email: LeadG2@gmail.com</p>
+        <p class="text-lg font-semibold mb-2">Email: HouseHub@gmail.com</p>
       </div>
       <div className="flex items-center justify-center space-x-2">
         <img src={phone} width={30} height={10} alt="Phone Icon" />
@@ -58,7 +53,7 @@ const AboutUsInfo = () => {
       <Link to={'https://www.instagram.com/'} target="_blank">
         <div className="flex items-center justify-center space-x-2">
           <img src={instagram} width={30} height={10} alt="Email Icon" />
-          <p class="text-lg font-semibold mb-2">Instagram: Lead2G</p>
+          <p class="text-lg font-semibold mb-2">Instagram: HouseHub</p>
         </div>
       </Link>
     </div>
