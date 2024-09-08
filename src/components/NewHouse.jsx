@@ -5,6 +5,7 @@ import { useLocationStore } from '../stores/location';
 import { createListing } from '../controllers/listingApis';
 import { useAuthStore } from '../stores/authStore';
 import { useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 
 export default function NewHouse({ houseInfo }) {
   const { register, handleSubmit } = useForm();
@@ -13,6 +14,7 @@ export default function NewHouse({ houseInfo }) {
   const [formCompleted, setFormCompleted] = useState(false);
   const [title, setTitle] = useState('');
   const [address, setAddress] = useState('');
+  const navigate = useNavigate();
 
   const [houseInformation, setHouseInformation] = useState({
     // house_name: '',
@@ -157,6 +159,7 @@ export default function NewHouse({ houseInfo }) {
   const submitData = async () => {
     try {
       await createListing({ auth_token: token, coordinates: houseInformation.location, title,address,price })
+      navigate('../manage-properties');
     } catch (error) {
       console.error(error)
     }

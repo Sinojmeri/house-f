@@ -11,10 +11,10 @@ async function loader({ request }) {
   const url = new URL(request.url);
   const title = url.searchParams.get('title');
   const startDate =
-    url.searchParams.get('startDate') //|| Math.floor(new Date().getTime() / 1000);
+    url.searchParams.get('startDate') || Math.floor(new Date().getTime() / 1000) + 1 * 24 * 60 * 60;
   const endDate =
-    url.searchParams.get('endDate') //||
-    //Math.floor(new Date().getTime() / 1000) + 3 * 24 * 60 * 60;
+    url.searchParams.get('endDate') ||
+    Math.floor(new Date().getTime() / 1000) + 4 * 24 * 60 * 60;
 
   const { location } = useLocationStore.getState();
   return await searchListings(
@@ -45,6 +45,7 @@ export default function Home() {
         <HouseCarousel
           houseCoords={houseCoords}
           setHouseCoords={setHouseCoords}
+          data = {listings}
         />
         <MapComp houseCoords={houseCoords} setHouseCoords={setHouseCoords} />
       </div>
