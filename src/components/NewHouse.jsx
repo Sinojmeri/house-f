@@ -12,8 +12,6 @@ export default function NewHouse({ houseInfo }) {
   const token = useAuthStore((state) => state.token);
   const myLocation = useLocationStore((state) => state.location);
   const [formCompleted, setFormCompleted] = useState(false);
-  const [title, setTitle] = useState('');
-  const [address, setAddress] = useState('');
   const navigate = useNavigate();
 
   const [houseInformation, setHouseInformation] = useState({
@@ -78,7 +76,6 @@ export default function NewHouse({ houseInfo }) {
     Number_of_Bathrooms: false,
   });
   const [photos, setPhotos] = useState([]);
-  const [price, setPrice] = useState();
 
   const handleHouseInformation = (e) => {
     const { name, value } = e.target;
@@ -132,16 +129,10 @@ export default function NewHouse({ houseInfo }) {
   };
 
   function checkFormCompletion() {
-    const { house_name, location,price, property_type } =
-      houseInformation;
+    const { house_name, location, price, property_type } = houseInformation;
     const allCompleted =
-      house_name.trim() &&
-      location[0] &&
-      location[1] &&
-      price &&
-      property_type;
-      console.log(allCompleted);
-      
+      house_name.trim() && location[0] && location[1] && price && property_type;
+
     setFormCompleted(allCompleted);
   }
 
@@ -170,9 +161,9 @@ export default function NewHouse({ houseInfo }) {
       await createListing({
         auth_token: token,
         coordinates: houseInformation.location,
-        title,
-        address,
-        price,
+        title: houseInformation.house_name,
+        address: houseInformation.address,
+        price: houseInformation.price,
       });
       navigate('../manage-properties');
     } catch (error) {
@@ -245,39 +236,6 @@ export default function NewHouse({ houseInfo }) {
         </button>
       </div>
 
-      {/* <div className="md:absolute md:right-5 md:top-5 my-7 md:my-0 p-4 bg-gray-100 border border-gray-300 rounded-lg">
-        <h1 className="font-bold text-2xl text-blue-500 mb-4">
-          Upload Property Photos
-        </h1>
-        <input
-          type="file"
-          className="block w-full my-3 cursor-pointer text-gray-700"
-          multiple
-          onChange={handlePhotoUpload}
-        />
-        <div className="grid grid-cols-3 gap-2">
-          {photos.slice(0, 5).map((photo, index) => (
-            <div key={index} className="relative">
-              <button
-                className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
-                onClick={() => {
-                  setPhotos((prevPhotos) =>
-                    prevPhotos.filter((_, i) => i !== index),
-                  );
-                }}
-              >
-                X
-              </button>
-              <img
-                src={URL.createObjectURL(photo)}
-                alt="Uploaded photo"
-                className="w-[70px] h-[70px] object-cover rounded-lg"
-              />
-            </div>
-          ))}
-        </div>
-      </div> */}
-
       <div className="block mb-4">
         <p className="mb-2 text-lg font-semibold">Choose property type</p>
 
@@ -297,7 +255,82 @@ export default function NewHouse({ houseInfo }) {
           <option value="Office">Office</option>
         </select>
       </div>
-      {formCompleted && <div>allo</div>}
+
+      {formCompleted && (
+        <div className="flex flex-col md:flex-row justify-between items-start">
+          <div className="relative flex flex-col bg-white ml-1 my-3 items-center md:items-start transition-opacity duration-700 ease-in-out opacity-100">
+            <h1 className="font-bold text-2xl text-blue-500">
+              Enter {houseInformation.property_type} Amenities:
+            </h1>
+            {Object.keys(getAmenities()).map((amenity) => (
+              <div
+                className="flex gap-2 items-center justify-between w-[300px] my-2"
+                key={amenity}
+              >
+                <p className="p-1 w-[250px]">{amenity.replace(/_/g, ' ')}</p>
+                {[
+                  'Number_of_Rooms',
+                  'Number_of_Beds',
+                  'Number_of_Bathrooms',
+                ].includes(amenity) ? (
+                  <input
+                    type="number"
+                    name={amenity}
+                    min={0}
+                    className="border-2 border-black cursor-pointer mt-[2px]"
+                    onChange={(e) =>
+                      handleAmenities(e, houseInformation.property_type)
+                    }
+                  />
+                ) : (
+                  <input
+                    type="checkbox"
+                    name={amenity}
+                    className="w-[20px] h-[20px] cursor-pointer mt-[2px]"
+                    checked={getAmenities()[amenity]}
+                    onChange={(e) =>
+                      handleAmenities(e, houseInformation.property_type)
+                    }
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="md:ml-4 my-7 md:my-0 p-4 bg-gray-100 border border-gray-300 rounded-lg">
+            <h1 className="font-bold text-2xl text-blue-500 mb-4">
+              Upload Property Photos
+            </h1>
+            <input
+              type="file"
+              className="block w-full my-3 cursor-pointer text-gray-700"
+              multiple
+              onChange={handlePhotoUpload}
+            />
+            <div className="grid grid-cols-3 gap-2">
+              {photos.slice(0, 5).map((photo, index) => (
+                <div key={index} className="relative">
+                  <button
+                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+                    onClick={() => {
+                      setPhotos((prevPhotos) =>
+                        prevPhotos.filter((_, i) => i !== index),
+                      );
+                    }}
+                  >
+                    X
+                  </button>
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="Uploaded photo"
+                    className="w-[70px] h-[70px] object-cover rounded-lg"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
+
       <input
         type="submit"
         className="w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
