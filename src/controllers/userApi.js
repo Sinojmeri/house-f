@@ -1,5 +1,5 @@
 export async function signUp({ firstName, lastName, email, password }) {
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users`, {
+  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/signup`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',

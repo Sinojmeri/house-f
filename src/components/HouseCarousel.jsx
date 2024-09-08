@@ -8,68 +8,68 @@ import {
 } from '../components/Carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import PropTypes from 'prop-types';
-export default function HouseCarousel({ setHouseCoords }) {
-  const houses = [
-    {
-      mainPic: '/Homes/home1.jpeg',
-      isFav: false,
-      coordinates: { lat: 41.325634, lng: 19.830913 },
-    },
-    {
-      mainPic: '/Homes/home2.jpg',
-      isFav: false,
-      coordinates: { lat: 41.337806, lng: 19.835278 },
-    },
-    {
-      mainPic: '/Homes/home3.jpg',
-      isFav: false,
-      coordinates: { lat: 41.326103, lng: 19.827426 },
-    },
-    {
-      mainPic: '/Homes/home4.jpg',
-      isFav: false,
-      coordinates: { lat: 41.333375, lng: 19.832833 },
-    },
-    {
-      mainPic: '/Homes/home5.jpg',
-      isFav: false,
-      coordinates: { lat: 41.321583, lng: 19.813164 },
-    },
-    {
-      mainPic: '/Homes/home6.jpg',
-      isFav: false,
-      coordinates: { lat: 41.320301, lng: 19.823113 },
-    },
-    {
-      mainPic: '/Homes/home7.jpg',
-      isFav: false,
-      coordinates: { lat: 41.322576, lng: 19.81957 },
-    },
-    {
-      mainPic: '/Homes/home8.jpg',
-      isFav: false,
-      coordinates: { lat: 41.327795, lng: 19.811548 },
-    },
-    {
-      mainPic: '/Homes/home9.png',
-      isFav: false,
-      coordinates: { lat: 41.337028, lng: 19.803694 },
-    },
-    {
-      mainPic: '/Homes/home10.jpeg',
-      isFav: false,
-      coordinates: { lat: 41.32609, lng: 19.802995 },
-    },
-  ];
-  const [fav, setFav] = useState(houses);
+export default function HouseCarousel({ setHouseCoords,data }) {
+  // const houses = [
+  //   {
+  //     mainPic: '/Homes/home1.jpeg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.325634, lng: 19.830913 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home2.jpg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.337806, lng: 19.835278 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home3.jpg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.326103, lng: 19.827426 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home4.jpg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.333375, lng: 19.832833 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home5.jpg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.321583, lng: 19.813164 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home6.jpg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.320301, lng: 19.823113 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home7.jpg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.322576, lng: 19.81957 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home8.jpg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.327795, lng: 19.811548 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home9.png',
+  //     isFav: false,
+  //     coordinates: { lat: 41.337028, lng: 19.803694 },
+  //   },
+  //   {
+  //     mainPic: '/Homes/home10.jpeg',
+  //     isFav: false,
+  //     coordinates: { lat: 41.32609, lng: 19.802995 },
+  //   },
+  // ];
+  // const [fav, setFav] = useState(houses);
 
-  const favorites = (index) => {
-    setFav((prevHouses) =>
-      prevHouses.map((house, i) =>
-        i === index ? { ...house, isFav: !house.isFav } : house,
-      ),
-    );
-  };
+  // const favorites = (index) => {
+  //   setFav((prevHouses) =>
+  //     prevHouses.map((house, i) =>
+  //       i === index ? { ...house, isFav: !house.isFav } : house,
+  //     ),
+  //   );
+  // };
   const handleClick = (house) => {
     setHouseCoords(house.coordinates);
   };
@@ -91,7 +91,7 @@ export default function HouseCarousel({ setHouseCoords }) {
         }}
       >
         <CarouselContent className="h-[310px] flex items-center">
-          {fav.map((house, index) => (
+          {data.map((house, index) => (
             <CarouselItem
               key={house.mainPic}
               className={window.innerWidth > 768 ? `basis-1/3` : ''}
@@ -101,12 +101,12 @@ export default function HouseCarousel({ setHouseCoords }) {
                 onClick={() => handleClick(house)}
               >
                 <img
-                  src={`${house.mainPic}`}
+                  src={`${house.mainPic ? `${house.mainPic}`: './Homes/home1.jpeg'}`}
                   alt="House img"
                   className="h-[300px] rounded-lg w-[97%] mx-auto"
                 />
                 <p className="absolute md:top-1 top-3 right-7 bg-gray-600 text-white p-1 rounded-lg">
-                  Paskuqani city test
+                  {house.address}
                 </p>
                 <div className="flex flex-row ">
                   <div className="flex flex-col">
@@ -119,7 +119,7 @@ export default function HouseCarousel({ setHouseCoords }) {
                       <p className="text-white font-bold">4.5</p>
                     </div>
                     <h1 className="font-bold absolute bottom-3 left-3 text-white text-2xl">
-                      House Name
+                      {house.title}
                     </h1>
                   </div>
                   <img
