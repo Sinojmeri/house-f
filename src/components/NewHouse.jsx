@@ -17,10 +17,11 @@ export default function NewHouse({ houseInfo }) {
   const navigate = useNavigate();
 
   const [houseInformation, setHouseInformation] = useState({
-    // house_name: '',
+    house_name: '',
     location: ['', ''],
-    // address: '',
-    description: '',
+    address: '',
+    // description: '',
+    price: '',
     property_type: 'House',
   });
   const [houseAmenities, setHouseAmenities] = useState({
@@ -95,6 +96,12 @@ export default function NewHouse({ houseInfo }) {
           location: [prev.location[0], value],
         };
       }
+      if (name === 'price') {
+        return {
+          ...prev,
+          price: +value,
+        };
+      }
       return {
         ...prev,
         [name]: value,
@@ -125,14 +132,16 @@ export default function NewHouse({ houseInfo }) {
   };
 
   function checkFormCompletion() {
-    const { house_name, location, description, property_type } =
+    const { house_name, location,price, property_type } =
       houseInformation;
     const allCompleted =
       house_name.trim() &&
       location[0] &&
       location[1] &&
-      description.trim() &&
+      price &&
       property_type;
+      console.log(allCompleted);
+      
     setFormCompleted(allCompleted);
   }
 
@@ -158,39 +167,51 @@ export default function NewHouse({ houseInfo }) {
 
   const submitData = async () => {
     try {
-      await createListing({ auth_token: token, coordinates: houseInformation.location, title,address,price })
+      await createListing({
+        auth_token: token,
+        coordinates: houseInformation.location,
+        title,
+        address,
+        price,
+      });
       navigate('../manage-properties');
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit(submitData)} className="space-y-4 p-6 bg-white shadow-md rounded-lg">
+    <form
+      onSubmit={handleSubmit(submitData)}
+      className="space-y-4 p-6 bg-white shadow-md rounded-lg"
+    >
       <input
         type="text"
-        {...register("firstName", { required: true })}
+        name="house_name"
+        {...register('house_name', { required: true })}
         placeholder="Title"
         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onChange={(e) => setTitle(e.target.value)}        
+        onChange={handleHouseInformation}
       />
-  
+
       <input
         type="text"
-        {...register("lastName", { required: true })}
+        name="address"
+        {...register('address', { required: true })}
         placeholder="Address"
         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onChange={(e) => setAddress(e.target.value)}
+        onChange={handleHouseInformation}
       />
-  
+
       <input
         type="number"
-        {...register("price", { required: true })}
+        name="price"
+        {...register('price', { required: true })}
         placeholder="Price"
         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onChange={(e) => (+setPrice(e.target.value))}
+        onChange={handleHouseInformation}
       />
-  
+
       <div className="flex flex-col w-[200px] gap-2">
         <input
           name="lat"
@@ -223,7 +244,7 @@ export default function NewHouse({ houseInfo }) {
           Get Current Location
         </button>
       </div>
-  
+
       {/* <div className="md:absolute md:right-5 md:top-5 my-7 md:my-0 p-4 bg-gray-100 border border-gray-300 rounded-lg">
         <h1 className="font-bold text-2xl text-blue-500 mb-4">
           Upload Property Photos
@@ -256,16 +277,33 @@ export default function NewHouse({ houseInfo }) {
           ))}
         </div>
       </div> */}
-  
+
+      <div className="block mb-4">
+        <p className="mb-2 text-lg font-semibold">Choose property type</p>
+
+        <select
+          name="property_type"
+          className="p-1 text-start border-2 border-gray-200 rounded-lg w-[200px] box-content md:box-border"
+          onChange={(e) => {
+            handleHouseInformation(e);
+            checkFormCompletion();
+            setPhotos([]);
+          }}
+          value={houseInformation.property_type}
+        >
+          <option value="House">House</option>
+          <option value="Hotel">Hotel</option>
+          <option value="Villa">Villa</option>
+          <option value="Office">Office</option>
+        </select>
+      </div>
+      {formCompleted && <div>allo</div>}
       <input
         type="submit"
         className="w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </form>
   );
-  
-  
-  
 }
 
 NewHouse.propTypes = {
