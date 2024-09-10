@@ -5,6 +5,10 @@ export async function createListing({
   coordinates,
   title,
   address,
+  nrOfRooms,
+  nrOfToilets,
+  buildingType,
+  amenities,
   price,
 }) {
   const response = await fetch(
@@ -19,6 +23,10 @@ export async function createListing({
         coordinates,
         title,
         address,
+        nrOfRooms,
+        nrOfToilets,
+        buildingType,
+        amenities,
         price,
       }),
     },

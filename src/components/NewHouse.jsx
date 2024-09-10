@@ -12,15 +12,14 @@ export default function NewHouse({ houseInfo }) {
   const token = useAuthStore((state) => state.token);
   const myLocation = useLocationStore((state) => state.location);
   const [formCompleted, setFormCompleted] = useState(false);
-  const [title, setTitle] = useState('');
-  const [address, setAddress] = useState('');
   const navigate = useNavigate();
 
   const [houseInformation, setHouseInformation] = useState({
-    // house_name: '',
+    house_name: '',
     location: ['', ''],
-    // address: '',
-    description: '',
+    address: '',
+    // description: '',
+    price: '',
     property_type: 'House',
   });
   const [houseAmenities, setHouseAmenities] = useState({
@@ -77,7 +76,6 @@ export default function NewHouse({ houseInfo }) {
     Number_of_Bathrooms: false,
   });
   const [photos, setPhotos] = useState([]);
-  const [price, setPrice] = useState();
 
   const handleHouseInformation = (e) => {
     const { name, value } = e.target;
@@ -93,6 +91,12 @@ export default function NewHouse({ houseInfo }) {
         return {
           ...prev,
           location: [prev.location[0], value],
+        };
+      }
+      if (name === 'price') {
+        return {
+          ...prev,
+          price: +value,
         };
       }
       return {
@@ -125,14 +129,10 @@ export default function NewHouse({ houseInfo }) {
   };
 
   function checkFormCompletion() {
-    const { house_name, location, description, property_type } =
-      houseInformation;
+    const { house_name, location, price, property_type } = houseInformation;
     const allCompleted =
-      house_name.trim() &&
-      location[0] &&
-      location[1] &&
-      description.trim() &&
-      property_type;
+      house_name.trim() && location[0] && location[1] && price && property_type;
+
     setFormCompleted(allCompleted);
   }
 
@@ -158,39 +158,58 @@ export default function NewHouse({ houseInfo }) {
 
   const submitData = async () => {
     try {
-      await createListing({ auth_token: token, coordinates: houseInformation.location, title,address,price })
+      const amenities = Object.keys(getAmenities())
+      .filter((key) => getAmenities()[key])
+      .map((key) => key.replace(/_/g, ' ')); 
+      await createListing({
+        auth_token: token,
+        coordinates: houseInformation.location,
+        title: houseInformation.house_name,
+        address: houseInformation.address,
+        nrOfRooms: houseAmenities.Number_of_Rooms || 1,
+        nrOfToilets: houseAmenities.Number_of_Bathrooms || 1,
+        buildingType: houseInformation.property_type,
+        amenities,
+        price: houseInformation.price,
+      });
       navigate('../manage-properties');
     } catch (error) {
-      console.error(error)
+      console.error(error);
     }
-  }
+  };
 
   return (
-    <form onSubmit={handleSubmit(submitData)} className="space-y-4 p-6 bg-white shadow-md rounded-lg">
+    <form
+      onSubmit={handleSubmit(submitData)}
+      className="space-y-4 p-6 bg-white shadow-md rounded-lg"
+    >
       <input
         type="text"
-        {...register("firstName", { required: true })}
+        name="house_name"
+        {...register('house_name', { required: true })}
         placeholder="Title"
         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onChange={(e) => setTitle(e.target.value)}        
+        onChange={handleHouseInformation}
       />
-  
+
       <input
         type="text"
-        {...register("lastName", { required: true })}
+        name="address"
+        {...register('address', { required: true })}
         placeholder="Address"
         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onChange={(e) => setAddress(e.target.value)}
+        onChange={handleHouseInformation}
       />
-  
+
       <input
         type="number"
-        {...register("price", { required: true })}
+        name="price"
+        {...register('price', { required: true })}
         placeholder="Price"
         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-        onChange={(e) => (+setPrice(e.target.value))}
+        onChange={handleHouseInformation}
       />
-  
+
       <div className="flex flex-col w-[200px] gap-2">
         <input
           name="lat"
@@ -223,49 +242,108 @@ export default function NewHouse({ houseInfo }) {
           Get Current Location
         </button>
       </div>
-  
-      {/* <div className="md:absolute md:right-5 md:top-5 my-7 md:my-0 p-4 bg-gray-100 border border-gray-300 rounded-lg">
-        <h1 className="font-bold text-2xl text-blue-500 mb-4">
-          Upload Property Photos
-        </h1>
-        <input
-          type="file"
-          className="block w-full my-3 cursor-pointer text-gray-700"
-          multiple
-          onChange={handlePhotoUpload}
-        />
-        <div className="grid grid-cols-3 gap-2">
-          {photos.slice(0, 5).map((photo, index) => (
-            <div key={index} className="relative">
-              <button
-                className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
-                onClick={() => {
-                  setPhotos((prevPhotos) =>
-                    prevPhotos.filter((_, i) => i !== index),
-                  );
-                }}
+
+      <div className="block mb-4">
+        <p className="mb-2 text-lg font-semibold">Choose property type</p>
+
+        <select
+          name="property_type"
+          className="p-1 text-start border-2 border-gray-200 rounded-lg w-[200px] box-content md:box-border"
+          onChange={(e) => {
+            handleHouseInformation(e);
+            checkFormCompletion();
+            setPhotos([]);
+          }}
+          value={houseInformation.property_type}
+        >
+          <option value="House">House</option>
+          <option value="Hotel">Hotel</option>
+          <option value="Villa">Villa</option>
+          <option value="Office">Office</option>
+        </select>
+      </div>
+
+      {formCompleted && (
+        <div className="flex flex-col md:flex-row justify-between items-start">
+          <div className="relative flex flex-col bg-white ml-1 my-3 items-center md:items-start transition-opacity duration-700 ease-in-out opacity-100">
+            <h1 className="font-bold text-2xl text-blue-500">
+              Enter {houseInformation.property_type} Amenities:
+            </h1>
+            {Object.keys(getAmenities()).map((amenity) => (
+              <div
+                className="flex gap-2 items-center justify-between w-[300px] my-2"
+                key={amenity}
               >
-                X
-              </button>
-              <img
-                src={URL.createObjectURL(photo)}
-                alt="Uploaded photo"
-                className="w-[70px] h-[70px] object-cover rounded-lg"
-              />
+                <p className="p-1 w-[250px]">{amenity.replace(/_/g, ' ')}</p>
+                {[
+                  'Number_of_Rooms',
+                  'Number_of_Beds',
+                  'Number_of_Bathrooms',
+                ].includes(amenity) ? (
+                  <input
+                    type="number"
+                    name={amenity}
+                    min={0}
+                    className="border-2 border-black cursor-pointer mt-[2px]"
+                    onChange={(e) =>
+                      handleAmenities(e, houseInformation.property_type)
+                    }
+                  />
+                ) : (
+                  <input
+                    type="checkbox"
+                    name={amenity}
+                    className="w-[20px] h-[20px] cursor-pointer mt-[2px]"
+                    checked={getAmenities()[amenity]}
+                    onChange={(e) =>
+                      handleAmenities(e, houseInformation.property_type)
+                    }
+                  />
+                )}
+              </div>
+            ))}
+          </div>
+          <div className="md:ml-4 my-7 md:my-0 p-4 bg-gray-100 border border-gray-300 rounded-lg">
+            <h1 className="font-bold text-2xl text-blue-500 mb-4">
+              Upload Property Photos
+            </h1>
+            <input
+              type="file"
+              className="block w-full my-3 cursor-pointer text-gray-700"
+              multiple
+              onChange={handlePhotoUpload}
+            />
+            <div className="grid grid-cols-3 gap-2">
+              {photos.slice(0, 5).map((photo, index) => (
+                <div key={index} className="relative">
+                  <button
+                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
+                    onClick={() => {
+                      setPhotos((prevPhotos) =>
+                        prevPhotos.filter((_, i) => i !== index),
+                      );
+                    }}
+                  >
+                    X
+                  </button>
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="Uploaded photo"
+                    className="w-[70px] h-[70px] object-cover rounded-lg"
+                  />
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
-      </div> */}
-  
+      )}
+
       <input
         type="submit"
         className="w-full p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
     </form>
   );
-  
-  
-  
 }
 
 NewHouse.propTypes = {

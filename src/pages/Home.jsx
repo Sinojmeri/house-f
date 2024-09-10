@@ -29,10 +29,8 @@ export default function Home() {
   const [houseCoords, setHouseCoords] = useState(null);
   const listings = useLoaderData();
   const revalidator = useRevalidator();
-  console.log(listings);
   
   const location = useLocationStore((state) => state.location);
-  console.log(location);
   
   useEffect(() => {
     revalidator.revalidate();
