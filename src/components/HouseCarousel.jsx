@@ -76,7 +76,7 @@ export default function HouseCarousel({ setHouseCoords,data }) {
   HouseCarousel.propTypes = {
     houseCoords: PropTypes.object,
     setHouseCoords: PropTypes.func,
-    data: PropTypes.object,
+    data: PropTypes.array,
   };
   return (
     <div className="md:my-4 xsm:my-14 tablet:my-[50px]">

@@ -158,11 +158,18 @@ export default function NewHouse({ houseInfo }) {
 
   const submitData = async () => {
     try {
+      const amenities = Object.keys(getAmenities())
+      .filter((key) => getAmenities()[key])
+      .map((key) => key.replace(/_/g, ' ')); 
       await createListing({
         auth_token: token,
         coordinates: houseInformation.location,
         title: houseInformation.house_name,
         address: houseInformation.address,
+        nrOfRooms: houseAmenities.Number_of_Rooms || 1,
+        nrOfToilets: houseAmenities.Number_of_Bathrooms || 1,
+        buildingType: houseInformation.property_type,
+        amenities,
         price: houseInformation.price,
       });
       navigate('../manage-properties');
