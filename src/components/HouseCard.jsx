@@ -11,7 +11,7 @@ export function HouseCard({ property }) {
           <img src="/Homes/home1.jpeg" alt="House pic" className="w-[300px] h-[300px] rounded-md" />
           <p>{property.title}</p>
           <p>{property.address}</p>
-          <p>{property.price}</p>
+          <p>{property.price} €</p>
         </div>
       </div>
   )

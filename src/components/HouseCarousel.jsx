@@ -94,7 +94,7 @@ export default function HouseCarousel({ setHouseCoords,data }) {
         <CarouselContent className="h-[310px] flex items-center">
           {data.map((house, index) => (
             <CarouselItem
-              key={house.mainPic}
+              key={house.title}
               className={window.innerWidth > 768 ? `basis-1/3` : ''}
             >
               <div
