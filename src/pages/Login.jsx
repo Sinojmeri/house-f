@@ -26,12 +26,14 @@ export default function Login() {
       const nextRoute = url.get('nextRoute');
 
       if (!nextRoute) {
-        navigate('/')
+        console.log(navigate);
+        
+        return navigate('/')
       }
 
       navigate(nextRoute);
     } catch (error) {
-      console.error(error.message);
+      console.error(error);
     }
   };
   return (
@@ -70,7 +72,6 @@ export default function Login() {
           <button
             type="submit"
             className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 my-2"
-            onClick={() => <Link to={'/Home'} />}
           >
             Login
           </button>

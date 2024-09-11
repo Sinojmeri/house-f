@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import '../comp_Styles/houseInfo.css';
 import PropTypes from 'prop-types';
 import { useLocationStore } from '../stores/location';
@@ -7,7 +7,7 @@ import { useAuthStore } from '../stores/authStore';
 import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 
-export default function NewHouse({ houseInfo }) {
+export default function NewHouse() {
   const { register, handleSubmit } = useForm();
   const token = useAuthStore((state) => state.token);
   const myLocation = useLocationStore((state) => state.location);
@@ -18,7 +18,6 @@ export default function NewHouse({ houseInfo }) {
     house_name: '',
     location: ['', ''],
     address: '',
-    // description: '',
     price: '',
     property_type: 'House',
   });
@@ -42,8 +41,8 @@ export default function NewHouse({ houseInfo }) {
     Rooftop_pool: false,
     Private_beach_access: false,
     In_room_dining: false,
-    Number_of_Beds: false,
-    Number_of_Rooms: false,
+    Number_of_Beds: 1,
+    Number_of_Rooms: 1,
   });
   const [villasAmenities, setVillasAmenities] = useState({
     Private_pool: false,
@@ -57,9 +56,9 @@ export default function NewHouse({ houseInfo }) {
     Wine_cellar: false,
     Personal_chef: false,
     Guest_house: false,
-    Number_of_Bathrooms: false,
-    Number_of_Rooms: false,
-    Panaromic_View: false,
+    Panoramic_View: false,
+    Number_of_Bathrooms: 1,
+    Number_of_Rooms: 1,
   });
   const [officeAmenities, setOfficeAmenities] = useState({
     Meeting_rooms: false,
@@ -73,7 +72,7 @@ export default function NewHouse({ houseInfo }) {
     Café_or_restaurant: false,
     Rooftop_terrace: false,
     Secure_parking: false,
-    Number_of_Bathrooms: false,
+    Number_of_Bathrooms: 1,
   });
   const [photos, setPhotos] = useState([]);
 
@@ -109,19 +108,20 @@ export default function NewHouse({ houseInfo }) {
   };
 
   const handleAmenities = (e, amenityType) => {
-    const { name, checked } = e.target;
+    const { name, checked, value, type } = e.target;
+    const newValue = type === 'number' ? +value : checked;
     switch (amenityType) {
       case 'House':
-        setHouseAmenities((prev) => ({ ...prev, [name]: checked }));
+        setHouseAmenities((prev) => ({ ...prev, [name]: newValue }));
         break;
       case 'Hotel':
-        setHotelAmenities((prev) => ({ ...prev, [name]: checked }));
+        setHotelAmenities((prev) => ({ ...prev, [name]: newValue }));
         break;
       case 'Villa':
-        setVillasAmenities((prev) => ({ ...prev, [name]: checked }));
+        setVillasAmenities((prev) => ({ ...prev, [name]: newValue }));
         break;
       case 'Office':
-        setOfficeAmenities((prev) => ({ ...prev, [name]: checked }));
+        setOfficeAmenities((prev) => ({ ...prev, [name]: newValue }));
         break;
       default:
         break;
@@ -159,24 +159,33 @@ export default function NewHouse({ houseInfo }) {
   const submitData = async () => {
     try {
       const amenities = Object.keys(getAmenities())
-      .filter((key) => getAmenities()[key])
-      .map((key) => key.replace(/_/g, ' ')); 
+        .filter((key) => getAmenities()[key] === true || typeof getAmenities()[key] === 'number')
+        .map((key) => {
+          const value = getAmenities()[key];
+          return typeof value === 'number'
+            ? `${key.replace(/_/g, ' ')}: ${value}`
+            : key.replace(/_/g, ' ');
+        });
+      
       await createListing({
         auth_token: token,
         coordinates: houseInformation.location,
         title: houseInformation.house_name,
         address: houseInformation.address,
-        nrOfRooms: houseAmenities.Number_of_Rooms || 1,
-        nrOfToilets: houseAmenities.Number_of_Bathrooms || 1,
         buildingType: houseInformation.property_type,
         amenities,
         price: houseInformation.price,
       });
+
       navigate('../manage-properties');
     } catch (error) {
       console.error(error);
     }
   };
+
+  useEffect(() => {
+    checkFormCompletion();
+  });
 
   return (
     <form
@@ -230,13 +239,13 @@ export default function NewHouse({ houseInfo }) {
           onChange={handleHouseInformation}
         />
         <button
-          type="button"
           className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          type='button'
           onClick={() => {
             setHouseInformation((prev) => ({
               ...prev,
               location: [myLocation.lat, myLocation.lng],
-            }));
+            })); checkFormCompletion()
           }}
         >
           Get Current Location

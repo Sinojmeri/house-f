@@ -4,16 +4,27 @@ import Mode_switch from './Mode_switch';
 import { useAuthStore } from '../stores/authStore';
 
 export default function Header() {
-  const account_list = [
-    { text: 'Settings', url: 'settings' },
-    {text: 'List your Properties', url: 'list-your-properties/manage-properties'},
-    {text: 'Questions to properties', url: 'questions-to-properties'},
-    { text: 'Reviews', url: 'reviews' },
-    { text: 'Complaints', url: 'complaints' },
-    { text: 'Help & Support', url: 'help-support' },
-    { text: 'Login', url: 'login' },
-    { text: 'Sign Out', url: 'sign-out' }
-  ];
+  const user = useAuthStore((store) => store.user);
+
+  const account_list = user ?
+    [
+      { text: 'Settings', url: 'settings' },
+      { text: 'List your Properties', url: 'list-your-properties/manage-properties' },
+      { text: 'Questions to properties', url: 'questions-to-properties' },
+      { text: 'Reviews', url: 'reviews' },
+      { text: 'Complaints', url: 'complaints' },
+      { text: 'Help & Support', url: 'help-support' },
+      { text: 'Sign Out', url: 'sign-out' }
+    ] :
+    [
+      { text: 'Settings', url: 'settings' },
+      { text: 'List your Properties', url: 'list-your-properties/manage-properties' },
+      { text: 'Questions to properties', url: 'questions-to-properties' },
+      { text: 'Reviews', url: 'reviews' },
+      { text: 'Complaints', url: 'complaints' },
+      { text: 'Help & Support', url: 'help-support' },
+      { text: 'Login', url: 'login' }
+    ];
   const [visible, setVisible] = useState('hidden');
   const navigate = useNavigate();
   const userIcon = useRef();
@@ -34,7 +45,7 @@ export default function Header() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-  const user = useAuthStore((store) => store.user);
+  
 
   return (
     <>
@@ -52,8 +63,8 @@ export default function Header() {
             ref={dropdownList}
           >
             <ul className="flex flex-col gap-2 divide-y-2">
-              {account_list.map((setting, index) =>
-                index === account_list.length - 1 ? (
+              {account_list.map((setting) =>
+                setting.text === 'Sign Out' ? (
                   <li key={setting.text} className="p-1">
                     <button
                       className="p-1 w-full text-left"
