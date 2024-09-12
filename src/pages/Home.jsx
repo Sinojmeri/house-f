@@ -9,20 +9,22 @@ import { useLocationStore } from '../stores/location';
 
 async function loader({ request }) {
   const url = new URL(request.url);
-  const title = url.searchParams.get('title');
+  const city = url.searchParams.get('city');
   const startDate =
     url.searchParams.get('startDate') || Math.floor(new Date().getTime() / 1000) + 1 * 24 * 60 * 60;
   const endDate =
     url.searchParams.get('endDate') ||
     Math.floor(new Date().getTime() / 1000) + 4 * 24 * 60 * 60;
+    const buildingType = url.searchParams.get('buildingType');
+    const amenities = url.searchParams.get('amenities');
 
   const { location } = useLocationStore.getState();
   return await searchListings(
-    title,
+    city,
     startDate,
     endDate,
-    location.lng,
-    location.lat,
+    buildingType,
+    amenities
   );
 }
 export default function Home() {
