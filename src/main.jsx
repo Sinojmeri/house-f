@@ -21,7 +21,7 @@ import NewHouse from './components/NewHouse.jsx';
 import { ManageYourProperty } from './pages/ManageProperties.jsx';
 import { HouseDetails } from './pages/HouseDetails.jsx';
 import { EditHouse } from './pages/EditHouse.jsx';
-import AboutUs from './pages/AboutUs';
+import AboutUsInfo from './pages/AboutUsInfo.jsx';
 
 getCurrentLocation();
 await checkLocalStorage();
@@ -60,6 +60,10 @@ const router = createBrowserRouter([
         element: <Filters />,
       },
       {
+        path: '/about-us',
+        element: <AboutUsInfo />
+      },
+      {
         path: '/list-your-properties',
         element: <YourProperties />,
         loader: yourPropertiesLoader,
@@ -82,7 +86,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/about-us',
-        element: <AboutUs />,
+        element: <AboutUsInfo />,
       },
     ],
   },

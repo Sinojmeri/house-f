@@ -14,6 +14,7 @@ export default function Header() {
       { text: 'Reviews', url: 'reviews' },
       { text: 'Complaints', url: 'complaints' },
       { text: 'Help & Support', url: 'help-support' },
+      { text: 'About Us', url: 'about-us' },
       { text: 'Sign Out', url: 'sign-out' }
     ] :
     [
@@ -23,6 +24,7 @@ export default function Header() {
       { text: 'Reviews', url: 'reviews' },
       { text: 'Complaints', url: 'complaints' },
       { text: 'Help & Support', url: 'help-support' },
+      { text: 'About Us', url: 'about-us' },
       { text: 'Login', url: 'login' }
     ];
   const [visible, setVisible] = useState('hidden');
@@ -45,7 +47,7 @@ export default function Header() {
     return () => document.removeEventListener('click', handleClick);
   }, []);
 
-  
+
 
   return (
     <>
