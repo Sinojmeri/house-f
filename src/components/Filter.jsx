@@ -4,6 +4,7 @@ import 'flatpickr/dist/themes/airbnb.css';
 import '/src/comp_Styles/calendar.css';
 import { Modal } from './Modal';
 import { useModalStore } from '../stores/modalStore';
+import { DetailedFilter } from './DetailedFilter';
 const testArray = [
   'Arlindi',
   'arioni',
@@ -164,7 +165,12 @@ export default function Filter() {
             className="w-[40px] h-[40px] bg-yellow-500 p-1 rounded-xl"
           />
           <p>Filters</p>
-          <Modal isOpen={ isOpen } closeModal={ closeModal } />
+          <Modal
+            isOpen={isOpen}
+            closeModal={closeModal}
+            title={'Set your filters'}
+            description={'Find your dream property with our advanced filters.'}
+          ><DetailedFilter/></Modal>
         </div>
           
         
