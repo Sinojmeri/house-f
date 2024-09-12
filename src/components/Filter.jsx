@@ -1,8 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
 import Flatpickr from 'react-flatpickr';
 import 'flatpickr/dist/themes/airbnb.css';
 import '/src/comp_Styles/calendar.css';
+import { Modal } from './Modal';
+import { useModalStore } from '../stores/modalStore';
 const testArray = [
   'Arlindi',
   'arioni',
@@ -28,6 +29,8 @@ export default function Filter() {
   const calendarRef = useRef();
   const calendarDivRef = useRef(null);
   const [showCalendar, setShowCalendar] = useState(false);
+
+  const { isOpen, openModal, closeModal } = useModalStore();
 
   const handleChange = (v) => {
     setInputValue(v);
@@ -154,13 +157,14 @@ export default function Filter() {
             />
           </div>
         </div>
-        <div className='flex gap-2 items-center'>
+        <div className='flex gap-2 items-center cursor-pointer' onClick={openModal}>
           <img
             src="/filter.png"
             alt="Filter img"
             className="w-[40px] h-[40px] bg-yellow-500 p-1 rounded-xl"
           />
           <p>Filters</p>
+          <Modal isOpen={ isOpen } closeModal={ closeModal } />
         </div>
           
         
