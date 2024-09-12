@@ -172,7 +172,7 @@ export async function searchListings(city, startDate, endDate, buildingType,amen
   const url = new URL(`/listings/search/`, import.meta.env.VITE_API_BASE_URL);
 
   url.searchParams.set('city', city);
-
+  
   url.searchParams.set('startDate', startDate);
   url.searchParams.set('endDate', endDate);
 

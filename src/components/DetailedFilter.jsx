@@ -95,7 +95,7 @@ export function DetailedFilter() {
 
     return (
         <div className="">
-            <Form method="get" action="/">
+            <Form method="get" action="/results">
                 <p className="mt-4">
                     {`Price: ${minPrice} - ${maxPrice} €`}
                 </p>
