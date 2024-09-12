@@ -176,8 +176,14 @@ export async function searchListings(city, startDate, endDate, buildingType,amen
   url.searchParams.set('startDate', startDate);
   url.searchParams.set('endDate', endDate);
 
-  url.searchParams.set('buildingType', buildingType);
-  url.searchParams.set('amenities',amenities);
+  if(buildingType){
+    url.searchParams.set('buildingType', buildingType);
+  }
+  
+  if(amenities){
+    url.searchParams.set('amenities',amenities);
+  }
+  
 
   const response = await fetch(url, {
     method: 'GET',
