@@ -15,7 +15,7 @@ const testArray = [
 ];
 
 export default function Filter() {
-  const [inputValue, setInputValue] = useState('Search Places');
+  const [inputValue, setInputValue] = useState('Where are you going ?');
   const [filteredArray, setFilteredArray] = useState([]);
   const filterDiv = useRef();
   const filterInput = useRef();
@@ -36,8 +36,7 @@ export default function Filter() {
       setDisplayFilter('');
       const filtered = testArray.filter(
         (place) =>
-          place.trim().toLowerCase().slice(0, v.length) ===
-          v.trim().toLowerCase(),
+          place.trim().toLowerCase().slice(0, v.length) === v.trim().toLowerCase(),
       );
       setFilteredArray(filtered);
     } else {
@@ -45,13 +44,13 @@ export default function Filter() {
     }
   };
   const onFocus = () => {
-    if (inputValue === 'Search Places') {
+    if (inputValue === 'Where are you going ?') {
       setInputValue('');
     }
   };
   const onBlur = () => {
     if (inputValue === '') {
-      setInputValue('Search Places');
+      setInputValue('Where are you going ?');
     }
   };
   const handleOutsideFilter = (event) => {
@@ -60,7 +59,7 @@ export default function Filter() {
       !filterInput.current.contains(event.target)
     ) {
       setDisplayFilter('hidden');
-      setInputValue('Search Places');
+      setInputValue('Where are you going ?');
     }
   };
   useEffect(() => {
@@ -98,8 +97,8 @@ export default function Filter() {
       <p className="font-bold text-blue-600 text-2xl ml-2">
         Discover <br /> your Escape
       </p>
-      <div className="flex gap-1 p-1 justify-between items-center">
-        <div className="flex gap-1 border-2 border-gray-400 p-1 items-center w-[95%] ml-1">
+      <div className="flex md:flex-row flex-col gap-1 p-1 justify-between md:items-center">
+        <div className="flex gap-1 border-2 border-gray-400 rounded-2xl p-1 items-center w-[95%] ml-1">
           <img
             src="/icons8-search-50.png"
             alt="search_icon"
@@ -107,7 +106,7 @@ export default function Filter() {
           />
           <div className="relative w-full">
             <input
-              className="p-1 focus:outline-none items-center w-full bg-inherit "
+              className="p-1 focus:outline-none items-center w-full bg-inherit"
               value={inputValue}
               onChange={(event) => handleChange(event.target.value)}
               onFocus={onFocus}
@@ -129,12 +128,14 @@ export default function Filter() {
           </div>
         </div>
         <div className="relative">
-          <img
-            src="/calendar.png"
-            alt="calendar"
-            className="w-[40px] h-[40px] cursor-pointer"
-            onClick={handleCalendar}
-          />
+          <div className='flex gap-2 items-center cursor-pointer' onClick={handleCalendar}>
+            <img
+              src="/calendar.png"
+              alt="calendar"
+              className="w-[40px] h-[40px]"
+            />
+            <p>Check In Date- Check Out Date</p>
+          </div>
           <div
             ref={calendarDivRef}
             className={`absolute right-0 ${showCalendar ? '' : 'hidden'} z-[100]`}
@@ -153,14 +154,18 @@ export default function Filter() {
             />
           </div>
         </div>
-        <Link to={'/filters'} className="flex p-1 items-center">
+        <div className='flex gap-2 items-center'>
           <img
             src="/filter.png"
             alt="Filter img"
             className="w-[40px] h-[40px] bg-yellow-500 p-1 rounded-xl"
           />
-        </Link>
+          <p>Filters</p>
+        </div>
+          
+        
       </div>
     </div>
+
   );
 }
