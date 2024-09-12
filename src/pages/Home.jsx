@@ -47,7 +47,7 @@ export default function Home() {
           setHouseCoords={setHouseCoords}
           data = {listings}
         />
-        <MapComp houseCoords={houseCoords} setHouseCoords={setHouseCoords} />
+        {/* <MapComp houseCoords={houseCoords} setHouseCoords={setHouseCoords} /> */}
       </div>
     </>
   );
