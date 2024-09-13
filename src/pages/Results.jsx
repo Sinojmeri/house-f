@@ -1,5 +1,7 @@
 import { useLoaderData } from 'react-router-dom';
 import { searchListings } from '../controllers/listingApis';
+import { FilteredHouseCard } from '../components/FilteredHouseCard';
+import { BackButton } from '../components/BackButton';
 
 async function loader({ request }) {
   const searchParams = new URL(request.url).searchParams;
@@ -26,14 +28,16 @@ async function loader({ request }) {
   searchParams.forEach((value, key) => {
     if (!excludedKeys.includes(key)) {
       if (value === 'on') {
-        amenities.push(key);
+        amenities.push(key.replace(/_/g, ' '));
       } else {
-        amenities.push(`${key}:${value}`);
+        amenities.push(`${key.replace(/_/g, ' ')}:${value}`);
       }
     }
   });
-
-  const formattedAmenities = decodeURIComponent(amenities.join(','));
+  
+  const formattedAmenities = decodeURIComponent(amenities);
+  console.log(formattedAmenities);
+  
 
   const result = await searchListings(
     city,
@@ -49,7 +53,17 @@ export function Results() {
   const listings = useLoaderData();
   console.log(listings);
 
-  return <></>;
+  return (
+  <>
+  <BackButton />
+  <h1 className='text-3xl font-bold text-center text-gray-800 my-6'>Filter Results</h1>
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+  {listings.map((listing) => {
+   return  <FilteredHouseCard listing={listing}/>
+  })}
+  </div>
+  </>
+)
 }
 
 Results.loader = loader;
