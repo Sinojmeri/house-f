@@ -4,8 +4,9 @@ import HouseCarousel from '../components/HouseCarousel';
 import MapComp from '../components/MapComp';
 import { useEffect, useState } from 'react';
 import { searchListings } from '../controllers/listingApis';
-import { useLoaderData, useRevalidator } from 'react-router-dom';
+import { useLoaderData, useNavigate, useRevalidator } from 'react-router-dom';
 import { useLocationStore } from '../stores/location';
+import { ReserveHouseUI } from './ReserveHouseUI';
 
 async function loader({ request }) {
   // const url = new URL(request.url);
@@ -37,11 +38,14 @@ export default function Home() {
   // useEffect(() => {
   //   revalidator.revalidate();
   // },[location])
+  const navigate = useNavigate();
   return (
     <>
       <div>
         <Filter />
         <Buttons />
+        <button onClick={() => navigate('/reserveHouse')}>HOUSE UI</button>
+        
         {/* <HouseCarousel
           houseCoords={houseCoords}
           setHouseCoords={setHouseCoords}
