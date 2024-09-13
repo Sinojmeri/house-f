@@ -5,6 +5,7 @@ import '/src/comp_Styles/calendar.css';
 import { Modal } from './Modal';
 import { useModalStore } from '../stores/modalStore';
 import { DetailedFilter } from './DetailedFilter';
+
 const testArray = [
   'Arlindi',
   'arioni',
@@ -35,37 +36,44 @@ export default function Filter() {
 
   const handleChange = (v) => {
     setInputValue(v);
-    //Filtering items after user has input at least 2 characters.
+    // Filtering items after user has input at least 2 characters.
     if (v.length > 2) {
       setDisplayFilter('');
       const filtered = testArray.filter(
         (place) =>
-          place.trim().toLowerCase().slice(0, v.length) === v.trim().toLowerCase(),
+          place.trim().toLowerCase().slice(0, v.length) ===
+          v.trim().toLowerCase(),
       );
       setFilteredArray(filtered);
     } else {
       setFilteredArray([]);
     }
   };
+
   const onFocus = () => {
     if (inputValue === 'Where are you going ?') {
       setInputValue('');
     }
   };
+
   const onBlur = () => {
     if (inputValue === '') {
       setInputValue('Where are you going ?');
     }
   };
+
   const handleOutsideFilter = (event) => {
+    // Check if click is outside filter input and filter dropdown
     if (
       !filterDiv.current.contains(event.target) &&
-      !filterInput.current.contains(event.target)
+      !filterInput.current.contains(event.target) &&
+      !calendarDivRef.current.contains(event.target) &&
+      !calendarRef.current.flatpickr.calendarContainer.contains(event.target)
     ) {
       setDisplayFilter('hidden');
-      setInputValue('Where are you going ?');
     }
   };
+
   useEffect(() => {
     document.addEventListener('click', handleOutsideFilter);
     return () => {
@@ -73,7 +81,7 @@ export default function Filter() {
     };
   }, []);
 
-  //Calendar show function
+  // Calendar show function
   const handleCalendar = (event) => {
     event.stopPropagation();
     setShowCalendar(true);
@@ -81,7 +89,9 @@ export default function Filter() {
       calendarRef.current.flatpickr.open();
     }, 0);
   };
+
   const handleClickOutside = (event) => {
+    // Close calendar if clicked outside
     if (
       !calendarDivRef.current.contains(event.target) &&
       !calendarRef.current.flatpickr.calendarContainer.contains(event.target)
@@ -89,6 +99,7 @@ export default function Filter() {
       setShowCalendar(false);
     }
   };
+
   useEffect(() => {
     document.addEventListener('click', handleClickOutside);
     return () => {
@@ -132,7 +143,10 @@ export default function Filter() {
           </div>
         </div>
         <div className="relative">
-          <div className='flex gap-2 items-center cursor-pointer' onClick={handleCalendar}>
+          <div
+            className="flex gap-2 items-center cursor-pointer"
+            onClick={handleCalendar}
+          >
             <img
               src="/calendar.png"
               alt="calendar"
@@ -158,7 +172,10 @@ export default function Filter() {
             />
           </div>
         </div>
-        <div className='flex gap-2 items-center cursor-pointer' onClick={openModal}>
+        <div
+          className="flex gap-2 items-center cursor-pointer"
+          onClick={openModal}
+        >
           <img
             src="/filter.png"
             alt="Filter img"
@@ -170,12 +187,11 @@ export default function Filter() {
             closeModal={closeModal}
             title={'Set your filters'}
             description={'Find your dream property with our advanced filters.'}
-          ><DetailedFilter/></Modal>
+          >
+            <DetailedFilter inputValue={inputValue} dateRange={dateRange} />
+          </Modal>
         </div>
-          
-        
       </div>
     </div>
-
   );
 }
