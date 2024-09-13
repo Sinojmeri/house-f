@@ -60,16 +60,16 @@ export function DetailedFilter({ inputValue, dateRange }) {
     Secure_parking: false,
     Number_of_Bathrooms: 1,
   });
-  const [propertyType, setPropertyType] = useState('house');
+  const [propertyType, setPropertyType] = useState('House');
 
   const amenities =
-    propertyType === 'house'
+    propertyType === 'House'
       ? houseAmenities
-      : propertyType === 'hotel'
+      : propertyType === 'Hotel'
         ? hotelAmenities
-        : propertyType === 'villa'
+        : propertyType === 'Villa'
           ? villasAmenities
-          : propertyType === 'office'
+          : propertyType === 'Office'
             ? officeAmenities
             : {};
 
@@ -77,16 +77,16 @@ export function DetailedFilter({ inputValue, dateRange }) {
     const { name, checked, value, type } = e.target;
     const newValue = type === 'number' ? +value : checked;
     switch (amenityType) {
-      case 'house':
+      case 'House':
         setHouseAmenities((prev) => ({ ...prev, [name]: newValue }));
         break;
-      case 'hotel':
+      case 'Hotel':
         setHotelAmenities((prev) => ({ ...prev, [name]: newValue }));
         break;
-      case 'villa':
+      case 'Villa':
         setVillasAmenities((prev) => ({ ...prev, [name]: newValue }));
         break;
-      case 'office':
+      case 'Office':
         setOfficeAmenities((prev) => ({ ...prev, [name]: newValue }));
         break;
       default:
@@ -136,10 +136,10 @@ export function DetailedFilter({ inputValue, dateRange }) {
             className="w-full p-2 border rounded"
           >
             {/* <option value="" >Select a property type</option> */}
-            <option value="house">House</option>
-            <option value="hotel">Hotel</option>
-            <option value="villa">Villa</option>
-            <option value="office">Office</option>
+            <option value="House">House</option>
+            <option value="Hotel">Hotel</option>
+            <option value="Villa">Villa</option>
+            <option value="Office">Office</option>
           </select>
         </div>
         {/* Amenities according to property type */}

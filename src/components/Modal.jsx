@@ -1,6 +1,5 @@
 import PropTypes from 'prop-types';
 import { Dialog } from '@headlessui/react';
-import { DetailedFilter } from './DetailedFilter';
 
 export function Modal({ isOpen, closeModal, title, description, children }) {
 
@@ -23,5 +22,8 @@ export function Modal({ isOpen, closeModal, title, description, children }) {
 
 Modal.propTypes = {
     isOpen: PropTypes.bool,
-    closeModal: PropTypes.func
+    closeModal: PropTypes.func,
+    title: PropTypes.string,
+    description: PropTypes.string,
+    children: PropTypes.node.isRequired,
 }

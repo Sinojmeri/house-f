@@ -18,9 +18,6 @@ async function loader({ request }) {
   const startDateMs = startDate.getTime();
   const endDateMs = endDate.getTime();
 
-  console.log('Start Date in milliseconds:', startDateMs);
-  console.log('End Date in milliseconds:', endDateMs);
-
   const buildingType = searchParams.get('propertyType');
 
   const excludedKeys = ['city', 'date', 'minPrice', 'maxPrice', 'propertyType'];
@@ -38,15 +35,19 @@ async function loader({ request }) {
 
   const formattedAmenities = decodeURIComponent(amenities.join(','));
 
-  const result = await searchListings(city,startDateMs,endDateMs,buildingType,formattedAmenities);
+  const result = await searchListings(
+    city,
+    startDateMs,
+    endDateMs,
+    buildingType,
+    formattedAmenities,
+  );
   return result;
 }
 
 export function Results() {
   const listings = useLoaderData();
   console.log(listings);
-  
-  // console.log(searchParams);
 
   return <></>;
 }
