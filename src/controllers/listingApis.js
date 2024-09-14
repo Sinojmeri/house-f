@@ -125,7 +125,7 @@ export async function getOneListing(listingId) {
 
 export async function getOneListingWithoutAuth(listingId) {
   const response = await fetch(
-    `${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`,
+    `${import.meta.env.VITE_API_BASE_URL}/listings/noauth/${listingId}`,
     {
       method: 'GET',
       headers: {
