@@ -34,10 +34,10 @@ async function loader({ request }) {
       }
     }
   });
-  
+
   const formattedAmenities = amenities.join(',');
   console.log(`Formatted Amenities: ${formattedAmenities}`);
-  
+
   const result = await searchListings(
     city,
     startDateMs,
@@ -53,16 +53,16 @@ export function Results() {
   console.log(listings);
 
   return (
-  <>
-  <BackButton />
-  <h1 className='text-3xl font-bold text-center text-gray-800 my-6'>Filter Results</h1>
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
-  {listings.map((listing) => {
-   return  <FilteredHouseCard listing={listing}/>
-  })}
-  </div>
-  </>
-)
+    <>
+      <BackButton />
+      <h1 className='text-3xl font-bold text-center text-gray-800 my-6'>Filter Results</h1>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+        {listings.map((listing) => {
+          return <FilteredHouseCard listing={listing} key={listing._id} />
+        })}
+      </div>
+    </>
+  )
 }
 
 Results.loader = loader;

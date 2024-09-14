@@ -49,8 +49,9 @@ const router = createBrowserRouter([
         loader: Results.loader
       },
       {
-        path: '/reserveHouse',
-        element: <ReserveHouseUI/>
+        path: '/results/:id',
+        element: <ReserveHouseUI />,
+        loader: ReserveHouseUI.loader
       },
       {
         path: '/notifications',

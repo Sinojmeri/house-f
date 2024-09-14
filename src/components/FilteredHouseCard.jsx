@@ -1,4 +1,6 @@
 // FilteredHouseCard.jsx
+import { Link } from "react-router-dom";
+
 export function FilteredHouseCard({ listing }) {
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 w-[300px]">
@@ -32,9 +34,9 @@ export function FilteredHouseCard({ listing }) {
           <span className="font-medium text-gray-700">Price: </span>
           {listing.price} €
         </p>
+        <p className="mt-5 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold text-center py-2 px-4 rounded-md cursor-pointer"><Link to={`${listing._id}`}>Reserve</Link></p>
       </div>
 
-      <button className="mt-4 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md shadow-md transition duration-200 ease-in-out">Reserve</button>
     </div>
   );
 }
