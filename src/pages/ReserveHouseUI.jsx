@@ -1,4 +1,4 @@
-import { useLoaderData, useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate, useRouteLoaderData } from "react-router-dom";
 import { BackButton } from "../components/BackButton";
 import {
     Carousel,
@@ -16,10 +16,12 @@ import { makeReservation } from "../controllers/reservationApis";
 
 const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
-async function loader({ params }) {
+async function loader({ params, request }) {
     const id = params.id
-    const listing = await getOneListingWithoutAuth(id)
+    const listing = await getOneListingWithoutAuth(id);
+    console.log(request);
     return listing;
+    
 }
 
 export function ReserveHouseUI() {

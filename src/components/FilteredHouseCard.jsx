@@ -1,7 +1,10 @@
 // FilteredHouseCard.jsx
-import { Link } from "react-router-dom";
+import { Link, useRouteLoaderData } from "react-router-dom";
 
 export function FilteredHouseCard({ listing }) {
+  const { startDateMs, endDateMs } = useRouteLoaderData('search');
+  console.log(startDateMs, endDateMs);
+
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 w-[300px]">
       <img
@@ -34,7 +37,9 @@ export function FilteredHouseCard({ listing }) {
           <span className="font-medium text-gray-700">Price: </span>
           {listing.price} €
         </p>
-        <p className="mt-5 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold text-center py-2 px-4 rounded-md cursor-pointer"><Link to={`${listing._id}`}>Reserve</Link></p>
+        <p className="mt-5 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold text-center py-2 px-4 rounded-md cursor-pointer">
+          <Link to={`${listing._id}?startDateMs=${startDateMs}&endDateMs=${endDateMs}`}>Reserve</Link>
+        </p>
       </div>
 
     </div>
