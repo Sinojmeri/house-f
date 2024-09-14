@@ -8,7 +8,6 @@ import { useLoaderData, useNavigate, useRevalidator } from 'react-router-dom';
 import { useLocationStore } from '../stores/location';
 import { ReserveHouseUI } from './ReserveHouseUI';
 
-
 async function loader({ request }) {
   // const url = new URL(request.url);
   // const city = url.searchParams.get('city') || 'Elbasan';
@@ -46,6 +45,7 @@ export default function Home() {
         <Filter />
         <Buttons />
         <button onClick={() => navigate('/reserveHouse')}>HOUSE UI</button>
+        
         {/* <HouseCarousel
           houseCoords={houseCoords}
           setHouseCoords={setHouseCoords}

@@ -18,7 +18,7 @@ const testArray = [
 ];
 
 export default function Filter() {
-  const { inputValue, setInputValue, dateRange, setDateRange } = useCity_dateStore();
+  const [inputValue, setInputValue] = useState('Where are you going ?');
   const [filteredArray, setFilteredArray] = useState([]);
   const filterDiv = useRef();
   const filterInput = useRef();
@@ -27,7 +27,7 @@ export default function Filter() {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
-  const [calendarDateRange, setCalendarDateRange] = useState([today, tomorrow]);
+  const [dateRange, setDateRange] = useState([today, tomorrow]);
   const calendarRef = useRef();
   const calendarDivRef = useRef(null);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -55,11 +55,13 @@ export default function Filter() {
       setInputValue('');
     }
   };
+
   const onBlur = () => {
     if (inputValue === '') {
       setInputValue('Where are you going ?');
     }
   };
+
   const handleOutsideFilter = (event) => {
     // Check if click is outside filter input and filter dropdown
     if (
@@ -78,7 +80,6 @@ export default function Filter() {
       document.removeEventListener('click', handleOutsideFilter);
     };
   }, []);
-console.log(dateRange, inputValue);
 
   // Calendar show function
   const handleCalendar = (event) => {
@@ -124,6 +125,7 @@ console.log(dateRange, inputValue);
               value={inputValue}
               onChange={(event) => handleChange(event.target.value)}
               onFocus={onFocus}
+              onBlur={onBlur}
               ref={filterInput}
             />
             <div
@@ -158,10 +160,7 @@ console.log(dateRange, inputValue);
           >
             <Flatpickr
               ref={calendarRef}
-              onChange={(range) => {
-                setCalendarDateRange(range);
-                setDateRange(range); 
-              }}
+              onChange={setDateRange}
               options={{
                 minDate: today,
                 defaultDate: dateRange,

@@ -1,4 +1,3 @@
-
 import { useLoaderData } from 'react-router-dom';
 import { searchListings } from '../controllers/listingApis';
 import { FilteredHouseCard } from '../components/FilteredHouseCard';
