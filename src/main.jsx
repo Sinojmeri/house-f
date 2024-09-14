@@ -19,6 +19,7 @@ import { checkLocalStorage } from './utils/localStorageUtil.js';
 import { ErrorBoundary } from './components/Error.jsx';
 import NewHouse from './components/NewHouse.jsx';
 import { ManageYourProperty } from './pages/ManageProperties.jsx';
+import { HouseDetails } from './pages/HouseDetails.jsx';
 import { EditHouse } from './pages/EditHouse.jsx';
 import { Results } from './pages/Results.jsx';
 import AboutUsInfo from './pages/AboutUsInfo.jsx';
@@ -34,6 +35,16 @@ const router = createBrowserRouter([
     element: <App />,
     errorElement: <ErrorBoundary />,
     children: [
+      {
+        path: '/properties/:propertyId',
+        element: <HouseDetails />,
+        loader: HouseDetails.loader
+      },
+      {
+        path: '/results',
+        element: <Results />,
+        loader: Results.loader
+      },
       {
         path: '/properties/:propertyId/edit',
         element: <EditHouse />,
