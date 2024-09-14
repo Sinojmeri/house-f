@@ -181,7 +181,10 @@ export async function searchListings(city, startDate, endDate, buildingType,amen
   }
   
   if(amenities){
-    url.searchParams.set('amenities',amenities);
+    for (const amenity of amenities){
+      url.searchParams.append('amenities',amenity);
+    }
+    
   }
   
 
