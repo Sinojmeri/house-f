@@ -22,6 +22,7 @@ import { ManageYourProperty } from './pages/ManageProperties.jsx';
 import { EditHouse } from './pages/EditHouse.jsx';
 import { Results } from './pages/Results.jsx';
 import AboutUsInfo from './pages/AboutUsInfo.jsx';
+import { Results } from './pages/Results.jsx';
 import { ReserveHouseUI } from './pages/ReserveHouseUI.jsx';
 
 getCurrentLocation();
