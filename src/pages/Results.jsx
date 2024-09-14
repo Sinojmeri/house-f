@@ -35,16 +35,15 @@ async function loader({ request }) {
     }
   });
   
-  const formattedAmenities = decodeURIComponent(amenities);
-  console.log(formattedAmenities);
+  const formattedAmenities = amenities.join(',');
+  console.log(`Formatted Amenities: ${formattedAmenities}`);
   
-
   const result = await searchListings(
     city,
     startDateMs,
     endDateMs,
     buildingType,
-    formattedAmenities,
+    amenities,
   );
   return result;
 }
