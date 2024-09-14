@@ -9,10 +9,8 @@ export function Modal({ isOpen, closeModal, title, description, children }) {
                 <Dialog.Title className="text-lg font-bold">{title}</Dialog.Title>
                 <Dialog.Description className="mt-2">
                     {description}
-                    {/* Find your dream property with our advanced filters. */}
                 </Dialog.Description>
 
-                {/* <DetailedFilter /> */}
                 {children}
                 
             </Dialog.Panel>
