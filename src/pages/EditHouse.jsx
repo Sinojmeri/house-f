@@ -2,6 +2,7 @@ import { useLoaderData, useNavigate } from "react-router-dom";
 import { getOneListing } from "../controllers/listingApis";
 import { useState } from "react";
 import { updateListing } from "../controllers/listingApis";
+import { BackButton } from "../components/BackButton";
 async function loader({ params }) {
     const id = params.propertyId;
     const property = await getOneListing(id);
@@ -27,6 +28,7 @@ export function EditHouse() {
     const navigate = useNavigate();
     return (
         <div>
+            <BackButton />
             <div className="my-2">
                 <p className="underline">House Title</p>
                 <input className="rounded-md text-2xl text-blue-500 border-2 p-1" name="title" value={fieldValues.title} onChange={handleFieldData} />
