@@ -46,7 +46,8 @@ const router = createBrowserRouter([
       {
         path: '/results',
         element: <Results />,
-        loader: Results.loader
+        loader: Results.loader,
+        id: 'search'
       },
       {
         path: '/results/:id',

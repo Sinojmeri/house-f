@@ -1,4 +1,4 @@
-import { useLoaderData } from 'react-router-dom';
+import { Outlet, useLoaderData } from 'react-router-dom';
 import { searchListings } from '../controllers/listingApis';
 import { FilteredHouseCard } from '../components/FilteredHouseCard';
 import { BackButton } from '../components/BackButton';
@@ -45,11 +45,11 @@ async function loader({ request }) {
     buildingType,
     amenities,
   );
-  return result;
+  return { result, startDateMs, endDateMs };
 }
 
 export function Results() {
-  const listings = useLoaderData();
+  const { result: listings } = useLoaderData();
   console.log(listings);
 
   return (
