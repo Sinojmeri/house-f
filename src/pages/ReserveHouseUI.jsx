@@ -1,4 +1,5 @@
-import { useNavigate } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
+import { BackButton } from "../components/BackButton";
 import {
     Carousel,
     CarouselContent,
@@ -10,23 +11,30 @@ import Autoplay from 'embla-carousel-autoplay';
 import { mapId } from "../components/MapComp";
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { useLocationStore } from '../stores/location';
-// const listing = results 
-// const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
+import { getOneListingWithoutAuth } from "../controllers/listingApis";
+import { makeReservation } from "../controllers/reservationApis";
+
+const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
+
+async function loader({ params }) {
+    const id = params.id
+    const listing = await getOneListingWithoutAuth(id)
+    return listing;
+}
+
 export function ReserveHouseUI() {
+    const listing = useLoaderData();
+    console.log(listing);
+
     const navigate = useNavigate();
     return (
         <div>
-            <img
-                src="./back-button.png"
-                alt="Back button"
-                className="w-[30px] h-[30px] cursor-pointer"
-                onClick={() => navigate('/')}
-            />
+            <BackButton/>
             <div className="flex flex-col items-center">
                 <img src="/homeUI icon.png" alt="House PIC" className="w-[100px] h-[100px]" />
-                <h1>{`House Title`}</h1>{/* {listing.title} */}
-                <h2>{`House Address`}</h2>{/* {listing.address} */}
-                {/* listing.price */}<h2>{`House Price: €`}</h2>
+                <h1 className="font-bold text-xl">{`${listing.title}`}</h1>
+                <h2>{`${listing.address}`}</h2>
+                <h2 className="text-lg text-red-600 font-bold">{`${listing.price}: €`}</h2>
             </div>
             <div className="my-2">
                 {/* <Carousel
@@ -53,15 +61,37 @@ export function ReserveHouseUI() {
                 </Carousel> */}
             </div>
 
-            {/* Calendar div */}
-            <div className="flex my-2 ml-3 flex-col gap-4">
-                <p>{`Check In Date:`}</p>
-                <p>{`Check Out Date:`}</p>
-            </div>
-            {/* Map Div */}
-            <div className="my-2">
 
+            {/* Map Div */}
+            <div className="my-2 h-[500px]">
+                <APIProvider apiKey={API_Key}>
+
+                    <Map
+                        defaultCenter={{ lat: listing.coordinates[0], lng: listing.coordinates[1] }}
+                        defaultZoom={15}
+                        mapId={mapId}
+                        mapTypeId="roadmap"
+                        streetViewControl={false}
+                        mapTypeControl={false}
+                        gestureHandling={'greedy'}
+                        zoomControl={false}
+                        className="w-full h-full"
+                    >
+                        <AdvancedMarker position={{ lat: listing.coordinates[0], lng: listing.coordinates[1] }}>
+                            <img src="/home_map_icon.png" width={32} height={32} />
+                        </AdvancedMarker>
+                    </Map>
+                </APIProvider>
             </div>
+            <div className="flex justify-center">
+                <button className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1" onClick={async () => {
+                    await makeReservation(listing.id)
+                    navigate
+                }}>Book</button>
+            </div>
+
         </div >
     )
 }
+
+ReserveHouseUI.loader = loader
