@@ -123,6 +123,25 @@ export async function getOneListing(listingId) {
   return result;
 }
 
+export async function getOneListingWithoutAuth(listingId) {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const result = await response.json();
+  return result;
+}
+
 export async function updateListing(listingId, { title, address, price }) {
   const { token } = useAuthStore.getState();
   const response = await fetch(
