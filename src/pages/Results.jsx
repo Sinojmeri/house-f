@@ -1,4 +1,4 @@
-import { Outlet, useLoaderData } from 'react-router-dom';
+import { useLoaderData } from 'react-router-dom';
 import { searchListings } from '../controllers/listingApis';
 import { FilteredHouseCard } from '../components/FilteredHouseCard';
 import { BackButton } from '../components/BackButton';
@@ -20,6 +20,15 @@ async function loader({ request }) {
   const startDateMs = startDate.getTime();
   const endDateMs = endDate.getTime();
 
+  const minPrice = searchParams.get('minPrice');
+  const maxPrice = searchParams.get('maxPrice');
+
+  const minPriceParsed = parseInt(minPrice);
+  const maxPriceParsed = parseInt(maxPrice);
+
+  const nrOfRooms = searchParams.get('nrOfRooms');
+  const nrOfBeds = searchParams.get('nrOfBeds');
+
   const buildingType = searchParams.get('propertyType');
 
   const excludedKeys = ['city', 'date', 'minPrice', 'maxPrice', 'propertyType'];
@@ -35,14 +44,15 @@ async function loader({ request }) {
     }
   });
 
-  const formattedAmenities = amenities.join(',');
-  console.log(`Formatted Amenities: ${formattedAmenities}`);
-
   const result = await searchListings(
     city,
     startDateMs,
     endDateMs,
+    minPriceParsed,
+    maxPriceParsed,
     buildingType,
+    nrOfRooms,
+    nrOfBeds,
     amenities,
   );
   return { result, startDateMs, endDateMs };
@@ -50,7 +60,6 @@ async function loader({ request }) {
 
 export function Results() {
   const { result: listings } = useLoaderData();
-  console.log(listings);
 
   return (
     <>
