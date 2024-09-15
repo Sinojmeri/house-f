@@ -19,19 +19,25 @@ const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 async function loader({ params, request }) {
     const id = params.id
     const listing = await getOneListingWithoutAuth(id);
-    console.log(request);
-    return listing;
+    const url = new URL(request.url);
+    const dateRange = new URLSearchParams(url.search);
+    const startDate = dateRange.get('startDateMs');
+    const endDate = dateRange.get('endDateMs');
     
+    return { listing, startDate, endDate };
+
 }
 
 export function ReserveHouseUI() {
-    const listing = useLoaderData();
-    console.log(listing);
+    const { listing, startDate, endDate } = useLoaderData();
+    const checkIn = new Date(Number(startDate));
+    const checkOut = new Date(Number(endDate));
+    // console.log(listing);
 
     const navigate = useNavigate();
     return (
         <div>
-            <BackButton/>
+            <BackButton />
             <div className="flex flex-col items-center">
                 <img src="/homeUI icon.png" alt="House PIC" className="w-[100px] h-[100px]" />
                 <h1 className="font-bold text-xl">{`${listing.title}`}</h1>
@@ -62,7 +68,10 @@ export function ReserveHouseUI() {
                     <CarouselNext />
                 </Carousel> */}
             </div>
-
+            <div className="flex flex-col gap-2">
+                <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check In Date: ${checkIn.toDateString()}`}</p>
+                <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check Out Date: ${checkOut.toDateString()}`}</p>
+            </div>
 
             {/* Map Div */}
             <div className="my-2 h-[500px]">
@@ -87,8 +96,10 @@ export function ReserveHouseUI() {
             </div>
             <div className="flex justify-center">
                 <button className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1" onClick={async () => {
-                    await makeReservation(listing.id)
-                    navigate
+                    const test = await makeReservation(listing.id, startDate, endDate);
+                    console.log(test);
+                    
+                    // navigate
                 }}>Book</button>
             </div>
 
