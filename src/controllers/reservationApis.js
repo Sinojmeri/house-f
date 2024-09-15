@@ -1,6 +1,9 @@
 import { useAuthStore } from '../stores/authStore';
+import { UnauthorizedError } from '../utils/Errors';
 
 export async function makeReservation(listingId, startDate, endDate) {
+  console.log(useAuthStore.getState());
+  
   const { token } = useAuthStore.getState();
 
   const response = await fetch(
@@ -19,7 +22,7 @@ export async function makeReservation(listingId, startDate, endDate) {
   );
 
   if (!response.ok){
-    throw new Error();
+    throw new UnauthorizedError();
   }
 
   const result = await response.json();
