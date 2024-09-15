@@ -96,9 +96,7 @@ export function ReserveHouseUI() {
             </div>
             <div className="flex justify-center">
                 <button className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1" onClick={async () => {
-                    const test = await makeReservation(listing.id, startDate, endDate);
-                    console.log(test);
-                    
+                    const test = await makeReservation(listing._id, startDate, endDate);
                     // navigate
                 }}>Book</button>
             </div>
