@@ -8,18 +8,15 @@ async function loader({ request }) {
 
   const city = searchParams.get('city');
   const date = searchParams.get('date');
-
   const date_split = date.split(',');
 
   const startDate = new Date(date_split[0].trim());
   const endDate = new Date(date_split[1].trim());
+  
 
-  startDate.setUTCHours(0, 0, 0, 0);
-  endDate.setUTCHours(0, 0, 0, 0);
-
-  const startDateMs = startDate.getTime();
-  const endDateMs = endDate.getTime();
-
+  const startDateMs = Math.floor(startDate.getTime() / 1000);
+  const endDateMs = Math.floor(endDate.getTime() / 1000);
+  
   const minPrice = searchParams.get('minPrice');
   const maxPrice = searchParams.get('maxPrice');
 
@@ -31,15 +28,13 @@ async function loader({ request }) {
 
   const buildingType = searchParams.get('propertyType');
 
-  const excludedKeys = ['city', 'date', 'minPrice', 'maxPrice', 'propertyType'];
+  const excludedKeys = ['city', 'date', 'minPrice', 'maxPrice','nrOfRooms','nrOfBeds', 'propertyType'];
 
   const amenities = [];
   searchParams.forEach((value, key) => {
     if (!excludedKeys.includes(key)) {
       if (value === 'on') {
         amenities.push(key.replace(/_/g, ' '));
-      } else {
-        amenities.push(`${key.replace(/_/g, ' ')}:${value}`);
       }
     }
   });

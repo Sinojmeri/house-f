@@ -4,8 +4,8 @@ import { useModalStore } from '../stores/modalStore';
 
 export function DetailedFilter({ inputValue, dateRange }) {
   const { closeModal } = useModalStore();
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(10);
+  const [maxPrice, setMaxPrice] = useState(10000);
   const [nrOfRooms, setNrOfRooms] = useState(0);
   const [nrOfBeds, setNrOfBeds] = useState(0);
 
