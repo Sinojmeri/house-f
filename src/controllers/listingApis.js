@@ -187,7 +187,17 @@ export async function getAllNearListing(lat, long) {
   return result;
 }
 
-export async function searchListings(city, startDate, endDate, buildingType,amenities) {
+export async function searchListings(
+  city,
+  startDate,
+  endDate,
+  minPrice,
+  maxPrice,
+  buildingType,
+  nrOfRooms,
+  nrOfBeds,
+  amenities,
+) {
   const url = new URL(`/listings/search/`, import.meta.env.VITE_API_BASE_URL);
 
   url.searchParams.set('city', city);
@@ -195,18 +205,24 @@ export async function searchListings(city, startDate, endDate, buildingType,amen
   url.searchParams.set('startDate', startDate);
   url.searchParams.set('endDate', endDate);
 
-  if(buildingType){
-    url.searchParams.set('buildingType', buildingType);
+  url.searchParams.set('minPrice', minPrice);
+  url.searchParams.set('maxPrice', maxPrice);
+
+  url.searchParams.set('buildingType', buildingType);
+
+  if (nrOfRooms && nrOfBeds) {
+    url.searchParams.set('nrOfRooms', nrOfRooms);
+    url.searchParams.set('nrOfBeds', nrOfBeds);
   }
-  
-  if(amenities){
-    for (const amenity of amenities){
-      url.searchParams.append('amenities',amenity);
+
+  if (amenities) {
+    for (const amenity of amenities) {
+      url.searchParams.append('amenities', amenity);
     }
-    
   }
   
 
+  
   const response = await fetch(url, {
     method: 'GET',
     headers: {

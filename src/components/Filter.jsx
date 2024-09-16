@@ -5,6 +5,7 @@ import '/src/comp_Styles/calendar.css';
 import { Modal } from './Modal';
 import { useModalStore } from '../stores/modalStore';
 import { DetailedFilter } from './DetailedFilter';
+import { DateTime } from 'luxon';
 
 const testArray = [
   'Arlindi',
@@ -27,7 +28,18 @@ export default function Filter() {
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
-  const [dateRange, setDateRange] = useState([today, tomorrow]);
+  const [dateRange] = useState([today, tomorrow]);
+  const [startDate, setStartDate] = useState();
+  const ds = DateTime.fromJSDate(startDate)
+    .setZone('utc', { keepLocalTime: true })
+    .toMillis();
+
+  
+  const [endDate, setEndDate] = useState();
+  const de = DateTime.fromJSDate(endDate)
+    .setZone('utc', { keepLocalTime: true })
+    .toMillis();
+    
   const calendarRef = useRef();
   const calendarDivRef = useRef(null);
   const [showCalendar, setShowCalendar] = useState(false);
@@ -160,7 +172,10 @@ export default function Filter() {
           >
             <Flatpickr
               ref={calendarRef}
-              onChange={setDateRange}
+              onChange={(range) => {
+                setStartDate(range[0]);
+                setEndDate(range[1]);
+              }}
               options={{
                 minDate: today,
                 defaultDate: dateRange,
@@ -188,7 +203,11 @@ export default function Filter() {
             title={'Set your filters'}
             description={'Find your dream property with our advanced filters.'}
           >
-            <DetailedFilter inputValue={inputValue} dateRange={dateRange} />
+            <DetailedFilter
+              inputValue={inputValue}
+              startDate={ds}
+              endDate={de}
+            />
           </Modal>
         </div>
       </div>

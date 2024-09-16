@@ -1,11 +1,14 @@
 import { Form } from 'react-router-dom';
 import { useState } from 'react';
 import { useModalStore } from '../stores/modalStore';
+import PropTypes from 'prop-types';
 
-export function DetailedFilter({ inputValue, dateRange }) {
+export function DetailedFilter({ inputValue, startDate, endDate }) {
   const { closeModal } = useModalStore();
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState(10);
+  const [maxPrice, setMaxPrice] = useState(10000);
+  const [nrOfRooms, setNrOfRooms] = useState(0);
+  const [nrOfBeds, setNrOfBeds] = useState(0);
 
   const [houseAmenities, setHouseAmenities] = useState({
     Netflix: false,
@@ -27,8 +30,6 @@ export function DetailedFilter({ inputValue, dateRange }) {
     Rooftop_pool: false,
     Private_beach_access: false,
     In_room_dining: false,
-    Number_of_Beds: 1,
-    Number_of_Rooms: 1,
   });
   const [villasAmenities, setVillasAmenities] = useState({
     Private_pool: false,
@@ -43,8 +44,6 @@ export function DetailedFilter({ inputValue, dateRange }) {
     Personal_chef: false,
     Guest_house: false,
     Panoramic_View: false,
-    Number_of_Bathrooms: 1,
-    Number_of_Rooms: 1,
   });
   const [officeAmenities, setOfficeAmenities] = useState({
     Meeting_rooms: false,
@@ -58,7 +57,6 @@ export function DetailedFilter({ inputValue, dateRange }) {
     Café_or_restaurant: false,
     Rooftop_terrace: false,
     Secure_parking: false,
-    Number_of_Bathrooms: 1,
   });
   const [propertyType, setPropertyType] = useState('House');
 
@@ -98,8 +96,9 @@ export function DetailedFilter({ inputValue, dateRange }) {
     <div className="">
       <Form method="get" action="/results">
         <input type="hidden" name="city" value={inputValue} />
-        <input type="hidden" name="date" value={dateRange} />
-        
+        <input type="hidden" name="startDate" value={startDate} />
+        <input type="hidden" name="endDate" value={endDate} />
+
         <p className="mt-4">{`Price: ${minPrice} - ${maxPrice} €`}</p>
         {/* Min and Max Price Fields */}
         <div className="mt-4">
@@ -143,12 +142,35 @@ export function DetailedFilter({ inputValue, dateRange }) {
           </select>
         </div>
         {/* Amenities according to property type */}
-        {propertyType && (
-          <div className="mt-4">
-            <label className="block">Property Amenities</label>
-            <div className="grid grid-cols-2 gap-2">
-              {Object.keys(amenities).map((amenity) =>
-                typeof amenities[amenity] === 'boolean' ? (
+        {(propertyType === 'Hotel' || propertyType === 'Villa') ? (
+          <>
+            <div className="flex flex-col gap-2 mt-4">
+              <div className="flex flex-row gap-3">
+                <label>Number Of Rooms:</label>
+                <input
+                  type="number"
+                  name="nrOfRooms"
+                  value={nrOfRooms}
+                  className="w-[80px] border-2 border-gray-200 rounded-lg"
+                  onChange={(e) => setNrOfRooms(e.target.value)}
+                />
+              </div>
+
+              <div className="flex flex-row gap-6">
+                <label>Number Of Beds:</label>
+                <input
+                  type="number"
+                  name="nrOfBeds"
+                  value={nrOfBeds}
+                  className="w-[80px] border-2 border-gray-200 rounded-lg"
+                  onChange={(e) => setNrOfBeds(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="mt-4">
+              <label className="block">Property Amenities</label>
+              <div className="grid grid-cols-2 gap-2">
+                {Object.keys(amenities).map((amenity) => (
                   <div key={amenity} className="flex items-center">
                     <input
                       type="checkbox"
@@ -158,22 +180,27 @@ export function DetailedFilter({ inputValue, dateRange }) {
                     />
                     <label className="ml-2">{amenity.replace(/_/g, ' ')}</label>
                   </div>
-                ) : (
-                  <div key={amenity} className="flex items-center gap-1">
-                    <label className="ml-2">{amenity.replace(/_/g, ' ')}</label>
-                    <input
-                      type="number"
-                      name={amenity}
-                      value={amenities[amenity]}
-                      className="w-[40px] border-2 border-gray-200 rounded-lg"
-                      onChange={(e) => handleAmenityChange(e, propertyType)}
-                    />
-                  </div>
-                ),
-              )}
+                ))}
+              </div>
             </div>
-          </div>
-        )}
+          </>
+        ): <div className="mt-4">
+        <label className="block">Property Amenities</label>
+        <div className="grid grid-cols-2 gap-2">
+          {Object.keys(amenities).map((amenity) => (
+            <div key={amenity} className="flex items-center">
+              <input
+                type="checkbox"
+                name={amenity}
+                checked={amenities[amenity]}
+                onChange={(e) => handleAmenityChange(e, propertyType)}
+              />
+              <label className="ml-2">{amenity.replace(/_/g, ' ')}</label>
+            </div>
+          ))}
+        </div>
+      </div>}
+
         <div className="mt-6 flex justify-end space-x-2">
           <button
             type="submit"
@@ -192,4 +219,10 @@ export function DetailedFilter({ inputValue, dateRange }) {
       </Form>
     </div>
   );
+}
+
+DetailedFilter.propTypes = {
+  inputValue: PropTypes.string,
+  startDate: PropTypes.object,
+  endDate: PropTypes.object
 }
