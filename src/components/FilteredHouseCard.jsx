@@ -1,9 +1,8 @@
-// FilteredHouseCard.jsx
 import { Link, useRouteLoaderData } from "react-router-dom";
+import PropTypes from 'prop-types';
 
 export function FilteredHouseCard({ listing }) {
-  const { startDateMs, endDateMs } = useRouteLoaderData('search');
-  console.log(startDateMs, endDateMs);
+  const { startDate, endDate } = useRouteLoaderData('search');
 
   return (
     <div className="bg-white shadow-lg rounded-lg p-4 w-[300px]">
@@ -38,10 +37,20 @@ export function FilteredHouseCard({ listing }) {
           {listing.price} €
         </p>
         <p className="mt-5 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold text-center py-2 px-4 rounded-md cursor-pointer">
-          <Link to={`${listing._id}?startDateMs=${startDateMs}&endDateMs=${endDateMs}`}>Reserve</Link>
+          <Link to={`${listing._id}?startDateMs=${startDate}&endDateMs=${endDate}`}>Reserve</Link>
         </p>
       </div>
 
     </div>
   );
+}
+
+FilteredHouseCard.propTypes = {
+  listing: PropTypes.object,
+  title: PropTypes.string,
+  address: PropTypes.string,
+  buildingType: PropTypes.string,
+  amenities: PropTypes.arrayOf(PropTypes.string),
+  price: PropTypes.number,
+  listing_id: PropTypes.string,
 }

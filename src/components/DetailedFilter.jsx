@@ -1,8 +1,9 @@
 import { Form } from 'react-router-dom';
 import { useState } from 'react';
 import { useModalStore } from '../stores/modalStore';
+import PropTypes from 'prop-types';
 
-export function DetailedFilter({ inputValue, dateRange }) {
+export function DetailedFilter({ inputValue, startDate, endDate }) {
   const { closeModal } = useModalStore();
   const [minPrice, setMinPrice] = useState(10);
   const [maxPrice, setMaxPrice] = useState(10000);
@@ -95,7 +96,8 @@ export function DetailedFilter({ inputValue, dateRange }) {
     <div className="">
       <Form method="get" action="/results">
         <input type="hidden" name="city" value={inputValue} />
-        <input type="hidden" name="date" value={dateRange} />
+        <input type="hidden" name="startDate" value={startDate} />
+        <input type="hidden" name="endDate" value={endDate} />
 
         <p className="mt-4">{`Price: ${minPrice} - ${maxPrice} €`}</p>
         {/* Min and Max Price Fields */}
@@ -217,4 +219,10 @@ export function DetailedFilter({ inputValue, dateRange }) {
       </Form>
     </div>
   );
+}
+
+DetailedFilter.propTypes = {
+  inputValue: PropTypes.string,
+  startDate: PropTypes.object,
+  endDate: PropTypes.object
 }

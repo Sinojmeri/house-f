@@ -7,16 +7,9 @@ async function loader({ request }) {
   const searchParams = new URL(request.url).searchParams;
 
   const city = searchParams.get('city');
-  const date = searchParams.get('date');
-  const date_split = date.split(',');
+  const startDate = searchParams.get('startDate');
+  const endDate = searchParams.get('endDate');
 
-  const startDate = new Date(date_split[0].trim());
-  const endDate = new Date(date_split[1].trim());
-  
-
-  const startDateMs = Math.floor(startDate.getTime() / 1000);
-  const endDateMs = Math.floor(endDate.getTime() / 1000);
-  
   const minPrice = searchParams.get('minPrice');
   const maxPrice = searchParams.get('maxPrice');
 
@@ -28,7 +21,15 @@ async function loader({ request }) {
 
   const buildingType = searchParams.get('propertyType');
 
-  const excludedKeys = ['city', 'date', 'minPrice', 'maxPrice','nrOfRooms','nrOfBeds', 'propertyType'];
+  const excludedKeys = [
+    'city',
+    'date',
+    'minPrice',
+    'maxPrice',
+    'nrOfRooms',
+    'nrOfBeds',
+    'propertyType',
+  ];
 
   const amenities = [];
   searchParams.forEach((value, key) => {
@@ -41,8 +42,8 @@ async function loader({ request }) {
 
   const result = await searchListings(
     city,
-    startDateMs,
-    endDateMs,
+    startDate,
+    endDate,
     minPriceParsed,
     maxPriceParsed,
     buildingType,
@@ -50,7 +51,7 @@ async function loader({ request }) {
     nrOfBeds,
     amenities,
   );
-  return { result, startDateMs, endDateMs };
+  return { result, startDate, endDate };
 }
 
 export function Results() {
@@ -59,14 +60,16 @@ export function Results() {
   return (
     <>
       <BackButton />
-      <h1 className='text-3xl font-bold text-center text-gray-800 my-6'>Filter Results</h1>
+      <h1 className="text-3xl font-bold text-center text-gray-800 my-6">
+        Filter Results
+      </h1>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         {listings.map((listing) => {
-          return <FilteredHouseCard listing={listing} key={listing._id} />
+          return <FilteredHouseCard listing={listing} key={listing._id} />;
         })}
       </div>
     </>
-  )
+  );
 }
 
 Results.loader = loader;
