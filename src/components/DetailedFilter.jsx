@@ -7,8 +7,8 @@ export function DetailedFilter({ inputValue, startDate, endDate }) {
   const { closeModal } = useModalStore();
   const [minPrice, setMinPrice] = useState(10);
   const [maxPrice, setMaxPrice] = useState(10000);
-  const [nrOfRooms, setNrOfRooms] = useState(0);
-  const [nrOfBeds, setNrOfBeds] = useState(0);
+  const [nrOfRooms, setNrOfRooms] = useState(1);
+  const [nrOfBeds, setNrOfBeds] = useState(1);
 
   const [houseAmenities, setHouseAmenities] = useState({
     Netflix: false,

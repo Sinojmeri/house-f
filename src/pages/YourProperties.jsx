@@ -18,7 +18,7 @@ export function YourProperties() {
 
   return (
     <div className="mx-auto flex flex-col">
-      <div className="flex justify-between items-center sticky top-0 bg-[#f8fafc] ">
+      <div className="flex justify-between items-center sticky top-0 bg-[#f8fafc] z-[50] ">
         <img
           src="/back-button.png"
           alt="Back button"

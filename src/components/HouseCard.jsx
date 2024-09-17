@@ -8,7 +8,7 @@ export function HouseCard({ property }) {
       navigate(`/properties/${property._id}/edit`)
       }}>
         <div className="flex flex-col gap-2 items-center">
-          <img src="/Homes/home1.jpeg" alt="House pic" className="w-[300px] h-[300px] rounded-md" />
+          <img src={`${property.images[0]}`} alt="House pic" className="w-[300px] h-[300px] rounded-md" />
           <p>{property.title}</p>
           <p>{property.address}</p>
           <p>{property.price} €</p>
