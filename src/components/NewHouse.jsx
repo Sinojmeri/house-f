@@ -18,6 +18,8 @@ export default function NewHouse() {
     house_name: '',
     location: ['', ''],
     address: '',
+    nrOfRooms: 1,
+    nrOfBeds: 1,
     price: '',
     property_type: 'House',
   });
@@ -40,9 +42,7 @@ export default function NewHouse() {
     Wi_Fi: false,
     Rooftop_pool: false,
     Private_beach_access: false,
-    In_room_dining: false,
-    Number_of_Beds: 1,
-    Number_of_Rooms: 1,
+    In_room_dining: false
   });
   const [villasAmenities, setVillasAmenities] = useState({
     Private_pool: false,
@@ -57,8 +57,6 @@ export default function NewHouse() {
     Personal_chef: false,
     Guest_house: false,
     Panoramic_View: false,
-    Number_of_Bathrooms: 1,
-    Number_of_Rooms: 1,
   });
   const [officeAmenities, setOfficeAmenities] = useState({
     Meeting_rooms: false,
@@ -72,9 +70,8 @@ export default function NewHouse() {
     Café_or_restaurant: false,
     Rooftop_terrace: false,
     Secure_parking: false,
-    Number_of_Bathrooms: 1,
   });
-  
+
 
   const handleHouseInformation = (e) => {
     const { name, value } = e.target;
@@ -97,6 +94,18 @@ export default function NewHouse() {
           ...prev,
           price: +value,
         };
+      }
+      if (name === 'numberRooms') {
+        return {
+          ...prev,
+          nrOfRooms: +value,
+        }
+      }
+      if (name === 'numberBeds') {
+        return {
+          ...prev,
+          nrOfBeds: +value,
+        }
       }
       return {
         ...prev,
@@ -151,7 +160,7 @@ export default function NewHouse() {
     }
   }
 
-  
+
 
   const submitData = async () => {
     try {
@@ -163,12 +172,15 @@ export default function NewHouse() {
             ? `${key.replace(/_/g, ' ')}: ${value}`
             : key.replace(/_/g, ' ');
         });
-      
+      console.log(houseInformation.nrOfBeds, houseInformation.nrOfRooms);
+
       await createListing({
         auth_token: token,
         coordinates: houseInformation.location,
         title: houseInformation.house_name,
         address: houseInformation.address,
+        nrOfRooms: houseInformation.nrOfRooms,
+        nrOfBeds: houseInformation.nrOfBeds,
         buildingType: houseInformation.property_type,
         amenities,
         price: houseInformation.price,
@@ -206,7 +218,22 @@ export default function NewHouse() {
         className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         onChange={handleHouseInformation}
       />
-
+      <input
+        type="number"
+        name="numberRooms"
+        {...register('numberRooms', { required: true })}
+        placeholder="Number of Rooms"
+        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        onChange={handleHouseInformation}
+      />
+      <input
+        type="number"
+        name="numberBeds"
+        {...register('numberBeds', { required: true })}
+        placeholder="Number of Beds"
+        className="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+        onChange={handleHouseInformation}
+      />
       <input
         type="number"
         name="price"
@@ -308,7 +335,7 @@ export default function NewHouse() {
               </div>
             ))}
           </div>
-          
+
         </div>
       )}
 

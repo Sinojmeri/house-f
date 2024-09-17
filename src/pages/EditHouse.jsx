@@ -11,12 +11,14 @@ async function loader({ params }) {
 
 export function EditHouse() {
   const property = useLoaderData();
+  console.log(property);
+
   const [fieldValues, setFieldValues] = useState({
     title: property.title,
     address: property.address,
     price: property.price,
   });
-  const [photos, setPhotos] = useState([]);
+  const [photos, setPhotos] = useState(property.images.map((image) => image.img));
 
   const handleFieldData = (event) => {
     const { name, value } = event.target;
@@ -34,11 +36,11 @@ export function EditHouse() {
   const handlePhotoSubmit = async (e) => {
     e.preventDefault();
     try {
-        const data = await addPhotosForListing({ listingId: property._id, photos });
-        console.log('Photos submitted:', data);
-      } catch (error) {
-        console.error('Error uploading photos:', error);
-      }
+      const data = await addPhotosForListing({ listingId: property._id, photos });
+      console.log('Photos submitted:', data);
+    } catch (error) {
+      console.error('Error uploading photos:', error);
+    }
   };
 
   const navigate = useNavigate();
@@ -117,10 +119,9 @@ export function EditHouse() {
 
           <div className="grid grid-cols-3 gap-4">
             {photos.slice(0, 5).map((photo, index) => (
-              <div key={index} className="relative group">
+              <div key={index} className="relative w-fit">
                 <button
-                  className="absolute top-1 right-1 bg-red-500 text-white p-1 rounded-full group-hover:scale-110 transition-transform"
-                  style={{ transform: 'translate(0%, -50%)' }}
+                  className="absolute left-24 bg-red-500 text-white p-1 rounded-full"
                   onClick={() =>
                     setPhotos((prevPhotos) =>
                       prevPhotos.filter((_, i) => i !== index),
@@ -129,11 +130,21 @@ export function EditHouse() {
                 >
                   X
                 </button>
-                <img
-                  src={URL.createObjectURL(photo)}
-                  alt="Uploaded"
-                  className="w-24 h-24 object-cover rounded-lg border border-gray-300"
-                />
+                {typeof photo === 'object' ? (
+                  <img
+                    src={URL.createObjectURL(photo)}
+                    alt="Uploaded photo"
+                    className="w-24 h-24 object-cover rounded-lg border border-gray-300"
+                  />
+                ) : (
+                  <img
+                    src={photo}
+                    alt="photo url string"
+                    className="w-24 h-24 object-cover rounded-lg border border-gray-300"
+                  />
+                )
+                }
+
               </div>
             ))}
           </div>
