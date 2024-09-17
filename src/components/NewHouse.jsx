@@ -74,7 +74,7 @@ export default function NewHouse() {
     Secure_parking: false,
     Number_of_Bathrooms: 1,
   });
-  const [photos, setPhotos] = useState([]);
+  
 
   const handleHouseInformation = (e) => {
     const { name, value } = e.target;
@@ -151,10 +151,7 @@ export default function NewHouse() {
     }
   }
 
-  const handlePhotoUpload = (e) => {
-    const files = Array.from(e.target.files);
-    setPhotos((prevPhotos) => [...prevPhotos, ...files]);
-  };
+  
 
   const submitData = async () => {
     try {
@@ -261,7 +258,6 @@ export default function NewHouse() {
           onChange={(e) => {
             handleHouseInformation(e);
             checkFormCompletion();
-            setPhotos([]);
           }}
           value={houseInformation.property_type}
         >
@@ -312,38 +308,7 @@ export default function NewHouse() {
               </div>
             ))}
           </div>
-          <div className="md:ml-4 my-7 md:my-0 p-4 bg-gray-100 border border-gray-300 rounded-lg">
-            <h1 className="font-bold text-2xl text-blue-500 mb-4">
-              Upload Property Photos
-            </h1>
-            <input
-              type="file"
-              className="block w-full my-3 cursor-pointer text-gray-700"
-              multiple
-              onChange={handlePhotoUpload}
-            />
-            <div className="grid grid-cols-3 gap-2">
-              {photos.slice(0, 5).map((photo, index) => (
-                <div key={index} className="relative">
-                  <button
-                    className="absolute top-0 right-0 bg-red-500 text-white rounded-full p-1"
-                    onClick={() => {
-                      setPhotos((prevPhotos) =>
-                        prevPhotos.filter((_, i) => i !== index),
-                      );
-                    }}
-                  >
-                    X
-                  </button>
-                  <img
-                    src={URL.createObjectURL(photo)}
-                    alt="Uploaded photo"
-                    className="w-[70px] h-[70px] object-cover rounded-lg"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          
         </div>
       )}
 
