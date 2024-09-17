@@ -5,6 +5,8 @@ export async function createListing({
   coordinates,
   title,
   address,
+  nrOfRooms,
+  nrOfBeds,
   buildingType,
   amenities,
   price,
@@ -21,6 +23,8 @@ export async function createListing({
         coordinates,
         title,
         address,
+        nrOfRooms,
+        nrOfBeds,
         buildingType,
         amenities,
         price,
@@ -36,11 +40,12 @@ export async function createListing({
   return result;
 }
 
-export async function addPhotosForListing({ listingId, auth_token, photos }) {
+export async function addPhotosForListing({ listingId, photos }) {
+  const { token } = useAuthStore.getState();
   const formData = new FormData();
 
-  photos.forEach((photo, index) => {
-    formData.append(`photo_${index}`, photo);
+  photos.forEach((photo) => {
+    formData.append('photos', photo);
   });
 
   const response = await fetch(
@@ -48,7 +53,7 @@ export async function addPhotosForListing({ listingId, auth_token, photos }) {
     {
       method: 'POST',
       headers: {
-        Authorization: `Bearer ${auth_token}`,
+        Authorization: `Bearer ${token}`,
       },
       body: formData,
     },
