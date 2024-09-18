@@ -25,7 +25,9 @@ import AboutUsInfo from './pages/AboutUsInfo.jsx';
 import { ReserveHouseUI } from './pages/ReserveHouseUI.jsx';
 
 getCurrentLocation();
-await checkLocalStorage();
+(async function () {
+  await checkLocalStorage();
+});
 
 const router = createBrowserRouter([
   {
@@ -36,23 +38,23 @@ const router = createBrowserRouter([
       {
         path: '/properties/:propertyId/edit',
         element: <EditHouse />,
-        loader: EditHouse.loader
+        loader: EditHouse.loader,
       },
       {
         path: '/',
         element: <Home />,
-        loader: Home.loader
+        loader: Home.loader,
       },
       {
         path: '/results',
         element: <Results />,
         loader: Results.loader,
-        id: 'search'
+        id: 'search',
       },
       {
         path: '/results/:id',
         element: <ReserveHouseUI />,
-        loader: ReserveHouseUI.loader
+        loader: ReserveHouseUI.loader,
       },
       {
         path: '/notifications',
@@ -68,7 +70,7 @@ const router = createBrowserRouter([
       },
       {
         path: '/about-us',
-        element: <AboutUsInfo />
+        element: <AboutUsInfo />,
       },
       {
         path: '/list-your-properties',
@@ -77,14 +79,14 @@ const router = createBrowserRouter([
         children: [
           {
             path: 'add-property',
-            element: <NewHouse />
+            element: <NewHouse />,
           },
           {
             path: 'manage-properties',
             element: <ManageYourProperty />,
-            loader: ManageYourProperty.loader
-          }
-        ]
+            loader: ManageYourProperty.loader,
+          },
+        ],
       },
 
       {

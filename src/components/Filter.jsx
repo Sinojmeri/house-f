@@ -34,12 +34,11 @@ export default function Filter() {
     .setZone('utc', { keepLocalTime: true })
     .toMillis();
 
-  
   const [endDate, setEndDate] = useState();
   const de = DateTime.fromJSDate(endDate)
     .setZone('utc', { keepLocalTime: true })
     .toMillis();
-    
+
   const calendarRef = useRef();
   const calendarDivRef = useRef(null);
   const [showCalendar, setShowCalendar] = useState(false);

@@ -225,9 +225,7 @@ export async function searchListings(
       url.searchParams.append('amenities', amenity);
     }
   }
-  
 
-  
   const response = await fetch(url, {
     method: 'GET',
     headers: {
@@ -241,4 +239,26 @@ export async function searchListings(
 
   const result = await response.json();
   return result;
+}
+
+export async function deleteListing(listingId) {
+  const { token } = useAuthStore.getState();
+
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const data = response.json();
+  return data.message;
 }

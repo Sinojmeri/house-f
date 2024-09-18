@@ -1,4 +1,4 @@
-import { Link, useRouteLoaderData } from "react-router-dom";
+import { Link, useRouteLoaderData } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 export function FilteredHouseCard({ listing }) {
@@ -37,10 +37,13 @@ export function FilteredHouseCard({ listing }) {
           {listing.price} €
         </p>
         <p className="mt-5 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold text-center py-2 px-4 rounded-md cursor-pointer">
-          <Link to={`${listing._id}?startDateMs=${startDate}&endDateMs=${endDate}`}>Reserve</Link>
+          <Link
+            to={`${listing._id}?startDateMs=${startDate}&endDateMs=${endDate}`}
+          >
+            Reserve
+          </Link>
         </p>
       </div>
-
     </div>
   );
 }
@@ -53,4 +56,4 @@ FilteredHouseCard.propTypes = {
   amenities: PropTypes.arrayOf(PropTypes.string),
   price: PropTypes.number,
   listing_id: PropTypes.string,
-}
+};

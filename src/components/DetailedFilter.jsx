@@ -142,7 +142,7 @@ export function DetailedFilter({ inputValue, startDate, endDate }) {
           </select>
         </div>
         {/* Amenities according to property type */}
-        {(propertyType === 'Hotel' || propertyType === 'Villa') ? (
+        {propertyType === 'Hotel' || propertyType === 'Villa' ? (
           <>
             <div className="flex flex-col gap-2 mt-4">
               <div className="flex flex-row gap-3">
@@ -184,22 +184,24 @@ export function DetailedFilter({ inputValue, startDate, endDate }) {
               </div>
             </div>
           </>
-        ): <div className="mt-4">
-        <label className="block">Property Amenities</label>
-        <div className="grid grid-cols-2 gap-2">
-          {Object.keys(amenities).map((amenity) => (
-            <div key={amenity} className="flex items-center">
-              <input
-                type="checkbox"
-                name={amenity}
-                checked={amenities[amenity]}
-                onChange={(e) => handleAmenityChange(e, propertyType)}
-              />
-              <label className="ml-2">{amenity.replace(/_/g, ' ')}</label>
+        ) : (
+          <div className="mt-4">
+            <label className="block">Property Amenities</label>
+            <div className="grid grid-cols-2 gap-2">
+              {Object.keys(amenities).map((amenity) => (
+                <div key={amenity} className="flex items-center">
+                  <input
+                    type="checkbox"
+                    name={amenity}
+                    checked={amenities[amenity]}
+                    onChange={(e) => handleAmenityChange(e, propertyType)}
+                  />
+                  <label className="ml-2">{amenity.replace(/_/g, ' ')}</label>
+                </div>
+              ))}
             </div>
-          ))}
-        </div>
-      </div>}
+          </div>
+        )}
 
         <div className="mt-6 flex justify-end space-x-2">
           <button
@@ -224,5 +226,5 @@ export function DetailedFilter({ inputValue, startDate, endDate }) {
 DetailedFilter.propTypes = {
   inputValue: PropTypes.string,
   startDate: PropTypes.object,
-  endDate: PropTypes.object
-}
+  endDate: PropTypes.object,
+};

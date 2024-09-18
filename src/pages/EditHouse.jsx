@@ -1,6 +1,10 @@
 import { useLoaderData, useNavigate, Form } from 'react-router-dom';
 import { useState } from 'react';
-import { addPhotosForListing, getOneListing, updateListing } from '../controllers/listingApis';
+import {
+  addPhotosForListing,
+  getOneListing,
+  updateListing,
+} from '../controllers/listingApis';
 import { BackButton } from '../components/BackButton';
 
 async function loader({ params }) {
@@ -11,14 +15,15 @@ async function loader({ params }) {
 
 export function EditHouse() {
   const property = useLoaderData();
-  console.log(property);
 
   const [fieldValues, setFieldValues] = useState({
     title: property.title,
     address: property.address,
     price: property.price,
   });
-  const [photos, setPhotos] = useState(property.images.map((image) => image.img));
+  const [photos, setPhotos] = useState(
+    property.images.map((image) => image.img),
+  );
 
   const handleFieldData = (event) => {
     const { name, value } = event.target;
@@ -36,8 +41,7 @@ export function EditHouse() {
   const handlePhotoSubmit = async (e) => {
     e.preventDefault();
     try {
-      const data = await addPhotosForListing({ listingId: property._id, photos });
-      console.log('Photos submitted:', data);
+      await addPhotosForListing({ listingId: property._id, photos });
     } catch (error) {
       console.error('Error uploading photos:', error);
     }
@@ -111,7 +115,7 @@ export function EditHouse() {
         >
           <input
             type="file"
-            name='photos'
+            name="photos"
             className="block w-full mb-3 cursor-pointer border border-gray-300 p-3 rounded-lg"
             multiple
             onChange={handlePhotoUpload}
@@ -142,9 +146,7 @@ export function EditHouse() {
                     alt="photo url string"
                     className="w-24 h-24 object-cover rounded-lg border border-gray-300"
                   />
-                )
-                }
-
+                )}
               </div>
             ))}
           </div>

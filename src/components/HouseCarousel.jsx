@@ -1,4 +1,4 @@
-import { useState } from 'react';
+// import { useState } from 'react';
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +8,7 @@ import {
 } from '../components/Carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import PropTypes from 'prop-types';
-export default function HouseCarousel({ setHouseCoords,data }) {
+export default function HouseCarousel({ setHouseCoords, data }) {
   // const houses = [
   //   {
   //     mainPic: '/Homes/home1.jpeg',
@@ -92,7 +92,7 @@ export default function HouseCarousel({ setHouseCoords,data }) {
         }}
       >
         <CarouselContent className="h-[310px] flex items-center">
-          {data.map((house, index) => (
+          {data.map((house) => (
             <CarouselItem
               key={house.title}
               className={window.innerWidth > 768 ? `basis-1/3` : ''}
@@ -102,7 +102,7 @@ export default function HouseCarousel({ setHouseCoords,data }) {
                 onClick={() => handleClick(house)}
               >
                 <img
-                  src={`${house.mainPic ? `${house.mainPic}`: './Homes/home1.jpeg'}`}
+                  src={`${house.mainPic ? `${house.mainPic}` : './Homes/home1.jpeg'}`}
                   alt="House img"
                   className="h-[300px] rounded-lg w-[97%] mx-auto"
                 />
@@ -127,7 +127,7 @@ export default function HouseCarousel({ setHouseCoords,data }) {
                     src={house.isFav ? '/filled_heart.png' : '/empty_heart.png'}
                     alt="heart"
                     className="w-[25px] h-[25px] absolute bottom-8 right-3 cursor-pointer"
-                    onClick={() => favorites(index)}
+                    // onClick={() => favorites(index)}
                   />
                 </div>
               </div>
