@@ -25,7 +25,9 @@ import AboutUsInfo from './pages/AboutUsInfo.jsx';
 import { ReserveHouseUI } from './pages/ReserveHouseUI.jsx';
 
 getCurrentLocation();
-await checkLocalStorage();
+(async function () {
+  await checkLocalStorage();
+});
 
 const router = createBrowserRouter([
   {
