@@ -77,7 +77,7 @@ export function YourProperties() {
         </div>
       </div>
 
-      <Outlet/>
+      <Outlet />
     </div>
   );
 }

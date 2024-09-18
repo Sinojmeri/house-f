@@ -42,7 +42,7 @@ export default function NewHouse() {
     Wi_Fi: false,
     Rooftop_pool: false,
     Private_beach_access: false,
-    In_room_dining: false
+    In_room_dining: false,
   });
   const [villasAmenities, setVillasAmenities] = useState({
     Private_pool: false,
@@ -72,7 +72,6 @@ export default function NewHouse() {
     Secure_parking: false,
   });
 
-
   const handleHouseInformation = (e) => {
     const { name, value } = e.target;
 
@@ -99,13 +98,13 @@ export default function NewHouse() {
         return {
           ...prev,
           nrOfRooms: +value,
-        }
+        };
       }
       if (name === 'numberBeds') {
         return {
           ...prev,
           nrOfBeds: +value,
-        }
+        };
       }
       return {
         ...prev,
@@ -160,19 +159,20 @@ export default function NewHouse() {
     }
   }
 
-
-
   const submitData = async () => {
     try {
       const amenities = Object.keys(getAmenities())
-        .filter((key) => getAmenities()[key] === true || typeof getAmenities()[key] === 'number')
+        .filter(
+          (key) =>
+            getAmenities()[key] === true ||
+            typeof getAmenities()[key] === 'number',
+        )
         .map((key) => {
           const value = getAmenities()[key];
           return typeof value === 'number'
             ? `${key.replace(/_/g, ' ')}: ${value}`
             : key.replace(/_/g, ' ');
         });
-      console.log(houseInformation.nrOfBeds, houseInformation.nrOfRooms);
 
       await createListing({
         auth_token: token,
@@ -264,12 +264,13 @@ export default function NewHouse() {
         />
         <button
           className="p-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          type='button'
+          type="button"
           onClick={() => {
             setHouseInformation((prev) => ({
               ...prev,
               location: [myLocation.lat, myLocation.lng],
-            })); checkFormCompletion()
+            }));
+            checkFormCompletion();
           }}
         >
           Get Current Location
@@ -335,7 +336,6 @@ export default function NewHouse() {
               </div>
             ))}
           </div>
-
         </div>
       )}
 

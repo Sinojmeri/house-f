@@ -26,8 +26,7 @@ export default function Login() {
       const nextRoute = url.get('nextRoute');
 
       if (!nextRoute) {
-        
-        return navigate('/')
+        return navigate('/');
       }
 
       navigate(nextRoute);

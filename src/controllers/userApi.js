@@ -1,16 +1,19 @@
 export async function signUp({ firstName, lastName, email, password }) {
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/users/signup`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json',
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/users/signup`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        firstName,
+        lastName,
+        email,
+        password,
+      }),
     },
-    body: JSON.stringify({
-      firstName,
-      lastName,
-      email,
-      password,
-    }),
-  });
+  );
   if (!response.ok) {
     throw new Error();
   }
