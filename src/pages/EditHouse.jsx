@@ -10,12 +10,14 @@ import { BackButton } from '../components/BackButton';
 async function loader({ params }) {
   const id = params.propertyId;
   const property = await getOneListing(id);
+  console.log(property);
+
   return property;
 }
 
 export function EditHouse() {
   const property = useLoaderData();
-
+  const BASE_URL = "http://localhost:5000/static/";
   const [fieldValues, setFieldValues] = useState({
     title: property.title,
     address: property.address,
@@ -42,6 +44,7 @@ export function EditHouse() {
     e.preventDefault();
     try {
       await addPhotosForListing({ listingId: property._id, photos });
+      navigate(-1);
     } catch (error) {
       console.error('Error uploading photos:', error);
     }
@@ -110,8 +113,8 @@ export function EditHouse() {
         </h2>
         <Form
           method="post"
-          action="/list-your-properties/manage-properties"
           encType="multipart/form-data"
+          onSubmit={handlePhotoSubmit}
         >
           <input
             type="file"
@@ -125,7 +128,7 @@ export function EditHouse() {
             {photos.slice(0, 5).map((photo, index) => (
               <div key={index} className="relative w-fit">
                 <button
-                  className="absolute left-24 bg-red-500 text-white p-1 rounded-full"
+                  className="absolute right-0 bg-red-500 opacity-70 text-white p-1 rounded-full"
                   onClick={() =>
                     setPhotos((prevPhotos) =>
                       prevPhotos.filter((_, i) => i !== index),
@@ -134,19 +137,12 @@ export function EditHouse() {
                 >
                   X
                 </button>
-                {typeof photo === 'object' ? (
-                  <img
-                    src={URL.createObjectURL(photo)}
-                    alt="Uploaded photo"
-                    className="w-24 h-24 object-cover rounded-lg border border-gray-300"
-                  />
-                ) : (
-                  <img
-                    src={photo}
-                    alt="photo url string"
-                    className="w-24 h-24 object-cover rounded-lg border border-gray-300"
-                  />
-                )}
+                <img
+                  src={photo instanceof File ? URL.createObjectURL(photo) : `${BASE_URL}${photo}`}
+                  alt="Uploaded photo"
+                  className=" h-[200px] object-cover rounded-lg border border-gray-300"
+                />
+
               </div>
             ))}
           </div>
@@ -154,13 +150,12 @@ export function EditHouse() {
           <button
             type="submit"
             className="mt-4 bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition duration-200"
-            onClick={handlePhotoSubmit}
           >
-            Submit Photos
-          </button>
-        </Form>
-      </div>
+          Submit Photos
+        </button>
+      </Form>
     </div>
+    </div >
   );
 }
 

@@ -7,23 +7,14 @@ import { useModalStore } from '../stores/modalStore';
 import { DetailedFilter } from './DetailedFilter';
 import { DateTime } from 'luxon';
 
-const testArray = [
-  'Arlindi',
-  'arioni',
-  'proFesori',
-  'bla bla bla',
-  'futja Kot',
-  'Arlondi',
-  'Enio Vrushi',
-  'Arlinda',
-];
+
 
 export default function Filter() {
   const [inputValue, setInputValue] = useState('Where are you going ?');
-  const [filteredArray, setFilteredArray] = useState([]);
-  const filterDiv = useRef();
+  // const [filteredArray, setFilteredArray] = useState([]);
+  // const filterDiv = useRef();
   const filterInput = useRef();
-  const [displayFilter, setDisplayFilter] = useState('hidden');
+  // const [displayFilter, setDisplayFilter] = useState('hidden');
 
   const today = new Date();
   const tomorrow = new Date(today);
@@ -48,17 +39,17 @@ export default function Filter() {
   const handleChange = (v) => {
     setInputValue(v);
     // Filtering items after user has input at least 2 characters.
-    if (v.length > 2) {
-      setDisplayFilter('');
-      const filtered = testArray.filter(
-        (place) =>
-          place.trim().toLowerCase().slice(0, v.length) ===
-          v.trim().toLowerCase(),
-      );
-      setFilteredArray(filtered);
-    } else {
-      setFilteredArray([]);
-    }
+    // if (v.length > 2) {
+    //   setDisplayFilter('');
+    //   const filtered = testArray.filter(
+    //     (place) =>
+    //       place.trim().toLowerCase().slice(0, v.length) ===
+    //       v.trim().toLowerCase(),
+    //   );
+    //   setFilteredArray(filtered);
+    // } else {
+    //   setFilteredArray([]);
+    // }
   };
 
   const onFocus = () => {
@@ -73,24 +64,24 @@ export default function Filter() {
     }
   };
 
-  const handleOutsideFilter = (event) => {
-    // Check if click is outside filter input and filter dropdown
-    if (
-      !filterDiv.current.contains(event.target) &&
-      !filterInput.current.contains(event.target) &&
-      !calendarDivRef.current.contains(event.target) &&
-      !calendarRef.current.flatpickr.calendarContainer.contains(event.target)
-    ) {
-      setDisplayFilter('hidden');
-    }
-  };
+  // const handleOutsideFilter = (event) => {
+  //   // Check if click is outside filter input and filter dropdown
+  //   if (
+  //     !filterDiv.current.contains(event.target) &&
+  //     !filterInput.current.contains(event.target) &&
+  //     !calendarDivRef.current.contains(event.target) &&
+  //     !calendarRef.current.flatpickr.calendarContainer.contains(event.target)
+  //   ) {
+  //     setDisplayFilter('hidden');
+  //   }
+  // };
 
-  useEffect(() => {
-    document.addEventListener('click', handleOutsideFilter);
-    return () => {
-      document.removeEventListener('click', handleOutsideFilter);
-    };
-  }, []);
+  // useEffect(() => {
+  //   document.addEventListener('click', handleOutsideFilter);
+  //   return () => {
+  //     document.removeEventListener('click', handleOutsideFilter);
+  //   };
+  // }, []);
 
   // Calendar show function
   const handleCalendar = (event) => {
@@ -139,7 +130,7 @@ export default function Filter() {
               onBlur={onBlur}
               ref={filterInput}
             />
-            <div
+            {/* <div
               className={`bg-slate-100 absolute mt-2 w-full md:w-[500px] rounded-md z-[20] ${displayFilter}`}
               ref={filterDiv}
             >
@@ -150,7 +141,7 @@ export default function Filter() {
                   </li>
                 ))}
               </ul>
-            </div>
+            </div> */}
           </div>
         </div>
         <div className="relative">

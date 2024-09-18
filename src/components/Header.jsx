@@ -65,7 +65,7 @@ export default function Header() {
             ref={userIcon}
           />
           <div
-            className={`${visible} absolute flex flex-col my-2 border-2 border-black bg-[#faf0e6] w-[200px] mt-[50px] z-10`}
+            className={`${visible} absolute flex flex-col my-2 border-2 border-black bg-[#faf0e6] w-[200px] mt-[50px] z-50`}
             ref={dropdownList}
           >
             <ul className="flex flex-col gap-2 divide-y-2">

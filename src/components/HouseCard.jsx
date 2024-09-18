@@ -15,22 +15,20 @@ export function HouseCard({ property, onDelete }) {
       }}
     >
       <div className="flex flex-col gap-2 items-center">
-        {property.images && property.images.length > 0 ? (
-          <div className="flex gap-2">
-            {property.images.map((image, index) => (
-              <img
-                key={index}
-                src={`${BASE_URL}${image.img}`}
-                alt={`House pic ${index + 1}`}
-                className="w-[150px] h-[150px] rounded-md"
-              />
-            ))}
-          </div>
-        ) : (
-          <p>No images available</p>
-        )}
+        
         <p>{property.title}</p>
         <p>{property.address}</p>
+        {property.images && property.images.length > 0 ? (
+          <div className="flex gap-2">
+            <img
+              src={`${BASE_URL}${property.images[0].img}`}
+              alt={`House pic`}
+              className="w-[300px] h-[300px] rounded-md"
+            />
+          </div>
+        ) : (
+          <img src="/Homes/home1.jpeg" alt="static home pic" className='w-[250px] h-[250px]'/>
+        )}
         <p>{property.price} €</p>
       </div>
       <p
