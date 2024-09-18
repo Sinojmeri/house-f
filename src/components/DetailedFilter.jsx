@@ -225,6 +225,6 @@ export function DetailedFilter({ inputValue, startDate, endDate }) {
 
 DetailedFilter.propTypes = {
   inputValue: PropTypes.string,
-  startDate: PropTypes.object,
-  endDate: PropTypes.object,
+  startDate: PropTypes.number,
+  endDate: PropTypes.number,
 };
