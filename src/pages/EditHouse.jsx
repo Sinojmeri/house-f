@@ -10,14 +10,13 @@ import { BackButton } from '../components/BackButton';
 async function loader({ params }) {
   const id = params.propertyId;
   const property = await getOneListing(id);
-  console.log(property);
 
   return property;
 }
 
 export function EditHouse() {
   const property = useLoaderData();
-  const BASE_URL = "http://localhost:5000/static/";
+  const BASE_URL = 'http://localhost:5000/static/';
   const [fieldValues, setFieldValues] = useState({
     title: property.title,
     address: property.address,
@@ -138,11 +137,14 @@ export function EditHouse() {
                   X
                 </button>
                 <img
-                  src={photo instanceof File ? URL.createObjectURL(photo) : `${BASE_URL}${photo}`}
+                  src={
+                    photo instanceof File
+                      ? URL.createObjectURL(photo)
+                      : `${BASE_URL}${photo}`
+                  }
                   alt="Uploaded photo"
                   className=" h-[200px] object-cover rounded-lg border border-gray-300"
                 />
-
               </div>
             ))}
           </div>
@@ -151,11 +153,11 @@ export function EditHouse() {
             type="submit"
             className="mt-4 bg-green-500 text-white px-6 py-2 rounded-md hover:bg-green-600 transition duration-200"
           >
-          Submit Photos
-        </button>
-      </Form>
+            Submit Photos
+          </button>
+        </Form>
+      </div>
     </div>
-    </div >
   );
 }
 
