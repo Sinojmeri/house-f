@@ -165,7 +165,7 @@ export default function Filter() {
                 setEndDate(range[1]);
               }}
               options={{
-                minDate: today,
+                minDate: tomorrow,
                 defaultDate: dateRange,
                 dateFormat: 'd-m-Y',
                 disableMobile: true,

@@ -1,13 +1,13 @@
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { BackButton } from '../components/BackButton';
-// import {
-//     Carousel,
-//     CarouselContent,
-//     CarouselItem,
-//     CarouselNext,
-//     CarouselPrevious,
-// } from '../components/Carousel';
-// import Autoplay from 'embla-carousel-autoplay';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '../components/Carousel';
+import Autoplay from 'embla-carousel-autoplay';
 import { mapId } from '../components/MapComp';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 // import { useLocationStore } from '../stores/location';
@@ -31,7 +31,7 @@ export function ReserveHouseUI() {
   const { listing, startDate, endDate } = useLoaderData();
   const checkIn = new Date(Number(startDate));
   const checkOut = new Date(Number(endDate));
-  // console.log(listing);
+  const BASE_URL = 'http://localhost:5000/static/';
 
   const navigate = useNavigate();
   return (
@@ -48,28 +48,30 @@ export function ReserveHouseUI() {
         <h2 className="text-lg text-red-600 font-bold">{`${listing.price}: €`}</h2>
       </div>
       <div className="my-2">
-        {/* <Carousel
-                    orientation={window.innerWidth < 768 ? 'vertical' : 'horizontal'}
-                    plugins={[
-                        Autoplay({
-                            delay: 5000,
-                        }),
-                    ]}
-                    opts={{
-                        loop: true,
-                    }}
-                >
-                    <CarouselContent className="h-[310px] flex items-center">
-                        Map here the array of images and for each img url return a carusel Item
-                        {imgArray.map((srcImg, index) => (
-                            <CarouselItem key={srcImg} className={window.innerWidth > 768 ? `basis-1/3` : ''}>
-                                <img src={srcImg} alt="House Pic" />
-                            </CarouselItem>
-                        ))}
-                    </CarouselContent>
-                    <CarouselPrevious />
-                    <CarouselNext />
-                </Carousel> */}
+        <Carousel
+          orientation={window.innerWidth < 768 ? 'vertical' : 'horizontal'}
+          plugins={[
+            Autoplay({
+              delay: 5000,
+            }),
+          ]}
+          opts={{
+            loop: true,
+          }}
+        >
+          <CarouselContent className="h-[310px] flex items-center">
+            {listing.images.map((images) => (
+              <CarouselItem
+                key={images._id}
+                className={window.innerWidth > 768 ? `basis-1/3` : ''}
+              >
+                <img src={`${BASE_URL}${images.img}`} alt="House Pic" />
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious />
+          <CarouselNext />
+        </Carousel>
       </div>
       <div className="flex flex-col gap-2">
         <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check In Date: ${checkIn.toDateString()}`}</p>
@@ -106,10 +108,12 @@ export function ReserveHouseUI() {
       </div>
       <div className="flex justify-center">
         <button
-          className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1"
+          className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1 mb-3"
           onClick={async () => {
             await makeReservation(listing._id, startDate, endDate);
-            navigate('/');
+            navigate(
+              `/bookings/${listing._id}?StartDate=${startDate}&EndDate=${endDate}`,
+            );
           }}
         >
           Book
