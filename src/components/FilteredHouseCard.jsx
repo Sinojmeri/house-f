@@ -36,13 +36,12 @@ export function FilteredHouseCard({ listing }) {
           <span className="font-medium text-gray-700">Price: </span>
           {listing.price} €
         </p>
-        <p className="mt-5 w-full bg-blue-500 hover:bg-blue-600 text-white font-semibold text-center py-2 px-4 rounded-md cursor-pointer">
-          <Link
-            to={`${listing._id}?startDateMs=${startDate}&endDateMs=${endDate}`}
-          >
-            Reserve
-          </Link>
-        </p>
+        <Link
+          to={`${listing._id}?startDateMs=${startDate}&endDateMs=${endDate}`}
+          className="mt-5 bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded-md cursor-pointer flex justify-center"
+        >
+          Reserve
+        </Link>
       </div>
     </div>
   );
