@@ -123,6 +123,30 @@ export function DetailedFilter({ inputValue, startDate, endDate }) {
           />
         </div>
 
+        <div className="flex flex-col gap-2 mt-4">
+          <div className="flex flex-row gap-3">
+            <label>Number Of Rooms:</label>
+            <input
+              type="number"
+              name="nrOfRooms"
+              value={nrOfRooms}
+              className="w-[80px] border-2 border-gray-200 rounded-lg"
+              onChange={(e) => setNrOfRooms(e.target.value)}
+            />
+          </div>
+
+          <div className="flex flex-row gap-6">
+            <label>Number Of Beds:</label>
+            <input
+              type="number"
+              name="nrOfBeds"
+              value={nrOfBeds}
+              className="w-[80px] border-2 border-gray-200 rounded-lg"
+              onChange={(e) => setNrOfBeds(e.target.value)}
+            />
+          </div>
+        </div>
+
         {/* Select Property Div */}
         <div className="mt-4">
           <label className="block">Select a property type</label>
@@ -142,49 +166,7 @@ export function DetailedFilter({ inputValue, startDate, endDate }) {
           </select>
         </div>
         {/* Amenities according to property type */}
-        {propertyType === 'Hotel' || propertyType === 'Villa' ? (
-          <>
-            <div className="flex flex-col gap-2 mt-4">
-              <div className="flex flex-row gap-3">
-                <label>Number Of Rooms:</label>
-                <input
-                  type="number"
-                  name="nrOfRooms"
-                  value={nrOfRooms}
-                  className="w-[80px] border-2 border-gray-200 rounded-lg"
-                  onChange={(e) => setNrOfRooms(e.target.value)}
-                />
-              </div>
-
-              <div className="flex flex-row gap-6">
-                <label>Number Of Beds:</label>
-                <input
-                  type="number"
-                  name="nrOfBeds"
-                  value={nrOfBeds}
-                  className="w-[80px] border-2 border-gray-200 rounded-lg"
-                  onChange={(e) => setNrOfBeds(e.target.value)}
-                />
-              </div>
-            </div>
-            <div className="mt-4">
-              <label className="block">Property Amenities</label>
-              <div className="grid grid-cols-2 gap-2">
-                {Object.keys(amenities).map((amenity) => (
-                  <div key={amenity} className="flex items-center">
-                    <input
-                      type="checkbox"
-                      name={amenity}
-                      checked={amenities[amenity]}
-                      onChange={(e) => handleAmenityChange(e, propertyType)}
-                    />
-                    <label className="ml-2">{amenity.replace(/_/g, ' ')}</label>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </>
-        ) : (
+        {propertyType && (
           <div className="mt-4">
             <label className="block">Property Amenities</label>
             <div className="grid grid-cols-2 gap-2">

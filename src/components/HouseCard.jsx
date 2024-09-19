@@ -15,7 +15,6 @@ export function HouseCard({ property, onDelete }) {
       }}
     >
       <div className="flex flex-col gap-2 items-center">
-        
         <p>{property.title}</p>
         <p>{property.address}</p>
         {property.images && property.images.length > 0 ? (
@@ -27,7 +26,11 @@ export function HouseCard({ property, onDelete }) {
             />
           </div>
         ) : (
-          <img src="/Homes/home1.jpeg" alt="static home pic" className='w-[250px] h-[250px]'/>
+          <img
+            src="/Homes/home1.jpeg"
+            alt="static home pic"
+            className="w-[250px] h-[250px]"
+          />
         )}
         <p>{property.price} €</p>
       </div>

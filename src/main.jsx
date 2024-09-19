@@ -6,7 +6,6 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import Notifications from './pages/Notifications.jsx';
 import Messages from './pages/Messages.jsx';
 import Home from './pages/Home.jsx';
-import Filters from './pages/Filters.jsx';
 import {
   YourProperties,
   loader as yourPropertiesLoader,
@@ -62,10 +61,10 @@ const router = createBrowserRouter([
         path: '/messages',
         element: <Messages />,
       },
-      {
-        path: '/filters',
-        element: <Filters />,
-      },
+      // {
+      //   path: '/filters',
+      //   element: <Filters />,
+      // },
       {
         path: '/about-us',
         element: <AboutUsInfo />,

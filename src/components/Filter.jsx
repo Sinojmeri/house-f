@@ -7,8 +7,6 @@ import { useModalStore } from '../stores/modalStore';
 import { DetailedFilter } from './DetailedFilter';
 import { DateTime } from 'luxon';
 
-
-
 export default function Filter() {
   const [inputValue, setInputValue] = useState('Where are you going ?');
   // const [filteredArray, setFilteredArray] = useState([]);
