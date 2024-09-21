@@ -5,3 +5,8 @@
 body {
   background-color: #f8fafc;
 }
+
+.swiper {
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+}

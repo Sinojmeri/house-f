@@ -10,7 +10,6 @@ import {
 import Autoplay from 'embla-carousel-autoplay';
 import { mapId } from '../components/MapComp';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
-// import { useLocationStore } from '../stores/location';
 import { getOneListingWithoutAuth } from '../controllers/listingApis';
 import { makeReservation } from '../controllers/reservationApis';
 
@@ -65,7 +64,7 @@ export function ReserveHouseUI() {
                 key={images._id}
                 className={window.innerWidth > 768 ? `basis-1/3` : ''}
               >
-                <img src={`${BASE_URL}${images.img}`} alt="House Pic" />
+                <img src={`${BASE_URL}${images.img}`} alt="House Pic" className='w-[300px] md:w-[450px] h-[300px] md:h-[450px]'/>
               </CarouselItem>
             ))}
           </CarouselContent>
@@ -112,7 +111,7 @@ export function ReserveHouseUI() {
           onClick={async () => {
             await makeReservation(listing._id, startDate, endDate);
             navigate(
-              `/bookings/${listing._id}?StartDate=${startDate}&EndDate=${endDate}`,
+              `/bookings/${listing._id}?startDate=${startDate}&endDate=${endDate}`,
             );
           }}
         >
