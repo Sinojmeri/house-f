@@ -262,3 +262,22 @@ export async function deleteListing(listingId) {
   const data = response.json();
   return data.message;
 }
+
+export async function getOwnerOfListing(listingId) {
+  const { token } = useAuthStore.getState();
+  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}/owner`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }
+    }
+  );
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const data = response.json();
+  return data;
+}
