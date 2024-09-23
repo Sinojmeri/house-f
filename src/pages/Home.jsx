@@ -1,6 +1,6 @@
 import Filter from '../components/Filter';
 import Buttons from '../components/Buttons';
-import { useNavigate } from 'react-router-dom';
+// import { useNavigate } from 'react-router-dom';
 // import HouseCarousel from '../components/HouseCarousel';
 // import MapComp from '../components/MapComp';
 // import { useEffect, useState } from 'react';
@@ -39,13 +39,11 @@ export default function Home() {
   // useEffect(() => {
   //   revalidator.revalidate();
   // },[location])
-  const navigate = useNavigate();
   return (
     <>
       <div>
         <Filter />
         <Buttons />
-        <button onClick={() => navigate('/reserveHouse')}>HOUSE UI</button>
 
         {/* <HouseCarousel
           houseCoords={houseCoords}
