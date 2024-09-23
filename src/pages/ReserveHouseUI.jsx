@@ -12,7 +12,6 @@ import { mapId } from '../components/MapComp';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { getOneListingWithoutAuth } from '../controllers/listingApis';
 import { makeReservation } from '../controllers/reservationApis';
-
 const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
 async function loader({ params, request }) {
@@ -48,7 +47,7 @@ export function ReserveHouseUI() {
       </div>
       <div className="my-2">
         <Carousel
-          orientation={window.innerWidth < 768 ? 'vertical' : 'horizontal'}
+          orientation={'horizontal'}
           plugins={[
             Autoplay({
               delay: 5000,
@@ -62,7 +61,7 @@ export function ReserveHouseUI() {
             {listing.images.map((images) => (
               <CarouselItem
                 key={images._id}
-                className={window.innerWidth > 768 ? `basis-1/3` : ''}
+                className={window.innerWidth > 768 ? `basis-1/3` : 'basis-1/1'}
               >
                 <img src={`${BASE_URL}${images.img}`} alt="House Pic" className='w-[300px] md:w-[450px] h-[300px] md:h-[450px]'/>
               </CarouselItem>
