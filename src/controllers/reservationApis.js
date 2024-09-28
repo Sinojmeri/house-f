@@ -26,3 +26,25 @@ export async function makeReservation(listingId, startDate, endDate) {
   const result = await response.json();
   return result;
 }
+
+export async function getAllYourReservations() {
+  const { token } = useAuthStore.getState();
+
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/reservations/allReservationsOfAUser`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const data = response.json();
+  return data;
+}

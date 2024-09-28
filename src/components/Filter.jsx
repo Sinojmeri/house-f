@@ -13,15 +13,46 @@ export default function Filter() {
   const filterDiv = useRef();
   const filterInput = useRef();
   const [displayFilter, setDisplayFilter] = useState('hidden');
-  const citiesArray = ['Tirane', 'Elbasan', 'Librazhd', 'Pogradec', 'Korce', 'Durres', 'Peshkopi', 'Bulqize', 'Lac', 'Lezhe', 'Burrel', 'Rreshen', 'Rubik', 'Shkoder', 'Tropoje', 'Kukes', 'Has', 'Vlore', 'Fier', 'Lushnje', 'Himare', 'Sarande']
+  const citiesArray = [
+    'Tirane',
+    'Elbasan',
+    'Librazhd',
+    'Pogradec',
+    'Korce',
+    'Durres',
+    'Peshkopi',
+    'Bulqize',
+    'Lac',
+    'Lezhe',
+    'Burrel',
+    'Rreshen',
+    'Rubik',
+    'Shkoder',
+    'Tropoje',
+    'Kukes',
+    'Has',
+    'Vlore',
+    'Fier',
+    'Lushnje',
+    'Himare',
+    'Sarande',
+  ];
   const today = new Date();
   const tomorrow = new Date(today);
   tomorrow.setDate(today.getDate() + 1);
   const [dateRange] = useState([today, tomorrow]);
   const [startDate, setStartDate] = useState(today);
-  const ds = startDate ? DateTime.fromJSDate(startDate).setZone('utc', { keepLocalTime: true }).toMillis() : 0;
+  const ds = startDate
+    ? DateTime.fromJSDate(startDate)
+        .setZone('utc', { keepLocalTime: true })
+        .toMillis()
+    : 0;
   const [endDate, setEndDate] = useState(tomorrow);
-  const de = endDate ? DateTime.fromJSDate(endDate).setZone('utc', { keepLocalTime: true }).toMillis() : 0;
+  const de = endDate
+    ? DateTime.fromJSDate(endDate)
+        .setZone('utc', { keepLocalTime: true })
+        .toMillis()
+    : 0;
 
   const calendarRef = useRef();
   const calendarDivRef = useRef(null);
@@ -129,10 +160,13 @@ export default function Filter() {
             >
               <ul>
                 {filteredArray.map((placeName) => (
-                  <li key={placeName} className="p-1 cursor-pointer" onClick={() => {
-                    setInputValue(placeName);
-                    setFilteredArray([]);
-                  }}
+                  <li
+                    key={placeName}
+                    className="p-1 cursor-pointer"
+                    onClick={() => {
+                      setInputValue(placeName);
+                      setFilteredArray([]);
+                    }}
                   >
                     {placeName}
                   </li>
