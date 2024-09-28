@@ -10,9 +10,7 @@ export function Modal({ isOpen, closeModal, title, description, children }) {
     >
       <Dialog.Panel className="bg-white p-6 rounded shadow-lg max-w-md w-full max-h-[80vh] overflow-y-auto">
         <Dialog.Title className="text-lg font-bold">{title}</Dialog.Title>
-        <Dialog.Description className="mt-2">
-          {description}
-        </Dialog.Description>
+        <Dialog.Description className="mt-2">{description}</Dialog.Description>
         {children}
       </Dialog.Panel>
     </Dialog>

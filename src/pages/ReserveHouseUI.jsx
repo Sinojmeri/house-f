@@ -63,7 +63,11 @@ export function ReserveHouseUI() {
                 key={images._id}
                 className={window.innerWidth > 768 ? `basis-1/3` : 'basis-1/1'}
               >
-                <img src={`${BASE_URL}${images.img}`} alt="House Pic" className='w-[300px] md:w-[450px] h-[300px] md:h-[450px]'/>
+                <img
+                  src={`${BASE_URL}${images.img}`}
+                  alt="House Pic"
+                  className="w-[300px] md:w-[450px] h-[300px] md:h-[450px]"
+                />
               </CarouselItem>
             ))}
           </CarouselContent>

@@ -8,31 +8,31 @@ export default function Header() {
 
   const account_list = user
     ? [
-      { text: 'Settings', url: 'settings' },
-      {
-        text: 'List your Properties',
-        url: 'list-your-properties/manage-properties',
-      },
-      { text: 'Questions to properties', url: 'questions-to-properties' },
-      { text: 'Bookings', url: 'bookings' },
-      { text: 'Complaints', url: 'complaints' },
-      { text: 'Help & Support', url: 'help-support' },
-      { text: 'About Us', url: 'about-us' },
-      { text: 'Sign Out', url: 'sign-out' },
-    ]
+        { text: 'Settings', url: 'settings' },
+        {
+          text: 'List your Properties',
+          url: 'list-your-properties/manage-properties',
+        },
+        { text: 'Questions to properties', url: 'questions-to-properties' },
+        { text: 'Bookings', url: 'bookings' },
+        { text: 'Complaints', url: 'complaints' },
+        { text: 'Help & Support', url: 'help-support' },
+        { text: 'About Us', url: 'about-us' },
+        { text: 'Sign Out', url: 'sign-out' },
+      ]
     : [
-      { text: 'Settings', url: 'settings' },
-      {
-        text: 'List your Properties',
-        url: 'list-your-properties/manage-properties',
-      },
-      // { text: 'Questions to properties', url: 'questions-to-properties' },
-      // { text: 'Reviews', url: 'reviews' },
-      // { text: 'Complaints', url: 'complaints' },
-      { text: 'Help & Support', url: 'help-support' },
-      { text: 'About Us', url: 'about-us' },
-      { text: 'Login', url: 'login' },
-    ];
+        { text: 'Settings', url: 'settings' },
+        {
+          text: 'List your Properties',
+          url: 'list-your-properties/manage-properties',
+        },
+        // { text: 'Questions to properties', url: 'questions-to-properties' },
+        // { text: 'Reviews', url: 'reviews' },
+        // { text: 'Complaints', url: 'complaints' },
+        { text: 'Help & Support', url: 'help-support' },
+        { text: 'About Us', url: 'about-us' },
+        { text: 'Login', url: 'login' },
+      ];
   const [visible, setVisible] = useState('hidden');
   const navigate = useNavigate();
   const userIcon = useRef();
@@ -104,11 +104,13 @@ export default function Header() {
         {user ? <div>Welcome, {user.firstName}</div> : <div />}
 
         <div className="flex p-1 m-1 gap-2">
-          <Link to='/'>
-            <img src="/home_icon.png"
+          <Link to="/">
+            <img
+              src="/home_icon.png"
               alt="homeIcon"
-              className='w-[30px] h-[30px] cursor-pointer'
-              title='Home' />
+              className="w-[30px] h-[30px] cursor-pointer"
+              title="Home"
+            />
           </Link>
           <Link to="/notifications">
             <img

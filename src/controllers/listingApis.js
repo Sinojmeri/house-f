@@ -265,15 +265,55 @@ export async function deleteListing(listingId) {
 
 export async function getOwnerOfListing(listingId) {
   const { token } = useAuthStore.getState();
-  const response = await fetch(`${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}/owner`,
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}/owner`,
     {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
-      }
-    }
+      },
+    },
   );
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const data = response.json();
+  return data;
+}
+
+export async function getRandomListings() {
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/listings/random`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    },
+  );
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const data = response.json();
+  return data;
+}
+
+export async function addToFavouriteControllers(listingId) {
+  const { token } = useAuthStore.getState();
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/users/add-to-favorites/${listingId}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
   if (!response.ok) {
     throw new Error();
   }
