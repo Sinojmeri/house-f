@@ -1,7 +1,12 @@
 import Filter from '../components/Filter';
 import Buttons from '../components/Buttons';
+// import { Swiper, SwiperSlide } from 'swiper/react';
+// import 'swiper/css';
+// import 'swiper/css/pagination';
 // import { useNavigate } from 'react-router-dom';
-// import HouseCarousel from '../components/HouseCarousel';
+import HouseCarousel from '../components/HouseCarousel';
+import { getRandomListings } from '../controllers/listingApis';
+import { useLoaderData } from 'react-router-dom';
 // import MapComp from '../components/MapComp';
 // import { useEffect, useState } from 'react';
 // import { searchListings } from '../controllers/listingApis';
@@ -29,7 +34,12 @@ import Buttons from '../components/Buttons';
 //   //   amenities
 //   // );
 // }
+async function loader() {
+  const randomProperties = await getRandomListings();
+  return randomProperties;
+}
 export default function Home() {
+  const listings = useLoaderData();
   // const [houseCoords, setHouseCoords] = useState(null);
   // const listings = useLoaderData();
   // const revalidator = useRevalidator();
@@ -45,15 +55,15 @@ export default function Home() {
         <Filter />
         <Buttons />
 
-        {/* <HouseCarousel
-          houseCoords={houseCoords}
-          setHouseCoords={setHouseCoords}
+        <HouseCarousel
+          // houseCoords={houseCoords}
+          // setHouseCoords={setHouseCoords}
           data = {listings}
-        /> */}
+        />
         {/* <MapComp houseCoords={houseCoords} setHouseCoords={setHouseCoords} /> */}
       </div>
     </>
   );
 }
 
-// Home.loader = loader;
+Home.loader = loader;

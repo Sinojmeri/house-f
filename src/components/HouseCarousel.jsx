@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+
 import {
   Carousel,
   CarouselContent,
@@ -8,7 +8,7 @@ import {
 } from '../components/Carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import PropTypes from 'prop-types';
-export default function HouseCarousel({ setHouseCoords, data }) {
+export default function HouseCarousel({ data }) {
   // const houses = [
   //   {
   //     mainPic: '/Homes/home1.jpeg',
@@ -70,18 +70,20 @@ export default function HouseCarousel({ setHouseCoords, data }) {
   //     ),
   //   );
   // };
-  const handleClick = (house) => {
-    setHouseCoords(house.coordinates);
-  };
+  // const handleClick = (house) => {
+  //   setHouseCoords(house.coordinates);
+  // };
   HouseCarousel.propTypes = {
     houseCoords: PropTypes.object,
     setHouseCoords: PropTypes.func,
     data: PropTypes.array,
   };
+  console.log(data);
+  
   return (
     <div className="md:my-4 xsm:my-14 tablet:my-[50px]">
       <Carousel
-        orientation={window.innerWidth < 768 ? 'vertical' : 'horizontal'}
+        orientation={'horizontal'}
         plugins={[
           Autoplay({
             delay: 5000,
@@ -99,10 +101,10 @@ export default function HouseCarousel({ setHouseCoords, data }) {
             >
               <div
                 className="relative cursor-pointer"
-                onClick={() => handleClick(house)}
+                // onClick={() => handleClick(house)}
               >
                 <img
-                  src={`${house.mainPic ? `${house.mainPic}` : './Homes/home1.jpeg'}`}
+                  src={`${house.images ? `${import.meta.env.VITE_API_BASE_URL}/static/${house.images[0].img}` : './Homes/home1.jpeg'}`}
                   alt="House img"
                   className="h-[300px] rounded-lg w-[97%] mx-auto"
                 />

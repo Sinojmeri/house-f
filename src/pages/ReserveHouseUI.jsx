@@ -112,9 +112,9 @@ export function ReserveHouseUI() {
         <button
           className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1 mb-3"
           onClick={async () => {
-            await makeReservation(listing._id, startDate, endDate);
+            const { totalPrice } = await makeReservation(listing._id, startDate, endDate);
             navigate(
-              `/bookings/${listing._id}?startDate=${startDate}&endDate=${endDate}`,
+              `/bookings/${listing._id}?startDate=${startDate}&endDate=${endDate}&totalPrice=${totalPrice}`,
             );
           }}
         >
