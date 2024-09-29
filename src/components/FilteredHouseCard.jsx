@@ -24,14 +24,14 @@ export function FilteredHouseCard({ listing }) {
           <span className="font-medium text-gray-700">Building Type: </span>
           {listing.buildingType}
         </p>
-        <div className="space-y-1">
-          <span className="font-medium text-gray-700">Amenities: </span>
-          {listing.amenities.map((amenity, index) => (
-            <p key={index} className="text-sm text-gray-500">
-              {amenity}
-            </p>
-          ))}
-        </div>
+          <div className="space-y-1">
+            <span className="font-medium text-gray-700">Amenities: </span>
+            {listing.amenities.map((amenity, index) => (
+              <p key={index} className="text-sm text-gray-500">
+                {amenity}
+              </p>
+            ))}
+          </div>
         <p className="text-xl font-bold">
           <span className="font-medium text-gray-700">Price: </span>
           {listing.price} €
@@ -48,11 +48,5 @@ export function FilteredHouseCard({ listing }) {
 }
 
 FilteredHouseCard.propTypes = {
-  listing: PropTypes.object,
-  title: PropTypes.string,
-  address: PropTypes.string,
-  buildingType: PropTypes.string,
-  amenities: PropTypes.arrayOf(PropTypes.string),
-  price: PropTypes.number,
-  listing_id: PropTypes.string,
+  listing: PropTypes.object.isRequired
 };

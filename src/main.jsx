@@ -23,6 +23,7 @@ import { Results } from './pages/Results.jsx';
 import AboutUsInfo from './pages/AboutUsInfo.jsx';
 import { ReserveHouseUI } from './pages/ReserveHouseUI.jsx';
 import { BookedHouse } from './pages/BookedHouse.jsx';
+import { AllReservations } from './pages/AllReservations.jsx';
 
 getCurrentLocation();
 await checkLocalStorage();
@@ -53,6 +54,11 @@ const router = createBrowserRouter([
         path: '/results/:id',
         element: <ReserveHouseUI />,
         loader: ReserveHouseUI.loader,
+      },
+      {
+        path: '/bookings',
+        element: <AllReservations />,
+        loader: AllReservations.loader,
       },
       {
         path: '/bookings/:listingId',

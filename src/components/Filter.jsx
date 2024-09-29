@@ -53,6 +53,7 @@ export default function Filter() {
         .setZone('utc', { keepLocalTime: true })
         .toMillis()
     : 0;
+console.log(startDate, endDate);
 
   const calendarRef = useRef();
   const calendarDivRef = useRef(null);

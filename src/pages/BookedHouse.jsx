@@ -7,7 +7,6 @@ import { mapId } from '../components/MapComp';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 import 'swiper/css';
 import 'swiper/css/pagination';
-// import 'swiper/swiper-bundle.min.css';
 import { Pagination } from 'swiper/modules';
 
 const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
@@ -16,13 +15,14 @@ async function loader({ params, request }) {
   const url = new URL(request.url);
   const startDate = url.searchParams.get('startDate');
   const endDate = url.searchParams.get('endDate');
+  const totalPrice = url.searchParams.get('totalPrice');
   const listingDetails = await getOwnerOfListing(id);
 
-  return { listingDetails, startDate, endDate };
+  return { listingDetails, startDate, endDate, totalPrice };
 }
 
 export function BookedHouse() {
-  const { listingDetails, startDate, endDate } = useLoaderData();
+  const { listingDetails, startDate, endDate, totalPrice } = useLoaderData();
 
   const checkIn = new Date(Number(startDate));
   const checkOut = new Date(Number(endDate));
@@ -52,7 +52,7 @@ export function BookedHouse() {
           Address: <span className="font-bold">{listing.address}</span>
         </p>
         <p className="text-xl mb-2">
-          Total Price: <span>??? €</span>
+          Total Price: <span>{totalPrice} €</span>
         </p>
         <div className="flex flex-col gap-2 mb-3">
           <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check In Date: ${checkIn.toDateString()}`}</p>
@@ -115,7 +115,7 @@ export function BookedHouse() {
           <p>Email: {owner.email}</p>
         </div>
         {/* Map Div */}
-        <div className="my-5 h-[500px]">
+        <div className="my-5 h-[500px] mx-2">
           <APIProvider apiKey={API_Key}>
             <Map
               defaultCenter={{

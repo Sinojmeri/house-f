@@ -66,7 +66,7 @@ export function Results() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
         {listings ? (
           listings.map((listing) => {
-            return <FilteredHouseCard listing={listing} key={listing._id} />;
+            return <FilteredHouseCard listing={listing} key={listing._id}/>;
           })
         ) : (
           <p className="font-bold text-2xl">No house matched your search</p>
