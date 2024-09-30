@@ -58,7 +58,7 @@ export default function Home() {
         <HouseCarousel
           // houseCoords={houseCoords}
           // setHouseCoords={setHouseCoords}
-          data = {listings}
+          data={listings}
         />
         {/* <MapComp houseCoords={houseCoords} setHouseCoords={setHouseCoords} /> */}
       </div>

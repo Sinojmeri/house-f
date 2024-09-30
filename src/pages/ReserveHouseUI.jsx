@@ -1,6 +1,12 @@
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { BackButton } from '../components/BackButton';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../components/Carousel';
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from '../components/Carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { mapId } from '../components/MapComp';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
@@ -25,7 +31,6 @@ export function ReserveHouseUI() {
   const { listing, startDate, endDate } = useLoaderData();
   const checkIn = new Date(Number(startDate)).toDateString();
   const checkOut = new Date(Number(endDate)).toDateString();
-  
 
   const BASE_URL = 'http://localhost:5000/static/';
   const navigate = useNavigate();
@@ -35,15 +40,20 @@ export function ReserveHouseUI() {
   const handleBook = async () => {
     setIsLoading(true);
     try {
-      const { totalPrice } = await makeReservation(listing._id, startDate, endDate);
-      navigate(`/bookings/${listing._id}?startDate=${checkIn}&endDate=${checkOut}&totalPrice=${totalPrice}`);
-
+      const { totalPrice } = await makeReservation(
+        listing._id,
+        startDate,
+        endDate,
+      );
+      navigate(
+        `/bookings/${listing._id}?startDate=${checkIn}&endDate=${checkOut}&totalPrice=${totalPrice}`,
+      );
     } catch (err) {
-      console.error("Booking Failed", err);
+      console.error('Booking Failed', err);
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <div>
@@ -122,27 +132,24 @@ export function ReserveHouseUI() {
         </APIProvider>
       </div>
       <div className="flex justify-center">
-        {
-          isLoading ?
-            <ThreeDots
-              visible={true}
-              height="80"
-              width="80"
-              color="#4fa94d"
-              radius="9"
-              ariaLabel="three-dots-loading"
-            />
-            : (
-              <button
-                className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1 mb-3"
-                onClick={handleBook}
-                disabled={isLoading}
-              >
-                Book
-              </button>
-            )
-        }
-
+        {isLoading ? (
+          <ThreeDots
+            visible={true}
+            height="80"
+            width="80"
+            color="#4fa94d"
+            radius="9"
+            ariaLabel="three-dots-loading"
+          />
+        ) : (
+          <button
+            className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1 mb-3"
+            onClick={handleBook}
+            disabled={isLoading}
+          >
+            Book
+          </button>
+        )}
       </div>
     </div>
   );

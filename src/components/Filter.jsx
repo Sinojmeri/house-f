@@ -42,9 +42,17 @@ export default function Filter() {
   tomorrow.setDate(today.getDate() + 1);
   const [dateRange] = useState([today, tomorrow]);
   const [startDate, setStartDate] = useState(today);
-  const ds = startDate ? DateTime.fromJSDate(startDate).setZone('utc', { keepLocalTime: true }).toMillis() : 0;
+  const ds = startDate
+    ? DateTime.fromJSDate(startDate)
+        .setZone('utc', { keepLocalTime: true })
+        .toMillis()
+    : 0;
   const [endDate, setEndDate] = useState(tomorrow);
-  const de = endDate ? DateTime.fromJSDate(endDate).setZone('utc', { keepLocalTime: true }).toMillis() : 0;
+  const de = endDate
+    ? DateTime.fromJSDate(endDate)
+        .setZone('utc', { keepLocalTime: true })
+        .toMillis()
+    : 0;
 
   const calendarRef = useRef();
   const calendarDivRef = useRef(null);
@@ -69,11 +77,11 @@ export default function Filter() {
   };
 
   const handleEnter = (e) => {
-    if (e.key === "Enter" && filteredArray.length > 0) {
+    if (e.key === 'Enter' && filteredArray.length > 0) {
       setInputValue(filteredArray[0]);
       setFilteredArray([]);
     }
-  }
+  };
 
   const onFocus = () => {
     if (inputValue === 'Where are you going ?') {

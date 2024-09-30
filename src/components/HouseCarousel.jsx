@@ -1,4 +1,3 @@
-
 import {
   Carousel,
   CarouselContent,
@@ -79,7 +78,7 @@ export default function HouseCarousel({ data }) {
     data: PropTypes.array,
   };
   // console.log(data);
-  
+
   return (
     <div className="md:my-4 xsm:my-14 tablet:my-[50px]">
       <Carousel
@@ -104,7 +103,11 @@ export default function HouseCarousel({ data }) {
                 // onClick={() => handleClick(house)}
               >
                 <img
-                  src={`${house.images ? `${import.meta.env.VITE_API_BASE_URL}/static/${house.images[0].img}` : './Homes/home1.jpeg'}`}
+                  src={
+                    house.images && house.images[0]
+                      ? `${import.meta.env.VITE_API_BASE_URL}/static/${house.images[0].img}`
+                      : './Homes/home1.jpeg'
+                  }
                   alt="House img"
                   className="h-[300px] rounded-lg w-[97%] mx-auto"
                 />
