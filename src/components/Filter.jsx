@@ -42,18 +42,9 @@ export default function Filter() {
   tomorrow.setDate(today.getDate() + 1);
   const [dateRange] = useState([today, tomorrow]);
   const [startDate, setStartDate] = useState(today);
-  const ds = startDate
-    ? DateTime.fromJSDate(startDate)
-        .setZone('utc', { keepLocalTime: true })
-        .toMillis()
-    : 0;
+  const ds = startDate ? DateTime.fromJSDate(startDate).setZone('utc', { keepLocalTime: true }).toMillis() : 0;
   const [endDate, setEndDate] = useState(tomorrow);
-  const de = endDate
-    ? DateTime.fromJSDate(endDate)
-        .setZone('utc', { keepLocalTime: true })
-        .toMillis()
-    : 0;
-console.log(startDate, endDate);
+  const de = endDate ? DateTime.fromJSDate(endDate).setZone('utc', { keepLocalTime: true }).toMillis() : 0;
 
   const calendarRef = useRef();
   const calendarDivRef = useRef(null);
@@ -64,7 +55,7 @@ console.log(startDate, endDate);
   const handleChange = (v) => {
     setInputValue(v);
     // Filtering items after user has input at least 2 characters.
-    if (v.length > 2) {
+    if (v.length > 0) {
       setDisplayFilter('');
       const filtered = citiesArray.filter(
         (place) =>
@@ -76,6 +67,13 @@ console.log(startDate, endDate);
       setFilteredArray([]);
     }
   };
+
+  const handleEnter = (e) => {
+    if (e.key === "Enter" && filteredArray.length > 0) {
+      setInputValue(filteredArray[0]);
+      setFilteredArray([]);
+    }
+  }
 
   const onFocus = () => {
     if (inputValue === 'Where are you going ?') {
@@ -151,6 +149,7 @@ console.log(startDate, endDate);
               className="p-1 focus:outline-none items-center w-full bg-inherit"
               value={inputValue}
               onChange={(event) => handleChange(event.target.value)}
+              onKeyDown={handleEnter}
               onFocus={onFocus}
               onBlur={onBlur}
               ref={filterInput}

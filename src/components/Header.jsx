@@ -8,31 +8,21 @@ export default function Header() {
 
   const account_list = user
     ? [
-        { text: 'Settings', url: 'settings' },
-        {
-          text: 'List your Properties',
-          url: 'list-your-properties/manage-properties',
-        },
-        { text: 'Questions to properties', url: 'questions-to-properties' },
-        { text: 'Bookings', url: 'bookings' },
-        { text: 'Complaints', url: 'complaints' },
-        { text: 'Help & Support', url: 'help-support' },
-        { text: 'About Us', url: 'about-us' },
-        { text: 'Sign Out', url: 'sign-out' },
-      ]
+      { text: 'Settings', url: 'settings' },
+      { text: 'List your Properties', url: 'list-your-properties/manage-properties' },
+      { text: 'Bookings', url: 'bookings' },
+      { text: 'Complaints', url: 'complaints' },
+      { text: 'Help & Support', url: 'help-support' },
+      { text: 'About Us', url: 'about-us' },
+      { text: 'Sign Out', url: 'sign-out' },
+    ]
     : [
-        { text: 'Settings', url: 'settings' },
-        {
-          text: 'List your Properties',
-          url: 'list-your-properties/manage-properties',
-        },
-        // { text: 'Questions to properties', url: 'questions-to-properties' },
-        // { text: 'Reviews', url: 'reviews' },
-        // { text: 'Complaints', url: 'complaints' },
-        { text: 'Help & Support', url: 'help-support' },
-        { text: 'About Us', url: 'about-us' },
-        { text: 'Login', url: 'login' },
-      ];
+      { text: 'Settings', url: 'settings' },
+      { text: 'List your Properties', url: 'list-your-properties/manage-properties' },
+      { text: 'Help & Support', url: 'help-support' },
+      { text: 'About Us', url: 'about-us' },
+      { text: 'Login', url: 'login' },
+    ];
   const [visible, setVisible] = useState('hidden');
   const navigate = useNavigate();
   const userIcon = useRef();
