@@ -23,13 +23,12 @@ async function loader({ params, request }) {
 
 export function BookedHouse() {
   const { listingDetails, startDate, endDate, totalPrice } = useLoaderData();
-
-  const checkIn = new Date(Number(startDate));
-  const checkOut = new Date(Number(endDate));
   const listing = listingDetails.listing;
   const owner = listingDetails.owner;
   const [favIcon, setFavIcon] = useState('/heart_icon.png');
   const BASE_URL = 'http://localhost:5000/static/';
+  console.log(totalPrice);
+  
   return (
     <div className="pl-2">
       <BackButton />
@@ -55,8 +54,8 @@ export function BookedHouse() {
           Total Price: <span>{totalPrice} €</span>
         </p>
         <div className="flex flex-col gap-2 mb-3">
-          <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check In Date: ${checkIn.toDateString()}`}</p>
-          <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check Out Date: ${checkOut.toDateString()}`}</p>
+          <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check In Date: ${startDate}`}</p>
+          <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check Out Date: ${endDate}`}</p>
         </div>
         {/* Swiper and Ammenity div */}
         <div className="flex md:flex-row flex-col tablet:flex-col gap-5">

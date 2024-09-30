@@ -10,7 +10,7 @@ async function loader() {
 
 export function AllReservations() {
     const allBookings = useLoaderData();
-    console.log(allBookings);
+    // console.log(allBookings);
 
     return (
         <div>

@@ -1,17 +1,13 @@
 import { useLoaderData, useNavigate } from 'react-router-dom';
 import { BackButton } from '../components/BackButton';
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '../components/Carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '../components/Carousel';
 import Autoplay from 'embla-carousel-autoplay';
 import { mapId } from '../components/MapComp';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 import { getOneListingWithoutAuth } from '../controllers/listingApis';
 import { makeReservation } from '../controllers/reservationApis';
+import { ThreeDots } from 'react-loader-spinner';
+import { useState } from 'react';
 const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 
 async function loader({ params, request }) {
@@ -27,11 +23,28 @@ async function loader({ params, request }) {
 
 export function ReserveHouseUI() {
   const { listing, startDate, endDate } = useLoaderData();
-  const checkIn = new Date(Number(startDate));
-  const checkOut = new Date(Number(endDate));
-  const BASE_URL = 'http://localhost:5000/static/';
+  const checkIn = new Date(Number(startDate)).toDateString();
+  const checkOut = new Date(Number(endDate)).toDateString();
+  
 
+  const BASE_URL = 'http://localhost:5000/static/';
   const navigate = useNavigate();
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleBook = async () => {
+    setIsLoading(true);
+    try {
+      const { totalPrice } = await makeReservation(listing._id, startDate, endDate);
+      navigate(`/bookings/${listing._id}?startDate=${checkIn}&endDate=${checkOut}&totalPrice=${totalPrice}`);
+
+    } catch (err) {
+      console.error("Booking Failed", err);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+
   return (
     <div>
       <BackButton />
@@ -76,8 +89,8 @@ export function ReserveHouseUI() {
         </Carousel>
       </div>
       <div className="flex flex-col gap-2">
-        <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check In Date: ${checkIn.toDateString()}`}</p>
-        <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check Out Date: ${checkOut.toDateString()}`}</p>
+        <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check In Date: ${checkIn}`}</p>
+        <p className="p-1 border-2 rounded-lg bg-gray-200 w-fit">{`Check Out Date: ${checkOut}`}</p>
       </div>
 
       {/* Map Div */}
@@ -109,17 +122,27 @@ export function ReserveHouseUI() {
         </APIProvider>
       </div>
       <div className="flex justify-center">
-        <button
-          className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1 mb-3"
-          onClick={async () => {
-            const { totalPrice } = await makeReservation(listing._id, startDate, endDate);
-            navigate(
-              `/bookings/${listing._id}?startDate=${startDate}&endDate=${endDate}&totalPrice=${totalPrice}`,
-            );
-          }}
-        >
-          Book
-        </button>
+        {
+          isLoading ?
+            <ThreeDots
+              visible={true}
+              height="80"
+              width="80"
+              color="#4fa94d"
+              radius="9"
+              ariaLabel="three-dots-loading"
+            />
+            : (
+              <button
+                className="font-bold border-2 rounded-lg hover:bg-slate-200 text-blue-400 text-2xl p-1 mb-3"
+                onClick={handleBook}
+                disabled={isLoading}
+              >
+                Book
+              </button>
+            )
+        }
+
       </div>
     </div>
   );
