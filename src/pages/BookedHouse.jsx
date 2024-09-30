@@ -27,8 +27,7 @@ export function BookedHouse() {
   const owner = listingDetails.owner;
   const [favIcon, setFavIcon] = useState('/heart_icon.png');
   const BASE_URL = 'http://localhost:5000/static/';
-  console.log(totalPrice);
-  
+
   return (
     <div className="pl-2">
       <BackButton />

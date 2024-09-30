@@ -13,8 +13,8 @@ export async function makeReservation(listingId, startDate, endDate) {
         Authorization: `Bearer ${token}`,
       },
       body: JSON.stringify({
-        startDate: startDate/1000,
-        endDate: endDate/1000,
+        startDate: startDate / 1000,
+        endDate: endDate / 1000,
       }),
     },
   );
