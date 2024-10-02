@@ -321,3 +321,45 @@ export async function addToFavouriteControllers(listingId) {
   const data = response.json();
   return data;
 }
+
+export async function removeFromFavourites(listingId) {
+  const { token } = useAuthStore.getState();
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/users/remove-from-favourites/${listingId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const data = response.json();
+  return data;
+}
+
+export async function getFavouriteListings() {
+  const { token } = useAuthStore.getState();
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/users/allFavorites`,
+    {
+      method: 'DELETE',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    throw new Error();
+  }
+
+  const data = response.json();
+  return data;
+}
