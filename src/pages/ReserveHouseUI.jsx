@@ -66,7 +66,7 @@ export function ReserveHouseUI() {
         />
         <h1 className="font-bold text-xl">{`${listing.title}`}</h1>
         <h2>{`${listing.address}`}</h2>
-        <h2 className="text-lg text-red-600 font-bold">{`${listing.price}: €`}</h2>
+        <h2 className="text-lg text-red-600 font-bold">{`${listing.price}: €/night`}</h2>
       </div>
       <div className="my-2">
         <Carousel

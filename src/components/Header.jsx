@@ -74,6 +74,7 @@ export default function Header() {
                         localStorage.removeItem('auth_token');
                         useAuthStore.setState({
                           user: null,
+                          token: null,
                         });
                         navigate('/');
                         setVisible('hidden');
