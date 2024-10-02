@@ -33,7 +33,7 @@ export function YourProperties() {
       </div>
 
       <div className="flex justify-between flex-col md:flex-row">
-        <div className="flex flex-col my-6 items-center bg-white p-1 h-[250px] gap-3 ml-1 ">
+        <div className="flex flex-col my-6 items-center bg-white p-1 h-[250px] gap-3 ml-1 rounded-md">
           <img
             src="/house_manage.png"
             alt="Manage House icon"
@@ -57,7 +57,7 @@ export function YourProperties() {
           </button>
         </div>
 
-        <div className="flex flex-col my-6 items-center bg-white p-1 h-[250px] gap-3 ml-1">
+        <div className="flex flex-col my-6 items-center bg-white p-1 h-[250px] gap-3 ml-1 rounded-md">
           <img
             src="/new_house.png"
             alt="New House icon"

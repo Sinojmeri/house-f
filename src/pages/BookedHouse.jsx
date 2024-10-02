@@ -1,7 +1,12 @@
-import { getOwnerOfListing } from '../controllers/listingApis';
+import {
+  addToFavouriteControllers,
+  getFavouriteListings,
+  getOwnerOfListing,
+  removeFromFavourites,
+} from '../controllers/listingApis';
 import { useLoaderData } from 'react-router-dom';
 import { BackButton } from '../components/BackButton';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { mapId } from '../components/MapComp';
 import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
@@ -23,10 +28,37 @@ async function loader({ params, request }) {
 
 export function BookedHouse() {
   const { listingDetails, startDate, endDate, totalPrice } = useLoaderData();
+
   const listing = listingDetails.listing;
   const owner = listingDetails.owner;
   const [favIcon, setFavIcon] = useState('/heart_icon.png');
   const BASE_URL = 'http://localhost:5000/static/';
+  const [favorites, setFavorites] = useState([]);
+  useEffect(() => {
+    async function allFavorites() {
+      const favoritesAll = await getFavouriteListings();
+      setFavorites(favoritesAll.favouriteListings);
+    }
+    allFavorites();
+  }, []);
+
+  useEffect(() => {
+    if (favorites.some((house) => house._id === listing._id)) {
+      setFavIcon('/fav_heart.png');
+    } else {
+      setFavIcon('/heart_icon.png');
+    }
+  }, [favorites, listing._id]);
+
+  const makeFavorite = async () => {
+    setFavIcon('/fav_heart.png');
+    await addToFavouriteControllers(listing._id);
+  };
+
+  const removeFavorite = async () => {
+    setFavIcon('/heart_icon.png');
+    await removeFromFavourites(listing._id);
+  };
 
   return (
     <div className="pl-2">
@@ -37,9 +69,7 @@ export function BookedHouse() {
           src={favIcon}
           alt="empty heart"
           onClick={() =>
-            favIcon === '/heart_icon.png'
-              ? setFavIcon('/fav_heart.png')
-              : setFavIcon('/heart_icon.png')
+            favIcon === '/heart_icon.png' ? makeFavorite() : removeFavorite()
           }
           className="w-[25px] h-[25px] cursor-pointer"
         />
