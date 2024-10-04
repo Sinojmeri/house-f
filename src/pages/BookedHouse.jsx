@@ -4,6 +4,7 @@ import {
   getOwnerOfListing,
   removeFromFavourites,
 } from '../controllers/listingApis';
+import { giveReview } from '../controllers/reviewApi';
 import { useLoaderData } from 'react-router-dom';
 import { BackButton } from '../components/BackButton';
 import { useEffect, useState } from 'react';
@@ -13,6 +14,8 @@ import { APIProvider, Map, AdvancedMarker } from '@vis.gl/react-google-maps';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Pagination } from 'swiper/modules';
+import { DateTime } from 'luxon';
+import { Star } from '../components/Star';
 
 const API_Key = import.meta.env.VITE_GOOGLE_MAP_API_KEY;
 async function loader({ params, request }) {
@@ -28,12 +31,18 @@ async function loader({ params, request }) {
 
 export function BookedHouse() {
   const { listingDetails, startDate, endDate, totalPrice } = useLoaderData();
-
+  const BASE_URL = 'http://localhost:5000/static/';
   const listing = listingDetails.listing;
   const owner = listingDetails.owner;
   const [favIcon, setFavIcon] = useState('/heart_icon.png');
-  const BASE_URL = 'http://localhost:5000/static/';
   const [favorites, setFavorites] = useState([]);
+  const [selected, setSelected] = useState(0);
+  const [text, setText] = useState('');
+  const arrayNum = [1, 2, 3, 4, 5];
+  const endDateMilisec = DateTime.fromFormat(endDate, "LLLL dd, yyyy").toMillis();
+
+  const displayReview = (Date.now() - endDateMilisec > (24 * 60 * 60 * 1000));
+
   useEffect(() => {
     async function allFavorites() {
       const favoritesAll = await getFavouriteListings();
@@ -59,6 +68,10 @@ export function BookedHouse() {
     setFavIcon('/heart_icon.png');
     await removeFromFavourites(listing._id);
   };
+
+  const submitReview = async () => {
+    await giveReview(listingDetails.listing._id, selected, text);
+  }
 
   return (
     <div className="pl-2">
@@ -123,11 +136,11 @@ export function BookedHouse() {
                   {amenitiy}
                 </p>
               ))}
-              <p className="p-1 border-2 rounded-lg bg-blue-300 text-center">
+              <p className="p-1 border-2 rounded-lg bg-blue-300 text-center items-center">
                 <span>Number of Beds: </span>
                 {listing.nrOfBeds}
               </p>
-              <p className="p-1 border-2 rounded-lg bg-blue-300 text-center">
+              <p className="p-1 border-2 rounded-lg bg-blue-300 text-center items-center">
                 <span>Number of Rooms: </span>
                 {listing.nrOfRooms}
               </p>
@@ -144,7 +157,7 @@ export function BookedHouse() {
         </div>
         {/* Map Div */}
         <div className="my-5 h-[500px] mx-2">
-          <APIProvider apiKey={API_Key}>
+          {/* <APIProvider apiKey={API_Key}>
             <Map
               defaultCenter={{
                 lat: listing.coordinates[0],
@@ -168,8 +181,34 @@ export function BookedHouse() {
                 <img src="/home_map_icon.png" width={32} height={32} />
               </AdvancedMarker>
             </Map>
-          </APIProvider>
+          </APIProvider> */}
         </div>
+        {/* Review DIV */}
+        {
+          displayReview ? (
+            <div className='flex flex-col bg-white mx-2'>
+            <div className='flex flex-row gap-3' >
+              {
+                arrayNum.map((num) => (
+                  <Star number={num} selected={selected} setSelected={setSelected} key={num} />
+                ))
+              }
+            </div>
+            <div className='h-1 bg-gray-300 w-full my-3' />
+
+            <h1 className='text-xl mb-3'>Please leave a <span className='font-bold text-[#0D98BA]'>REVIEW</span></h1>
+            <textarea className='resize-none h-[100px] p-1 overflow-y-auto mb-3 border-2 border-black rounded-md' placeholder='Enter your review. Max 100 Words accepted.'
+              value={text} onChange={(event) => setText(event.target.value)}
+            />
+            <button className='text-xl font-bold bg-slate-200 hover:bg-slate-300 rounded-md border-2'
+              onClick={submitReview}>
+              Submit Review
+            </button>
+          </div>
+          ) : ""
+          
+        }
+
       </div>
     </div>
   );

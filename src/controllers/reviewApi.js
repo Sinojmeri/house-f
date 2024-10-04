@@ -1,6 +1,6 @@
 import { useAuthStore } from '../stores/authStore';
 
-export async function giveReview(listingId) {
+export async function giveReview(listingId, starsNr, comment) {
   const { token } = useAuthStore.getState();
 
   const response = await fetch(
@@ -11,6 +11,10 @@ export async function giveReview(listingId) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
+      body: JSON.stringify ({
+        stars: starsNr,
+        comment: comment,
+      })
     },
   );
 

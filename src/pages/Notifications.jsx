@@ -1,3 +1,8 @@
+import { Modal } from "../components/Modal";
+
 export default function Notifications() {
-  return <div>notifications test</div>;
+  return
+  <Modal>
+    
+  </Modal>;
 }

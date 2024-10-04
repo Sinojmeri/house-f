@@ -66,14 +66,6 @@ const router = createBrowserRouter([
         loader: BookedHouse.loader,
       },
       {
-        path: '/notifications',
-        element: <Notifications />,
-      },
-      {
-        path: '/messages',
-        element: <Messages />,
-      },
-      {
         path: '/about-us',
         element: <AboutUsInfo />,
       },

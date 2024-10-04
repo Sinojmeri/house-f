@@ -17,7 +17,7 @@ export function BookingDetailsCard({ listing }) {
       className="bg-white shadow-lg rounded-lg p-4 w-[300px] cursor-pointer"
       onClick={() =>
         navigate(
-          `/bookings/${listing._id}?startDate=${displayStartDate}&endDate=${displayEndDate}`,
+          `/bookings/${listing._id}?startDate=${displayStartDate}&endDate=${displayEndDate}&totalPrice=${listing.reservations.totalPrice}`,
         )
       }
     >
@@ -53,7 +53,7 @@ export function BookingDetailsCard({ listing }) {
 
         <p className="text-xl font-bold">
           <span className="font-medium text-gray-700">Price: </span>
-          {listing.price} €
+          {listing.reservations.totalPrice} €
         </p>
       </div>
     </div>

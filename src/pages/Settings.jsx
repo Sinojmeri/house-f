@@ -82,7 +82,7 @@ export function Settings() {
           placeholder="Enter your new password"
         />
       </div>
-      <button className="p-1 font-bold border-2 border-blue-400 rounded-md my-4 md:w-[60%] min-w-[100px] mx-auto hover:bg-gray-200 text-blue-500">
+      <button className="p-1 font-bold border-2 border-blue-400 rounded-md my-4 md:w-[100%] min-w-[100px] mx-auto hover:bg-gray-200 text-blue-500">
         Save
       </button>
     </div>

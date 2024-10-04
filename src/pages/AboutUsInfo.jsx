@@ -3,7 +3,7 @@ import phone from '/phone.png';
 import email from '/message.png';
 import instagram from '/instagram.png';
 
-const AboutUsInfo = () => {
+export function AboutUsInfo () {
   return (
     <div className="flex flex-col items-center justify-between p-8 border rounded-lg w-[80vw] max-w-4xl mx-auto space-y-6">
       <div className="w-full text-left space-y-4">
@@ -36,8 +36,6 @@ const AboutUsInfo = () => {
         </div>
       </div>
 
-      {/* Buttons centered at the bottom */}
-
       <h2 className="text-2xl font-bold mb-6 text-center">Contact Us</h2>
       <div className="flex items-center justify-center space-x-2">
         <img src={email} width={30} height={10} alt="Email Icon" />
@@ -45,7 +43,7 @@ const AboutUsInfo = () => {
       </div>
       <div className="flex items-center justify-center space-x-2">
         <img src={phone} width={30} height={10} alt="Phone Icon" />
-        <p className="text-lg font-semibold">Phone: +355698324554</p>
+        <p className="text-lg font-semibold">Phone: +35562040868</p>
       </div>
 
       <Link to={'https://www.instagram.com/'} target="_blank">
