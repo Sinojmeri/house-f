@@ -3,3 +3,6 @@
     left: 10px !important;
   }
 }
+ .flatpickr-input{
+  width: 100%;
+ }

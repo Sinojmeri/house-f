@@ -197,7 +197,7 @@ export default function Filter() {
           </div>
           <div
             ref={calendarDivRef}
-            className={`absolute right-0 ${showCalendar ? '' : 'hidden'} z-[100]`}
+            className={`absolute ${showCalendar ? '' : 'hidden'} z-[100]`}
           >
             <Flatpickr
               ref={calendarRef}

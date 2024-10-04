@@ -17,7 +17,7 @@ export function ManageYourProperty() {
         Your Properties
       </h1>
       <div className="ml-2 my-2">
-        <div className="grid grid-cols-3 gap-4 w-[100%]">
+        <div className="grid md:grid-cols-3 tablet:grid-cols-1 grid-cols-1 gap-4 w-[100%]">
           {listings.map((property) => {
             return (
               <HouseCard
