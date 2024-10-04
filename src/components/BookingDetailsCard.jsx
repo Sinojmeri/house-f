@@ -4,13 +4,10 @@ import { DateTime } from 'luxon';
 export function BookingDetailsCard({ listing }) {
   // console.log(listing.reservations);
 
-  const displayStartDate = DateTime.fromISO(
-    listing.reservations.startDate,
-  ).toLocaleString(DateTime.DATE_FULL);
-  const displayEndDate = DateTime.fromISO(
-    listing.reservations.endDate,
-  ).toLocaleString(DateTime.DATE_FULL);
-
+  const displayStartDate = DateTime.fromISO(listing.reservations.startDate,).toLocaleString(DateTime.DATE_FULL);
+  const displayEndDate = DateTime.fromISO(listing.reservations.endDate,).toLocaleString(DateTime.DATE_FULL);
+  console.log("Start Date:",displayStartDate);
+  console.log("End Date:",displayEndDate);
   const navigate = useNavigate();
   return (
     <div
