@@ -1,6 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import Mode_switch from './Mode_switch';
 import { useAuthStore } from '../stores/authStore';
 
 export default function Header() {
@@ -14,8 +13,6 @@ export default function Header() {
           url: 'list-your-properties/manage-properties',
         },
         { text: 'Bookings', url: 'bookings' },
-        { text: 'Complaints', url: 'complaints' },
-        { text: 'Help & Support', url: 'help-support' },
         { text: 'About Us', url: 'about-us' },
         { text: 'Sign Out', url: 'sign-out' },
       ]
@@ -25,7 +22,6 @@ export default function Header() {
           text: 'List your Properties',
           url: 'list-your-properties/manage-properties',
         },
-        { text: 'Help & Support', url: 'help-support' },
         { text: 'About Us', url: 'about-us' },
         { text: 'Login', url: 'login' },
       ];
@@ -109,21 +105,18 @@ export default function Header() {
               title="Home"
             />
           </Link>
-          <Link to="/notifications">
-            <img
-              src="/notification.png"
-              alt="notification.empty"
-              className="w-[30px] h-[30px] cursor-pointer"
-            />
-          </Link>
-          <Link to="/messages">
-            <img
-              src="/message.png"
-              alt="empty_inbox"
-              className="w-[30px] h-[30px] cursor-pointer"
-            />
-          </Link>
-          <Mode_switch />
+          <img
+            src="/notification.png"
+            alt="notification.empty"
+            className="w-[30px] h-[30px] cursor-pointer"
+            onClick={() => alert('Welcome to HouseHub')}
+          />
+          <img
+            src="/message.png"
+            alt="empty_inbox"
+            className="w-[30px] h-[30px] cursor-pointer"
+            onClick={() => window.open('https://mail.google.com', '_blank')}
+          />
         </div>
       </div>
     </>
