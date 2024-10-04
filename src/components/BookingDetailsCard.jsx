@@ -2,9 +2,12 @@ import PropTypes from 'prop-types';
 import { useNavigate } from 'react-router-dom';
 import { DateTime } from 'luxon';
 export function BookingDetailsCard({ listing }) {
-
-  const displayStartDate = DateTime.fromISO(listing.reservations.startDate,).toLocaleString(DateTime.DATE_FULL);
-  const displayEndDate = DateTime.fromISO(listing.reservations.endDate,).toLocaleString(DateTime.DATE_FULL);
+  const displayStartDate = DateTime.fromISO(
+    listing.reservations.startDate,
+  ).toLocaleString(DateTime.DATE_FULL);
+  const displayEndDate = DateTime.fromISO(
+    listing.reservations.endDate,
+  ).toLocaleString(DateTime.DATE_FULL);
   const navigate = useNavigate();
   return (
     <div

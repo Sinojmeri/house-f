@@ -23,8 +23,11 @@ import { ReserveHouseUI } from './pages/ReserveHouseUI.jsx';
 import { BookedHouse } from './pages/BookedHouse.jsx';
 import { AllReservations } from './pages/AllReservations.jsx';
 
-getCurrentLocation();
-await checkLocalStorage();
+async function startingApp() {
+  getCurrentLocation();
+  await checkLocalStorage();
+}
+startingApp();
 
 const router = createBrowserRouter([
   {
