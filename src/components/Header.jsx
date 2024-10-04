@@ -7,24 +7,24 @@ export default function Header() {
 
   const account_list = user
     ? [
-      { text: 'Settings', url: 'settings' },
-      {
-        text: 'List your Properties',
-        url: 'list-your-properties/manage-properties',
-      },
-      { text: 'Bookings', url: 'bookings' },
-      { text: 'About Us', url: 'about-us' },
-      { text: 'Sign Out', url: 'sign-out' },
-    ]
+        { text: 'Settings', url: 'settings' },
+        {
+          text: 'List your Properties',
+          url: 'list-your-properties/manage-properties',
+        },
+        { text: 'Bookings', url: 'bookings' },
+        { text: 'About Us', url: 'about-us' },
+        { text: 'Sign Out', url: 'sign-out' },
+      ]
     : [
-      { text: 'Settings', url: 'settings' },
-      {
-        text: 'List your Properties',
-        url: 'list-your-properties/manage-properties',
-      },
-      { text: 'About Us', url: 'about-us' },
-      { text: 'Login', url: 'login' },
-    ];
+        { text: 'Settings', url: 'settings' },
+        {
+          text: 'List your Properties',
+          url: 'list-your-properties/manage-properties',
+        },
+        { text: 'About Us', url: 'about-us' },
+        { text: 'Login', url: 'login' },
+      ];
   const [visible, setVisible] = useState('hidden');
   const navigate = useNavigate();
   const userIcon = useRef();
@@ -109,7 +109,7 @@ export default function Header() {
             src="/notification.png"
             alt="notification.empty"
             className="w-[30px] h-[30px] cursor-pointer"
-            onClick={() => alert("Welcome to HouseHub")}
+            onClick={() => alert('Welcome to HouseHub')}
           />
           <img
             src="/message.png"

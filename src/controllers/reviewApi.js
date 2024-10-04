@@ -11,10 +11,10 @@ export async function giveReview(listingId, starsNr, comment) {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${token}`,
       },
-      body: JSON.stringify ({
+      body: JSON.stringify({
         stars: starsNr,
         comment: comment,
-      })
+      }),
     },
   );
 

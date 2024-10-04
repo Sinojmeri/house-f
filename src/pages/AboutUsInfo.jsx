@@ -3,7 +3,7 @@ import phone from '/phone.png';
 import email from '/message.png';
 import instagram from '/instagram.png';
 
-export function AboutUsInfo () {
+export function AboutUsInfo() {
   return (
     <div className="flex flex-col items-center justify-between p-8 border rounded-lg w-[80vw] max-w-4xl mx-auto space-y-6">
       <div className="w-full text-left space-y-4">
@@ -54,6 +54,6 @@ export function AboutUsInfo () {
       </Link>
     </div>
   );
-};
+}
 
 export default AboutUsInfo;

@@ -39,9 +39,12 @@ export function BookedHouse() {
   const [selected, setSelected] = useState(0);
   const [text, setText] = useState('');
   const arrayNum = [1, 2, 3, 4, 5];
-  const endDateMilisec = DateTime.fromFormat(endDate, "LLLL dd, yyyy").toMillis();
+  const endDateMilisec = DateTime.fromFormat(
+    endDate,
+    'LLLL dd, yyyy',
+  ).toMillis();
 
-  const displayReview = (Date.now() - endDateMilisec > (24 * 60 * 60 * 1000));
+  const displayReview = Date.now() - endDateMilisec > 24 * 60 * 60 * 1000;
 
   useEffect(() => {
     async function allFavorites() {
@@ -71,7 +74,7 @@ export function BookedHouse() {
 
   const submitReview = async () => {
     await giveReview(listingDetails.listing._id, selected, text);
-  }
+  };
 
   return (
     <div className="pl-2">
@@ -157,7 +160,7 @@ export function BookedHouse() {
         </div>
         {/* Map Div */}
         <div className="my-5 h-[500px] mx-2">
-          {/* <APIProvider apiKey={API_Key}>
+          <APIProvider apiKey={API_Key}>
             <Map
               defaultCenter={{
                 lat: listing.coordinates[0],
@@ -181,34 +184,43 @@ export function BookedHouse() {
                 <img src="/home_map_icon.png" width={32} height={32} />
               </AdvancedMarker>
             </Map>
-          </APIProvider> */}
+          </APIProvider>
         </div>
         {/* Review DIV */}
-        {
-          displayReview ? (
-            <div className='flex flex-col bg-white mx-2'>
-            <div className='flex flex-row gap-3' >
-              {
-                arrayNum.map((num) => (
-                  <Star number={num} selected={selected} setSelected={setSelected} key={num} />
-                ))
-              }
+        {displayReview ? (
+          <div className="flex flex-col bg-white mx-2">
+            <div className="flex flex-row gap-3">
+              {arrayNum.map((num) => (
+                <Star
+                  number={num}
+                  selected={selected}
+                  setSelected={setSelected}
+                  key={num}
+                />
+              ))}
             </div>
-            <div className='h-1 bg-gray-300 w-full my-3' />
+            <div className="h-1 bg-gray-300 w-full my-3" />
 
-            <h1 className='text-xl mb-3'>Please leave a <span className='font-bold text-[#0D98BA]'>REVIEW</span></h1>
-            <textarea className='resize-none h-[100px] p-1 overflow-y-auto mb-3 border-2 border-black rounded-md' placeholder='Enter your review. Max 100 Words accepted.'
-              value={text} onChange={(event) => setText(event.target.value)}
+            <h1 className="text-xl mb-3">
+              Please leave a{' '}
+              <span className="font-bold text-[#0D98BA]">REVIEW</span>
+            </h1>
+            <textarea
+              className="resize-none h-[100px] p-1 overflow-y-auto mb-3 border-2 border-black rounded-md"
+              placeholder="Enter your review. Max 100 Words accepted."
+              value={text}
+              onChange={(event) => setText(event.target.value)}
             />
-            <button className='text-xl font-bold bg-slate-200 hover:bg-slate-300 rounded-md border-2'
-              onClick={submitReview}>
+            <button
+              className="text-xl font-bold bg-slate-200 hover:bg-slate-300 rounded-md border-2"
+              onClick={submitReview}
+            >
               Submit Review
             </button>
           </div>
-          ) : ""
-          
-        }
-
+        ) : (
+          ''
+        )}
       </div>
     </div>
   );
