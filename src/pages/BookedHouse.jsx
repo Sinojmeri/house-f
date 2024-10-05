@@ -6,7 +6,6 @@ import {
 } from '../controllers/listingApis';
 import { giveReview } from '../controllers/reviewApi';
 import { useLoaderData } from 'react-router-dom';
-import { BackButton } from '../components/BackButton';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { mapId } from '../components/MapComp';
@@ -31,6 +30,7 @@ async function loader({ params, request }) {
 
 export function BookedHouse() {
   const { listingDetails, startDate, endDate, totalPrice } = useLoaderData();
+  
   const BASE_URL = 'http://localhost:5000/static/';
   const listing = listingDetails.listing;
   const owner = listingDetails.owner;
@@ -77,7 +77,6 @@ export function BookedHouse() {
 
   return (
     <div className="pl-2">
-      <BackButton />
       <div className="flex gap-2 items-center">
         <p className="font-bold text-2xl">{listing.title}</p>
         <img
@@ -207,6 +206,7 @@ export function BookedHouse() {
             <textarea
               className="resize-none h-[100px] p-1 overflow-y-auto mb-3 border-2 border-black rounded-md"
               placeholder="Enter your review. Max 100 Words accepted."
+              maxLength={100}
               value={text}
               onChange={(event) => setText(event.target.value)}
             />
