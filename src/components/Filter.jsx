@@ -36,6 +36,8 @@ export default function Filter() {
     'Lushnje',
     'Himare',
     'Sarande',
+    'Tepelene',
+    'Ballsh',
   ];
   const today = new Date();
   const tomorrow = new Date(today);

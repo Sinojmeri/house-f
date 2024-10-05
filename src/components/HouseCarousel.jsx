@@ -25,9 +25,7 @@ export default function HouseCarousel({ randomProperties }) {
   return (
     <>
       <div className="flex">
-        <div
-          className={`w-full relative flex mx-auto group z-[1] gap-2 overflow-auto items-start ${window.innerWidth < 425 ? 'justify-start' : 'justify-center'} md:justify-between`}
-        >
+        <div className='w-full relative flex mx-auto z-[1] gap-2 justify-between'>
           <button
             className="border-2 border-gray-500 rounded-md p-1 bg-gray-100 hover:bg-gray-300"
             onClick={() => setCarouselData(randomProperties)}
@@ -65,10 +63,6 @@ export default function HouseCarousel({ randomProperties }) {
             }}
           >
             Bookings
-          </button>
-
-          <button className="border-2 border-gray-500 rounded-md p-1 bg-gray-100 hover:bg-gray-300">
-            Recommendations
           </button>
         </div>
       </div>
@@ -122,8 +116,8 @@ export default function HouseCarousel({ randomProperties }) {
               </CarouselItem>
             ))}
           </CarouselContent>
-          <CarouselPrevious />
-          <CarouselNext />
+          <CarouselPrevious className='hidden md:flex md:items-center md:text-center md:justify-center' />
+          <CarouselNext className='hidden md:flex md:items-center'/>
         </Carousel>
       </div>
     </>

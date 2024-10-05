@@ -43,7 +43,7 @@ export function AboutUsInfo() {
       </div>
       <div className="flex items-center justify-center space-x-2">
         <img src={phone} width={30} height={10} alt="Phone Icon" />
-        <p className="text-lg font-semibold">Phone: +35562040868</p>
+        <p className="text-lg font-semibold">Phone: +355682040868</p>
       </div>
 
       <Link to={'https://www.instagram.com/'} target="_blank">

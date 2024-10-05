@@ -25,3 +25,22 @@ export async function giveReview(listingId, starsNr, comment) {
   const data = response.json();
   return data;
 }
+export async function getReview() {
+  const { token } = useAuthStore.getState();
+
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/reviews/`,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    }
+  );
+  if (!response.ok) {
+    throw new Error();
+  }
+  const data = response.json();
+  return data;
+}

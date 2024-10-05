@@ -23,11 +23,10 @@ import { ReserveHouseUI } from './pages/ReserveHouseUI.jsx';
 import { BookedHouse } from './pages/BookedHouse.jsx';
 import { AllReservations } from './pages/AllReservations.jsx';
 
-async function startingApp() {
+
   getCurrentLocation();
   await checkLocalStorage();
-}
-startingApp();
+
 
 const router = createBrowserRouter([
   {
@@ -107,8 +106,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>,
-);
+  ReactDOM.createRoot(document.getElementById('root')).render(
+    <React.StrictMode>
+      <RouterProvider router={router} />
+    </React.StrictMode>,
+  );
