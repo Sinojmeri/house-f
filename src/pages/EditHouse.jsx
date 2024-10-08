@@ -4,6 +4,7 @@ import {
   addPhotosForListing,
   getOneListing,
   updateListing,
+  removePhotosForListing,
 } from '../controllers/listingApis';
 import { BackButton } from '../components/BackButton';
 
@@ -46,6 +47,15 @@ export function EditHouse() {
       navigate(-1);
     } catch (error) {
       console.error('Error uploading photos:', error);
+    }
+  };
+
+  const handlePhotoDelete = async (imageUrl) => {
+    try {
+      await removePhotosForListing(property._id, imageUrl);
+      setPhotos((prevPhotos) => prevPhotos.filter((p) => p !== imageUrl));
+    } catch (error) {
+      console.error('Error deleting photo:', error);
     }
   };
 
@@ -128,11 +138,10 @@ export function EditHouse() {
               <div key={index} className="relative w-fit">
                 <button
                   className="absolute right-0 bg-red-500 opacity-70 text-white p-1 rounded-full"
-                  onClick={() =>
-                    setPhotos((prevPhotos) =>
-                      prevPhotos.filter((_, i) => i !== index),
-                    )
-                  }
+                  onClick={(e) => {
+                    e.preventDefault();
+                    handlePhotoDelete(photo);
+                  }}
                 >
                   X
                 </button>

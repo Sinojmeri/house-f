@@ -23,10 +23,8 @@ import { ReserveHouseUI } from './pages/ReserveHouseUI.jsx';
 import { BookedHouse } from './pages/BookedHouse.jsx';
 import { AllReservations } from './pages/AllReservations.jsx';
 
-
-  getCurrentLocation();
-  await checkLocalStorage();
-
+getCurrentLocation();
+await checkLocalStorage();
 
 const router = createBrowserRouter([
   {
@@ -106,8 +104,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-  ReactDOM.createRoot(document.getElementById('root')).render(
-    <React.StrictMode>
-      <RouterProvider router={router} />
-    </React.StrictMode>,
-  );
+ReactDOM.createRoot(document.getElementById('root')).render(
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>,
+);

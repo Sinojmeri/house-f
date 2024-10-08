@@ -34,9 +34,9 @@ export async function getReview() {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    }
+        Authorization: `Bearer ${token}`,
+      },
+    },
   );
   if (!response.ok) {
     throw new Error();

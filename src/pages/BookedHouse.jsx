@@ -5,7 +5,7 @@ import {
   removeFromFavourites,
 } from '../controllers/listingApis';
 import { giveReview } from '../controllers/reviewApi';
-import { useLoaderData } from 'react-router-dom';
+import { useLoaderData, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { mapId } from '../components/MapComp';
@@ -30,7 +30,7 @@ async function loader({ params, request }) {
 
 export function BookedHouse() {
   const { listingDetails, startDate, endDate, totalPrice } = useLoaderData();
-  
+  const navigate = useNavigate();
   const BASE_URL = 'http://localhost:5000/static/';
   const listing = listingDetails.listing;
   const owner = listingDetails.owner;
@@ -73,6 +73,7 @@ export function BookedHouse() {
 
   const submitReview = async () => {
     await giveReview(listingDetails.listing._id, selected, text);
+    navigate('/');
   };
 
   return (
