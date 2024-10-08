@@ -67,6 +67,26 @@ export async function addPhotosForListing({ listingId, photos }) {
   }
 }
 
+export async function removePhotosForListing(listingId, imageId) {
+  const { token } = useAuthStore.getState();
+
+  const response = await fetch(
+    `${import.meta.env.VITE_API_BASE_URL}/listings/${listingId}/images/${imageId}`,
+    {
+      method: 'DELETE',
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to delete photo');
+  }
+  const data = await response.json();
+  return data;
+}
+
 export async function getAllListings() {
   const response = await fetch(
     `${import.meta.env.VITE_API_BASE_URL}/listings`,

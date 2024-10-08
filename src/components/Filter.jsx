@@ -64,7 +64,7 @@ export default function Filter() {
 
   const handleChange = (v) => {
     setInputValue(v);
-    // Filtering items after user has input at least 2 characters.
+    // Filtering items after user starts typing..
     if (v.length > 0) {
       setDisplayFilter('');
       const filtered = citiesArray.filter(
